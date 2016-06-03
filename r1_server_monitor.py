@@ -1,21 +1,22 @@
 #!/usr/bin/python
 
-max_open_files = 20000
+max_open_files = warning_level = 20000
 
-def check_open_files(n):
+def check_open_files():
     count = 0
-    warning_level = n
     with open('/proc/sys/fs/file-nr') as f:
         for line in f:
-            line = line.split(' ')
+            line = line.split()
             count = line[0]
-
-    if count > warning_level:
-        print "Too many open files. "+count
-
     return count
 
-print "check_open_files="+check_open_files(max_open_files)
+num_open = check_open_files()
+print num_open
+
+if int(num_open) > warning_level:
+    print "warning: too many open files."+num_open
+else:
+    print num_open+" open files."
             
          
     
