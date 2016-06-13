@@ -24,8 +24,13 @@
 10.164.12.82	lobsbm02
 10.164.12.97	loasbm02
 10.164.12.68	loasbm03
+# PXE SERVERS
+10.112.168.189  lonpxe01
+10.122.169.132  sjcpxe01
+10.125.31.86    wdcpxe01
 # QA
 169.50.87.189   qalona01
 169.50.87.188   qalonb01
 169.50.87.186   qalonftp01
 10.230.6.8      rm01
+# STAGING
