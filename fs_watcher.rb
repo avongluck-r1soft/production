@@ -1,4 +1,13 @@
 #!/usr/bin/ruby
+#
+# fs_watcher.rb - runs every 30 minutes on sbjenkins, reports via Slack
+#                 notifier if jenkins-root filesystem is at or above
+#                 THRESHHOLD.
+#
+# cron entry (zadmin account on sbjenkins host):
+#*/30 * * * *  /home/zadmin/bin/fs_watcher.rb > /dev/null &
+#
+#
 
 gem 'slack-notifier'
 
@@ -9,9 +18,8 @@ require 'slack-notifier'
 inuse = %x[df -h|awk '/jenkins/ {print \$5}' | sed 's/%//g'].to_i
 
 # initial threshhold of 95%
-threshhold = 95.to_i;
+THRESHHOLD = 77.to_i;
 
-if inuse >= threshhold
+if inuse >= THRESHHOLD
     @notifier.ping "SBJENKINS FS FULL: jenkins-root filesystem at #{inuse} percent. Please cleanup old builds."
 end
-
