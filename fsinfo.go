@@ -43,7 +43,7 @@ func main() {
     if used >= threshhold {
         m := gomail.NewMessage()
         m.SetHeader("From", "noreply@r1soft.com")
-        m.SetHeader("To", "scott.gillespie@r1soft.com", "alex.vongluck@r1soft.com", "keith.powe@r1soft.com")
+        m.SetHeader("To", "scott.gillespie@r1soft.com", "alex.vongluck@r1soft.com", "stan.love@r1soft.com")
         m.SetHeader("Subject", "SBJENKINS root filesystem at or over 95% full.")
         m.SetBody("text/html", "jenkins-root filesystem above 95% used. Please cleanup some old builds, if possible.")
 
