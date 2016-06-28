@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
+    "fmt"
     "log"
-	"syscall"
+    "syscall"
     "gopkg.in/gomail.v2"
 )
 
@@ -30,14 +30,15 @@ func DiskUsage(path string) (disk DiskStatus) {
 	disk.Used = disk.All - disk.Free
 
 	fmt.Printf("used:\t %.2f GB\n", (float64(disk.Used)/1024/1024/1024))
+
+    fmt.Printf("%.2f\n", disk.Used)
+
     return
 }
 
 func main() {
 
-    threshhold := 
-
-    // sbjenkins-root is /
+    // sbjenkins-root 
 	disk := DiskUsage("/")
 
 	fmt.Printf("free:\t %.2f%% \n", float64(disk.Used) / float64(disk.Free) * 100.0)
@@ -48,7 +49,7 @@ func main() {
     m.SetHeader("Subject", "SBJENKINS SHITTER'S FULL!")
     m.SetBody("text/html", "jenkins-root SHITTER'S FULL!")
 
-    d := gomail.NewDialer("smtp.office365.com", 587, "scott.gillespie@r1soft.com", "")
+    d := gomail.NewDialer("smtp.office365.com", 587, "scott.gillespie@r1soft.com", "k1lm3n0w!")
 
     err := d.DialAndSend(m)
 
