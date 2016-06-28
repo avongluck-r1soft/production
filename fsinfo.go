@@ -44,8 +44,8 @@ func main() {
         m := gomail.NewMessage()
         m.SetHeader("From", "noreply@r1soft.com")
         m.SetHeader("To", "scott.gillespie@r1soft.com", "alex.vongluck@r1soft.com", "keith.powe@r1soft.com")
-        m.SetHeader("Subject", "TESTING: SBJENKINS SHITTER'S FULL!")
-        m.SetBody("text/html", "TESTING: jenkins-root SHITTER'S FULL!")
+        m.SetHeader("Subject", "SBJENKINS root filesystem at or over 95% full.")
+        m.SetBody("text/html", "jenkins-root filesystem above 95% used. Please cleanup some old builds, if possible.")
 
         d := gomail.NewDialer("smtp.office365.com", 587, "noreply@r1soft.com", "")
 
