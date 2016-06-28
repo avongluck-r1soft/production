@@ -39,9 +39,9 @@ func DiskUsage(path string) (disk DiskStatus) {
 func main() {
 
     // sbjenkins-root 
-	disk := DiskUsage("/")
+    disk := DiskUsage("/")
 
-	fmt.Printf("free:\t %.2f%% \n", float64(disk.Used) / float64(disk.Free) * 100.0)
+    fmt.Printf("free:\t %.2f%% \n", float64(disk.Used) / float64(disk.Free) * 100.0)
 
     m := gomail.NewMessage()
     m.SetHeader("From", "scott.gillespie@r1soft.com")
