@@ -37,17 +37,17 @@ func main() {
     // sbjenkins-root 
     disk := DiskUsage("/")
     used := (float64(disk.Used) / float64(disk.Free) * 100.0)
-    //used := 99.0
+    //used := float64(100.0) 
     threshhold := float64(95.0)
 
     if used >= threshhold {
         m := gomail.NewMessage()
-        m.SetHeader("From", "scott.gillespie@r1soft.com")
-        m.SetHeader("To", "scott.gillespie@r1soft.com")
-        m.SetHeader("Subject", "SBJENKINS SHITTER'S FULL!")
-        m.SetBody("text/html", "jenkins-root SHITTER'S FULL!")
+        m.SetHeader("From", "noreply@r1soft.com")
+        m.SetHeader("To", "scott.gillespie@r1soft.com", "alex.vongluck@r1soft.com", "keith.powe@r1soft.com")
+        m.SetHeader("Subject", "TESTING: SBJENKINS SHITTER'S FULL!")
+        m.SetBody("text/html", "TESTING: jenkins-root SHITTER'S FULL!")
 
-        d := gomail.NewDialer("smtp.office365.com", 587, "scott.gillespie@r1soft.com", "")
+        d := gomail.NewDialer("smtp.office365.com", 587, "noreply@r1soft.com", "")
 
         err := d.DialAndSend(m)
 
