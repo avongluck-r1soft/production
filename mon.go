@@ -1,3 +1,5 @@
+// mon.go - golang simple monitor. Mongo like candy!
+
 package main
 
 import (
