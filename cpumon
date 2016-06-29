@@ -1,0 +1,94 @@
+#!/usr/bin/perl -s
+
+use strict;
+use warnings;
+use Sys::Hostname;
+use List::Util qw(sum);
+use vars qw($h $q $r1rm $r1cm $ftp $csbm $cass $pxe);
+use autodie;
+
+my $sleep_time                  = 60;
+my $high_cpu_count              = 0;        #how many times has cpu been high
+my $max_high_cpu                = 2;       #cpu is considered after this amt of cpu
+my $max_high_cpu_count          = 10;       #num times high cpu count should be encountered
+
+
+sub check_cpu {
+
+    my ($max_high_cpu) = @_;
+    my ($prev_idle, $prev_total) = qw(0 0);
+    my $usage;
+
+    for (my $i=0;$i<2;$i++) {
+        open my $fh, '</proc/stat'; 
+        while (<$fh>) {
+            next unless /^cpu\s+[0-9]+/;
+            my @cpu = split /\s+/, $_;
+            shift @cpu;
+
+            my $idle       = $cpu[3];
+            my $total      = sum(@cpu);
+            my $diff_idle  = $idle - $prev_idle;
+            my $diff_total = $total - $prev_total;
+            my $diff_usage = 100 * ($diff_total - $diff_idle) / $diff_total;
+
+            $prev_idle  = $idle;
+            $prev_total = $total;
+            $usage      = sprintf "%0.2f", $diff_usage unless ($i==0);
+        }
+
+        close $fh;
+        sleep 1 unless ($i>0);
+    }
+
+    if ( $usage > $max_high_cpu ) {
+        $high_cpu_count++;
+        if ( $high_cpu_count >= $max_high_cpu_count ) {
+            print_warning( "high_cpu","CPU Usage high for a prolonged time= " . $usage );
+            $high_cpu_count=0;
+        }
+    }
+
+	return $usage;
+}
+
+my $cpu_inuse=0; 
+
+sub check_cpu2 {
+    my $n = shift;
+    my @cpu_values;
+    
+    open my $cmd, "top -bn$n|";
+    while (<$cmd>) {
+        my @data = split ' '; 
+        push @cpu_values, $data[1], if /Cpu/;
+    }
+    close $cmd;
+
+    $cpu_inuse = sum(@cpu_values)/$n;
+    return $cpu_inuse;
+}
+
+if ($cpu_inuse >= $max_high_cpu) {
+    $high_cpu_count++;
+    if ($high_cpu_count >= $max_high_cpu_count) {
+        print "high_cpu: CPU Usage high for a prolonged time= ".$cpu_inuse;
+    }
+}
+
+# Main loop
+while(1) {
+
+    my $now = scalar(localtime(time));
+
+    print "\n########## " .$now. " ##########\n";
+    printf("check_cpu                     =" .check_cpu($max_high_cpu). "%%\n");
+    printf("check_cpu2 (2 seconds of data)=" .check_cpu2(2). "%%\n"); 
+    printf("check_cpu2 (5 seconds of data)=" .check_cpu2(5). "%%\n"); 
+    system("/home/scott/trexarms/get_cpu.rb"); 
+    #system("/home/scott/trexarms/psutil.py"); 
+
+    sleep($sleep_time);
+}
+
+

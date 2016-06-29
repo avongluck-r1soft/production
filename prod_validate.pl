@@ -3,13 +3,14 @@
 use strict; 
 use warnings; 
 use Net::SSH::Perl;
+use autodie;
 
 my @prodhosts;
 
 my $user = 'continuum';
-my $pass = get_passwd(); 
+my $pass = ''; 
 
-open my $cmd, "slcli hardware list|" or die "can't open $!"; 
+open my $cmd, "slcli hardware list|"; 
 while (<$cmd>) {
 
     my @data = split ' '; 
@@ -38,14 +39,3 @@ foreach my $host (@prodhosts) {
     print "host: $host\t sbm: $stdout1\t r1rm: $stdout2";
     print "\n";
 }
-
-sub get_passwd {
-    open my $p, "/home/scott/scripts/.pass/list" or die "can't open $!";
-    my @data;
-    while (<$p>) {
-        @data = split ' ';
-    }
-    close $p;
-    return $data[1];
-}
-
