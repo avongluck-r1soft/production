@@ -24,28 +24,28 @@ func getNoreplyPassword() (pw string) {
 
 func main() {
 
-	pw := getNoreplyPassword()
+	pw	:= getNoreplyPassword()
 
 	fmt.Println(pw)
 
-	stat := syscall.Statfs_t{}
-	err  := syscall.Statfs("/", &stat)
+	stat	:= syscall.Statfs_t{}
+	err	:= syscall.Statfs("/", &stat)
 
 	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
 
-	n := stat.Bfree - stat.Bavail
-	m := stat.Blocks
-	p := float64(n) / float64(m) * float64(100.0)
+	used	:= stat.Bfree - stat.Bavail
+	blocks	:= stat.Blocks
+	pct	:= float64(used) / float64(blocks) * float64(100.0)
 
-	fmt.Printf("%.2f\n", p)
+	fmt.Printf("%.2f\n", pct)
 
 	threshhold := float64(95.0)
 	//threshhold := float64(1.0)
 
-	if p >= threshhold {
+	if pct >= threshhold {
 		fmt.Printf("sending mail...\n"); 
 		m := gomail.NewMessage()
 		m.SetHeader("From", "noreply@r1soft.com")

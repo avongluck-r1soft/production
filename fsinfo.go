@@ -43,7 +43,6 @@ func main() {
 	fmt.Printf("%.2f\n", p)
 
 	threshhold := float64(95.0)
-	//threshhold := float64(1.0)
 
 	if p >= threshhold {
 		fmt.Printf("sending mail...\n"); 
