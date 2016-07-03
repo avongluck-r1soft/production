@@ -15,7 +15,7 @@ user = 'continuum'
 pass = get_password()
 
 # get sizes for /storage01-/storage09, print host, %used, filesystem.
-@cmd = "for i in {1..9}; do df -h /storage0$i|sed -n '/Used/{n;p;}'|awk -v MYHOST=$(hostname) '{print MYHOST\" \"$5\" \"$6}'; done"
+@cmd = "for i in {1..9}; do df -h /storage0$i|awk -v MYHOST=$(hostname) '/storage/ {print MYHOST\" \"$5\" \"$6}'; done"
 
 def get_fs_usage(host, user, pass)
   puts host.chomp + " " + user + " " +pass
