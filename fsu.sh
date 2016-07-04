@@ -15,6 +15,11 @@ if [ $(ls|grep fs_usage >/dev/null 2>&1; echo $?) -eq 1 ]; then
 	touch fs_usage.out0
 fi
 
+if [ ! -f "get_fs_pct.rb" ]; then
+	echo "missing get_fs_pct.rb script"
+	exit 42
+fi
+
 get_fs_over_80pct() {
 	n=`ls|grep out|tail -1|sed 's/[a-zA-Z_.]//g'`
 	n=$((n+1))
