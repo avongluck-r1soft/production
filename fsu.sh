@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # list servers with filesystems over 80% used
+# dependencies: get_fs_pct.rb 
 
 FSGT80="filesystems_over_80.out"
 
