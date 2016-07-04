@@ -37,3 +37,4 @@ fi
 
 get_fs_over_80pct
 cat $FSGT80
+diff $FSGT80.prev $FSGT80
