@@ -24,17 +24,15 @@ my $client = SoftLayer::API::SOAP->new('SoftLayer_Account', undef, $apiUsername,
 $client->setObjectMask({
 	'hardware'	=> {
 		'operatingSystem' => {
-			'passwords'	=> {},
+			'passwords'   => {},
 		},
-
-		'processors'		 => {},
-		'processorCount'	 => {},
-		'memory'		 => {},
-		'memoryCount'		 => {},
-		'networkComponents'	 => {},
-		'primaryIpAddress'	 => {},
-		'privateIpAddress'	 => {},
-
+		'processors'          => {},
+		'processorCount'      => {},
+		'memory'              => {},
+		'memoryCount'         => {},
+		'networkComponents'   => {},
+		'primaryIpAddress'    => {},
+		'privateIpAddress'    => {},
 	}
 });
 
