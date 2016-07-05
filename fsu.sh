@@ -5,7 +5,7 @@
 # list servers with filesystems over 80% used.
 # dependencies: get_fs_pct.rb 
 # usage:        ./fsu.sh
-# output:       filesystems_over_80.out, diff between previous and current
+# output:       filesystems over 80 pct, diff between previous and current
 #               files, if any.
 
 FSGT80="filesystems_over_80.out"
