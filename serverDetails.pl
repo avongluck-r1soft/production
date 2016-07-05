@@ -26,13 +26,15 @@ $client->setObjectMask({
 		'operatingSystem' => {
 			'passwords'	=> {},
 		},
-		'processors'		=> {},
-		'processorCount'	=> {},
-		'memory'		=>{},
-		'memoryCount'		=> {},
-		'networkComponents'	=> {},
-		'primaryIpAddress'	=> {},
-		'privateIpAddress'	=> {},
+
+		'processors'		 => {},
+		'processorCount'	 => {},
+		'memory'		 => {},
+		'memoryCount'		 => {},
+		'networkComponents'	 => {},
+		'primaryIpAddress'	 => {},
+		'privateIpAddress'	 => {},
+
 	}
 });
 
