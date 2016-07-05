@@ -28,7 +28,7 @@ $client->setObjectMask({
 		},
 		'processors'		=> {},
 		'processorCount'	=> {},
-		'memory'		=> {},
+		'memory'		=>{},
 		'memoryCount'		=> {},
 		'networkComponents'	=> {},
 		'primaryIpAddress'	=> {},
