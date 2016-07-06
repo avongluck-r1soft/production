@@ -8,7 +8,6 @@
 #*/30 * * * *  /home/zadmin/bin/fs_watcher.rb > /dev/null &
 #
 #
-
 gem 'slack-notifier'
 
 require 'slack-notifier'
@@ -17,9 +16,7 @@ require 'slack-notifier'
 
 inuse = %x[df -h|awk '/jenkins/ {print \$5}' | sed 's/%//g'].to_i
 
-# initial threshhold of 95%
-THRESHHOLD = 77.to_i;
-
+THRESHHOLD = 85.to_i;
 if inuse >= THRESHHOLD
-    @notifier.ping "SBJENKINS FS FULL: jenkins-root filesystem at #{inuse} percent. Please cleanup old builds."
+    @notifier.ping "devops: JenkinsSB FS FULL: jenkins-root filesystem is at #{inuse} percent. Please cleanup old builds."
 end
