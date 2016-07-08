@@ -47,19 +47,19 @@ func checkRootUsage(THRESHHOLD float64) bool {
 
 func main() {
 
-	THRESHHOLD := float64(90.0)
+	THRESHHOLD := float64(85.0)
 
-	pw := strings.Trim(getNoreplyPassword(), "\n") 
+	pw := strings.Trim(getNoreplyPassword(), "\n")
 
 	if (checkRootUsage(THRESHHOLD)) {
-		fmt.Printf("sending mail...\n");
+		fmt.Printf("sending mail...\n")
 		m := gomail.NewMessage()
-		m.SetHeader("From", "noreply@r1soft.com")
-		m.SetHeader("To", "scott.gillespie@r1soft.com", "alex.vongluck@r1soft.com", "stan.love@r1soft.com", "keith.powe@r1soft.com")
+		m.SetHeader("From","noreply@r1soft.com")
+		m.SetHeader("To","scott.gillespie@r1soft.com","alex.vongluck@r1soft.com","stan.love@r1soft.com")
 		//m.SetHeader("To", "scott.gillespie@r1soft.com")
-		m.SetHeader("Subject", "SBJENKINS root filesystem at or over 90 percent full.")
-		m.SetBody("text/html", "jenkins-root filesystem above 90% used. Please cleanup some old builds, if possible.")
-		d := gomail.NewDialer("smtp.office365.com", 587, "noreply@r1soft.com", pw)
+		m.SetHeader("Subject","SBJENKINS root filesystem at or over 85 percent full.")
+		m.SetBody("text/html","jenkins-root filesystem above 85% used. Please cleanup some old builds, if possible.")
+		d := gomail.NewDialer("smtp.office365.com",587,"noreply@r1soft.com",pw)
 
 		errn := d.DialAndSend(m)
 		if errn != nil {
