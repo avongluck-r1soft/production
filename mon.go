@@ -21,7 +21,7 @@ func diskSpace(path string) (total, free int, err error) {
 }
 
 func getNoreplyPassword() string {
-	file, err := ioutil.ReadFile(".noreplypw")
+	file, err := ioutil.ReadFile("/home/zadmin/bin/.noreplypw")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -34,6 +34,7 @@ func main() {
 	total, free, _ := diskSpace("/")
 
 	pct := float64(100.00) - ( float64(free) / float64(total) * 100.0 )
+	fmt.Printf("pct used for root filesystem, /, on sbjenkins: %.2f\n", pct)
 
 	pw := strings.Trim(getNoreplyPassword(), "\n")
 
@@ -45,8 +46,8 @@ func main() {
 		m.SetHeader("From", "noreply@r1soft.com")
 		m.SetHeader("To", "scott.gillespie@r1soft.com", "alex.vongluck@r1soft.com", "stan.love@r1soft.com", "keith.powe@r1soft.com")
 		//m.SetHeader("To", "scott.gillespie@r1soft.com")
-		m.SetHeader("Subject", "SBJENKINS root filesystem at or over 95% full.")
-		m.SetBody("text/html", "jenkins-root filesystem above 95% used. Please cleanup some old builds, if possible.")
+		m.SetHeader("Subject", "SBJENKINS root filesystem at or over 90 percent full.")
+		m.SetBody("text/html", "jenkins-root filesystem above 90% used. Please cleanup some old builds, if possible.")
 		d := gomail.NewDialer("smtp.office365.com", 587, "noreply@r1soft.com", pw)
 
 		errn := d.DialAndSend(m)
