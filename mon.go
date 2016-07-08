@@ -1,3 +1,8 @@
+//
+// mon.go - monitor root filesystem, alert if above THRESHHOLD value.
+//          Feel free to hack on this. Have fun. -scott
+//
+
 package main
 
 import (
@@ -29,18 +34,24 @@ func getNoreplyPassword() string {
 	return pw
 }
 
+func checkRootUsage(THRESHHOLD float64) bool {
+	total, free, _ := diskSpace("/")
+	pctUsed := float64(100.00) - ( float64(free) / float64(total) * 100.0 )
+	if pctUsed >= THRESHHOLD {
+		fmt.Printf("percent used for root filesystem, /, on sbjenkins: %.2f\n", pctUsed)
+		return true
+	} else {
+		return false
+	}
+}
+
 func main() {
 
-	total, free, _ := diskSpace("/")
+	THRESHHOLD := float64(90.0)
 
-	pct := float64(100.00) - ( float64(free) / float64(total) * 100.0 )
-	fmt.Printf("pct used for root filesystem, /, on sbjenkins: %.2f\n", pct)
+	pw := strings.Trim(getNoreplyPassword(), "\n") 
 
-	pw := strings.Trim(getNoreplyPassword(), "\n")
-
-	threshhold := float64(90.0)
-
-	if pct >= threshhold {
+	if (checkRootUsage(THRESHHOLD)) {
 		fmt.Printf("sending mail...\n");
 		m := gomail.NewMessage()
 		m.SetHeader("From", "noreply@r1soft.com")
