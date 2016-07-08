@@ -1,18 +1,17 @@
 package main
 
 import (
-	"bufio"
+	//"bufio"
 	"fmt"
-	//"io/ioutil"
-	//"log"	
- 	"os"
-	//"strings"
+	"io/ioutil"
+	"log"	
+ 	//"os"
+	"strings"
 	"syscall"
-	//"gopkg.in/gomail.v2"
+	"gopkg.in/gomail.v2"
 )
 
-// Space returns total and free bytes available in a directory, e.g. `/`.
-// Think of it as "df" UNIX command.
+// Space returns total and free bytes available in a directory.
 func diskSpace(path string) (total, free int, err error) {
 	s := syscall.Statfs_t{}
 	err = syscall.Statfs(path, &s)
@@ -24,6 +23,17 @@ func diskSpace(path string) (total, free int, err error) {
 	return
 }
 
+func getNoreplyPassword() (pw string) {
+	file, err := ioutil.ReadFile("/home/scott/pw/.noreplypw")
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println(string(file))
+	return pw
+}
+	
+
 func main() {
 	total, free, err := diskSpace("/")
 
@@ -33,7 +43,8 @@ func main() {
  	fmt.Printf("%.2f\n", pct)
 
 
-	//pw := strings.Trim(getNoreplyPassword(), "\n")
+	pw := strings.Trim(getNoreplyPassword(), "\n")
+	fmt.Printf("%s\n", pw)
 
 	//threshhold := float64(95.0)
 	threshhold := float64(1.0)
@@ -48,6 +59,7 @@ func main() {
 		m.SetBody("text/html", "jenkins-root filesystem above 95% used. Please cleanup some old builds, if possible.")
 
 		d := gomail.NewDialer("smtp.office365.com", 587, "noreply@r1soft.com", pw)	
+		//d := gomail.NewDialer("smtp.office365.com", 587, "noreply@r1soft.com", )	
 
 		errn := d.DialAndSend(m)
 		if errn != nil {
