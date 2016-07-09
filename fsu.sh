@@ -34,9 +34,9 @@ get_fs_data() {
 	echo "writing to fs_usage.out$n..."
 	./get_fs_pct.rb > fs_usage.out$n
 	sed 's/%//g' fs_usage.out$n|awk '/storage/ {if ($2>80.0) print}'|\
-	sort -rk 2 > $FSGT80
+	sort -rk 2 > $FSGT80 2>/dev/null
 	sed 's/%//g' fs_usage.out$n|awk '/storage/ {if ($2<40.0) print}'|\
-	sort -rk 2 > $FSLT40
+	sort -rk 2 > $FSLT40 2>/dev/null
 }
 
 check_prev() {
