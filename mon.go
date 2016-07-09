@@ -21,7 +21,7 @@ func diskSpace(path string) (total, free int, err error) {
 		fmt.Printf("%s\n", err.Error())
 	}
 	total = int(s.Bsize) * int(s.Blocks)
-	free = int(s.Bsize) * int(s.Bfree)
+	free  = int(s.Bsize) * int(s.Bfree)
 	return
 }
 
@@ -47,27 +47,28 @@ func checkRootUsage(THRESHHOLD float64) bool {
 	}
 }
 
-func main() {
+func sendEmail(pw string) {
+	m := gomail.NewMessage()
+	m.SetHeader("From","noreply@r1soft.com")
+	m.SetHeader("To","scott.gillespie@r1soft.com","alex.vongluck@r1soft.com","stan.love@r1soft.com")
+	//m.SetHeader("To", "scott.gillespie@r1soft.com")
+	m.SetHeader("Subject","SBJENKINS root filesystem at or over 85 percent full.")
+	m.SetBody("text/html","jenkins-root filesystem above 85% used. Please cleanup some old builds, if possible.")
+	d := gomail.NewDialer("smtp.office365.com",587,"noreply@r1soft.com",pw)
 
-	THRESHHOLD := float64(85.0)
+	errn := d.DialAndSend(m)
 
-	pw := strings.Trim(getNoreplyPassword(), "\n")
-
-	if (checkRootUsage(THRESHHOLD)) {
-
-		m := gomail.NewMessage()
-		m.SetHeader("From","noreply@r1soft.com")
-		m.SetHeader("To","scott.gillespie@r1soft.com","alex.vongluck@r1soft.com","stan.love@r1soft.com")
-		//m.SetHeader("To", "scott.gillespie@r1soft.com")
-		m.SetHeader("Subject","SBJENKINS root filesystem at or over 85 percent full.")
-		m.SetBody("text/html","jenkins-root filesystem above 85% used. Please cleanup some old builds, if possible.")
-		d := gomail.NewDialer("smtp.office365.com",587,"noreply@r1soft.com",pw)
-
-		errn := d.DialAndSend(m)
-
-		if errn != nil {
-			log.Fatal(errn)
-		}
+	if errn != nil {
+		log.Fatal(errn)
 	}
+}
 
+func main() {
+	THRESHHOLD := float64(85.0)
+	//THRESHHOLD := float64(3.0)
+	pw := strings.Trim(getNoreplyPassword(), "\n")
+	if (checkRootUsage(THRESHHOLD)) {
+		fmt.Printf("sending email...\n")
+		sendEmail(pw)
+	}
 }
