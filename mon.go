@@ -36,9 +36,7 @@ func getNoreplyPassword() string {
 
 func isRootFull(THRESHHOLD float64) bool {
 	total, free, _ := getDiskSpace("/")
-
 	pctUsed := float64(100.00) - ( float64(free) / float64(total) * 100.0 )
-
 	if pctUsed >= THRESHHOLD {
 		fmt.Printf("percent used for root filesystem, /, on sbjenkins: %.2f\n", pctUsed)
 		return true
