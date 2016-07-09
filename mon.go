@@ -8,7 +8,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"log"	
+	"log"
 	"strings"
 	"syscall"
 	"gopkg.in/gomail.v2"
@@ -36,7 +36,9 @@ func getNoreplyPassword() string {
 
 func checkRootUsage(THRESHHOLD float64) bool {
 	total, free, _ := diskSpace("/")
+
 	pctUsed := float64(100.00) - ( float64(free) / float64(total) * 100.0 )
+
 	if pctUsed >= THRESHHOLD {
 		fmt.Printf("percent used for root filesystem, /, on sbjenkins: %.2f\n", pctUsed)
 		return true
@@ -52,7 +54,7 @@ func main() {
 	pw := strings.Trim(getNoreplyPassword(), "\n")
 
 	if (checkRootUsage(THRESHHOLD)) {
-		fmt.Printf("sending mail...\n")
+
 		m := gomail.NewMessage()
 		m.SetHeader("From","noreply@r1soft.com")
 		m.SetHeader("To","scott.gillespie@r1soft.com","alex.vongluck@r1soft.com","stan.love@r1soft.com")
@@ -62,8 +64,10 @@ func main() {
 		d := gomail.NewDialer("smtp.office365.com",587,"noreply@r1soft.com",pw)
 
 		errn := d.DialAndSend(m)
+
 		if errn != nil {
 			log.Fatal(errn)
 		}
 	}
+
 }
