@@ -14,7 +14,7 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
-func diskSpace(path string) (total, free int, err error) {
+func getDiskSpace(path string) (total, free int, err error) {
 	s := syscall.Statfs_t{}
 	err = syscall.Statfs(path, &s)
 	if err != nil {
@@ -34,8 +34,8 @@ func getNoreplyPassword() string {
 	return pw
 }
 
-func checkRootUsage(THRESHHOLD float64) bool {
-	total, free, _ := diskSpace("/")
+func isRootFull(THRESHHOLD float64) bool {
+	total, free, _ := getDiskSpace("/")
 
 	pctUsed := float64(100.00) - ( float64(free) / float64(total) * 100.0 )
 
@@ -55,17 +55,17 @@ func sendEmail(pw string) {
 	m.SetBody("text/html","jenkins-root filesystem above 85% used. Please cleanup some old builds, if possible.")
 	d := gomail.NewDialer("smtp.office365.com",587,"noreply@r1soft.com",pw)
 
-	errn := d.DialAndSend(m)
+	err := d.DialAndSend(m)
 
-	if errn != nil {
-		log.Fatal(errn)
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 
 func main() {
 	THRESHHOLD := float64(85.0)
 	pw := strings.Trim(getNoreplyPassword(), "\n")
-	if (checkRootUsage(THRESHHOLD)) {
+	if (isRootFull(THRESHHOLD)) {
 		fmt.Printf("sending email...\n")
 		sendEmail(pw)
 	}
