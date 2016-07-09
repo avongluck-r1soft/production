@@ -9,6 +9,7 @@
 #               files, if any.
 
 FSGT80="filesystems_over_80.out"
+FSLT40="filesystems_under_40.out"
 
 # keep less than 10 files
 if [ $(ls fs_usage.out*|wc -l) -ge 10 ]; then
@@ -25,13 +26,15 @@ if [ ! -f "get_fs_pct.rb" ]; then
 	exit 42
 fi
 
-get_fs_over_80pct() {
+get_fs_data() {
 	n=`ls|grep out|tail -1|sed 's/[a-zA-Z_.]//g'`
 	n=$((n+1))
 	echo "writing to fs_usage.out$n..."
 	./get_fs_pct.rb > fs_usage.out$n
 	sed 's/%//g' fs_usage.out$n|awk '/storage/ {if ($2>80.0) print}'|\
 	sort -rk 2 > $FSGT80
+	sed 's/%//g' fs_usage.out$n|awk '/storage/ {if ($2<40.0) print}'|\
+	sort -rk 2 > $FSLT40
 }
 
 if [ -f $FSGT80 ]; then
@@ -40,6 +43,17 @@ else
 	touch $FSGT80
 fi
 
-get_fs_over_80pct
+if [ -f $FSLT40 ]; then
+	cp $FSLT40 $FSLT40.prev
+else
+	touch $FSLT40
+fi
+
+get_fs_data
+echo "*** Filesystems at or over 80% ***"
 cat $FSGT80
 diff $FSGT80 $FSGT80.prev --suppress-common-lines
+
+echo "*** Filesystems at or under 40% ***"
+cat $FSLT40
+diff $FSLT40 $FSLT40.prev --suppress-common-lines
