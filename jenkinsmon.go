@@ -67,7 +67,6 @@ type email struct {
 	SMTPPort		int
 }
 
-
 func sendRootFullEmail(pw string) {
 	m := gomail.NewMessage()
 
