@@ -46,6 +46,11 @@ func isRootFull(THRESHHOLD float64) bool {
 }
 
 //func checkJenkinsProc() {
+//	
+//}
+
+//func sendJenkinsDownEmail() {
+//
 //}
 
 type email struct {
@@ -72,14 +77,14 @@ func sendRootFullEmail(pw string) {
 
 	e := email{}
 
-	e.From 	 	= "From"
+	e.From		= "From"
 	e.NoReplyAcct   = "noreply@r1soft.com"
-	e.To  	 	= "To"
-	e.ToAcct1  	= "scott.gillespie@r1soft.com"
+	e.To		= "To"
+	e.ToAcct1	= "scott.gillespie@r1soft.com"
 	e.ToAcct2	= "alex.vongluck@r1soft.com"
-	e.ToAcct3 	= "stan.love@r1soft.com"
+	e.ToAcct3	= "stan.love@r1soft.com"
 	e.RootFullSubj	= "Subject"
-	e.RootFullMsg 	= "SBJENKINS root filesystem full."
+	e.RootFullMsg	= "SBJENKINS root filesystem full."
 	e.RootFullBody1	= "text/html"
 	e.RootFullBody2 = "jenkins-root filesystem is full. Please clenup some old builds."
 	e.SMTPServer	= "smtp.office365.com"
@@ -89,7 +94,7 @@ func sendRootFullEmail(pw string) {
 	m.SetHeader(e.To, e.ToAcct1, e.ToAcct2, e.ToAcct3)
 	m.SetHeader(e.RootFullSubj, e.RootFullMsg)
 	m.SetBody(e.RootFullBody1, e.RootFullBody2)
-	
+
 	d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
 
 	err := d.DialAndSend(m)
