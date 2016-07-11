@@ -1,8 +1,3 @@
-//
-// mon.go - monitor root filesystem, alert if above THRESHHOLD value.
-//          Feel free to hack on this. Have fun. -scott
-//          Mongo likes candy! -Mongo, pawn in game of life. 
-
 package main
 
 import (
@@ -45,8 +40,8 @@ func isRootFull(THRESHHOLD float64) bool {
 	}
 }
 
-//func checkJenkinsProc() {
-//	
+//func isJenkinsRunning() bool {
+//
 //}
 
 //func sendJenkinsDownEmail() {
