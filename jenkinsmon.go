@@ -131,7 +131,7 @@ func main() {
 		e.JenkinsDownSubj	= "Subject"
 		e.JenkinsDownMsg	= "SBJENKINS JENKINS is DOWN."
 		e.JenkinsDownBody1	= "text/html"
-		e.JenkinsDownBody2 	= "Jenkins is DOWN. Please restart & investigate."
+		e.JenkinsDownBody2	= "Jenkins is DOWN. Please restart & investigate."
 
 		m.SetHeader(e.JenkinsDownSubj, e.JenkinsDownMsg)
 		m.SetBody(e.JenkinsDownBody1, e.JenkinsDownBody2)
