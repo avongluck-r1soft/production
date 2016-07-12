@@ -31,7 +31,7 @@ func getNoreplyPassword() string {
 	return pw
 }
 
-func isRootFull(THRESHHOLD float64) bool {
+func rootIsFull(THRESHHOLD float64) bool {
 	total, free, _ := getDiskSpace("/")
 	pctUsed := float64(100.00) - ( float64(free) / float64(total) * 100.0 )
 	if pctUsed >= THRESHHOLD {
@@ -42,7 +42,7 @@ func isRootFull(THRESHHOLD float64) bool {
 	}
 }
 
-func isJenkinsDown() bool {
+func jenkinsIsDown() bool {
 	cmd := "ps -ef|grep [j]enkinsci >/dev/null 2>&1; echo $?"
 	status, err := exec.Command("bash","-c",cmd).Output()
 	if err != nil {
@@ -100,7 +100,7 @@ func main() {
 
 	THRESHHOLD := float64(85.0)
 
-	if (isRootFull(THRESHHOLD)) {
+	if (rootIsFull(THRESHHOLD)) {
 		fmt.Printf("Jenkins root directory is FULL.\n")
 		fmt.Printf("sending email...\n")
 
@@ -119,7 +119,7 @@ func main() {
 		}
 	}
 
-	if (isJenkinsDown()) {
+	if (jenkinsIsDown()) {
 		fmt.Printf("Jenkins is DOWN.\n")
 		fmt.Printf("sending email...\n")
 
