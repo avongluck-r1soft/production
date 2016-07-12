@@ -49,7 +49,6 @@ func isJenkinsDown() bool {
 		fmt.Sprintf("Failed to execute command: %s", cmd)
 	}
 
-	// remove the \n from status, convert it to an integer
 	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
 
 	if i == 0 {
@@ -66,9 +65,9 @@ type email struct {
 	ToAcct1           string
 	ToAcct2           string
 	ToAcct3           string
-	RootFull          string
+	TxtHTMLBody       string
+	RootFullSubj      string
 	RootFullMsg       string
-	RootFullBody1     string
 	RootFullBody2     string
 	JenkinsDownSubj   string
 	JenkinsDownMsg    string
@@ -80,8 +79,6 @@ type email struct {
 
 func main() {
 
-	m := gomail.NewMessage()
-
 	e := email{}
 
 	e.From		= "From"
@@ -90,9 +87,11 @@ func main() {
 	e.ToAcct1       = "scott.gillespie@r1soft.com"
 	e.ToAcct2       = "alex.vongluck@r1soft.com"
 	e.ToAcct3       = "stan.love@r1soft.com"
-	e.RootFullBody1 = "text/html"
+	e.TxtHTMLBody   = "text/html"
 	e.SMTPServer    = "smtp.office365.com"
 	e.SMTPPort      = 587
+
+	m := gomail.NewMessage()
 
 	m.SetHeader(e.From, e.NoReplyAcct)
 	m.SetHeader(e.To, e.ToAcct1, e.ToAcct2, e.ToAcct3)
@@ -107,11 +106,10 @@ func main() {
 
 		e.RootFullSubj   = "Subject"
 		e.RootFullMsg    = "SBJENKINS root filesystem full."
-		e.RootFullBody1  = "text/html"
 		e.RootFullBody2  = "jenkins-root filesystem is full. Clean old build areas."
 
 		m.SetHeader(e.RootFullSubj, e.RootFullMsg)
-		m.SetBody(e.RootFullBody1, e.RootFullBody2)
+		m.SetBody(e.TxtHTMLBody, e.RootFullBody2)
 
 		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
 
@@ -131,7 +129,7 @@ func main() {
 		e.JenkinsDownBody2  = "Jenkins is DOWN. Please restart & investigate."
 
 		m.SetHeader(e.JenkinsDownSubj, e.JenkinsDownMsg)
-		m.SetBody(e.JenkinsDownBody1, e.JenkinsDownBody2)
+		m.SetBody(e.TxtHTMLBody, e.JenkinsDownBody2)
 
 		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
 
