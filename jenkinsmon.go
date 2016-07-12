@@ -116,7 +116,6 @@ func main() {
 		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
 
 		err := d.DialAndSend(m)
-
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -137,7 +136,6 @@ func main() {
 		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
 
 		err := d.DialAndSend(m)
-
 		if err != nil {
 			log.Fatal(err)
 		}
