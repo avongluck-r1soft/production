@@ -103,7 +103,6 @@ func main() {
 	THRESHHOLD := float64(85.0)
 
 	if (isRootFull(THRESHHOLD)) {
-
 		fmt.Printf("Jenkins root directory is FULL.\n")
 		fmt.Printf("sending email...\n")
 
