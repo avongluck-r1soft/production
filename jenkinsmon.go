@@ -49,6 +49,7 @@ func isJenkinsDown() bool {
 		fmt.Sprintf("Failed to execute command: %s", cmd)
 	}
 
+	// remove the \n from status, convert it to an integer
 	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
 
 	if i == 0 {
