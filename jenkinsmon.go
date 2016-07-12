@@ -60,22 +60,22 @@ func isJenkinsDown() bool {
 
 
 type email struct {
-	From 			string
-	NoReplyAcct 		string
-	To 			string
-	ToAcct1			string
-	ToAcct2			string
-	ToAcct3			string
-	RootFullSubj		string
-	RootFullMsg		string
-	RootFullBody1		string
-	RootFullBody2		string
-	JenkinsDownSubj		string
-	JenkinsDownMsg		string
-	JenkinsDownBody1	string
-	JenkinsDownBody2	string
-	SMTPServer		string
-	SMTPPort		int
+	From              string
+	NoReplyAcct       string
+	To                string
+	ToAcct1           string
+	ToAcct2           string
+	ToAcct3           string
+	RootFull          string
+	RootFullMsg       string
+	RootFullBody1     string
+	RootFullBody2     string
+	JenkinsDownSubj   string
+	JenkinsDownMsg    string
+	JenkinsDownBody1  string
+	JenkinsDownBody2  string
+	SMTPServer        string
+	SMTPPort          int
 }
 
 func main() {
@@ -87,12 +87,12 @@ func main() {
 	e.From		= "From"
 	e.NoReplyAcct   = "noreply@r1soft.com"
 	e.To		= "To"
-	e.ToAcct1	= "scott.gillespie@r1soft.com"
-	e.ToAcct2	= "alex.vongluck@r1soft.com"
-	e.ToAcct3	= "stan.love@r1soft.com"
-	e.RootFullBody1	= "text/html"
-	e.SMTPServer	= "smtp.office365.com"
-	e.SMTPPort	= 587
+	e.ToAcct1       = "scott.gillespie@r1soft.com"
+	e.ToAcct2       = "alex.vongluck@r1soft.com"
+	e.ToAcct3       = "stan.love@r1soft.com"
+	e.RootFullBody1 = "text/html"
+	e.SMTPServer    = "smtp.office365.com"
+	e.SMTPPort      = 587
 
 	m.SetHeader(e.From, e.NoReplyAcct)
 	m.SetHeader(e.To, e.ToAcct1, e.ToAcct2, e.ToAcct3)
@@ -105,10 +105,10 @@ func main() {
 		fmt.Printf("Jenkins root directory is FULL.\n")
 		fmt.Printf("sending email...\n")
 
-		e.RootFullSubj		= "Subject"
-		e.RootFullMsg		= "SBJENKINS root filesystem full."
-		e.RootFullBody1		= "text/html"
-		e.RootFullBody2		= "jenkins-root filesystem is full. Clean old build areas."
+		e.RootFullSubj   = "Subject"
+		e.RootFullMsg    = "SBJENKINS root filesystem full."
+		e.RootFullBody1  = "text/html"
+		e.RootFullBody2  = "jenkins-root filesystem is full. Clean old build areas."
 
 		m.SetHeader(e.RootFullSubj, e.RootFullMsg)
 		m.SetBody(e.RootFullBody1, e.RootFullBody2)
@@ -125,10 +125,10 @@ func main() {
 		fmt.Printf("Jenkins is DOWN.\n")
 		fmt.Printf("sending email...\n")
 
-		e.JenkinsDownSubj	= "Subject"
-		e.JenkinsDownMsg	= "SBJENKINS JENKINS is DOWN."
-		e.JenkinsDownBody1	= "text/html"
-		e.JenkinsDownBody2	= "Jenkins is DOWN. Please restart & investigate."
+		e.JenkinsDownSubj   = "Subject"
+		e.JenkinsDownMsg    = "SBJENKINS JENKINS is DOWN."
+		e.JenkinsDownBody1  = "text/html"
+		e.JenkinsDownBody2  = "Jenkins is DOWN. Please restart & investigate."
 
 		m.SetHeader(e.JenkinsDownSubj, e.JenkinsDownMsg)
 		m.SetBody(e.JenkinsDownBody1, e.JenkinsDownBody2)
