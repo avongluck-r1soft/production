@@ -42,9 +42,6 @@ func isRootFull(THRESHHOLD float64) bool {
 	}
 }
 
-// You can get the unix admin out of shell programming, 
-// but you can't take the shell programming out of the unix admin.
-// Kludge. Kludge. Kludge. 
 func isJenkinsRunning() bool {
 	cmd := "ps -ef|grep [j]enkinsci >/dev/null 2>&1; echo $?"
 	status, err := exec.Command("bash","-c",cmd).Output()
@@ -66,40 +63,6 @@ func isJenkinsRunning() bool {
 	return false
 }
 
-// violating DRY... Figure out a better way to do this.
-func sendJenkinsDownEmail(pw string) {
-
-	m := gomail.NewMessage()
-	e := email{}
-
-	e.From		= "From"
-	e.NoReplyAcct   = "noreply@r1soft.com"
-	e.To		= "To"
-	e.ToAcct1	= "scott.gillespie@r1soft.com"
-	e.ToAcct2	= "alex.vongluck@r1soft.com"
-	e.ToAcct3	= "stan.love@r1soft.com"
-	e.RootFullSubj	= "Subject"
-	e.RootFullMsg	= "SBJENKINS JENKINS is DOWN."
-	e.RootFullBody1	= "text/html"
-	e.RootFullBody2 = "Jenkins is DOWN. Please restart & investigate."
-	e.SMTPServer	= "smtp.office365.com"
-	e.SMTPPort	= 587
-
-	m.SetHeader(e.From, e.NoReplyAcct)
-	m.SetHeader(e.To, e.ToAcct1, e.ToAcct2, e.ToAcct3)
-	m.SetHeader(e.RootFullSubj, e.RootFullMsg)
-	m.SetBody(e.RootFullBody1, e.RootFullBody2)
-
-	d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
-
-	err := d.DialAndSend(m)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-
 type email struct {
 	From 			string
 	NoReplyAcct 		string
@@ -119,7 +82,7 @@ type email struct {
 	SMTPPort		int
 }
 
-func sendRootFullEmail(pw string) {
+func main() {
 
 	m := gomail.NewMessage()
 
@@ -140,29 +103,52 @@ func sendRootFullEmail(pw string) {
 
 	m.SetHeader(e.From, e.NoReplyAcct)
 	m.SetHeader(e.To, e.ToAcct1, e.ToAcct2, e.ToAcct3)
-	m.SetHeader(e.RootFullSubj, e.RootFullMsg)
-	m.SetBody(e.RootFullBody1, e.RootFullBody2)
 
-	d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
-
-	err := d.DialAndSend(m)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func main() {
-	THRESHHOLD := float64(85.0)
 	pw := strings.Trim(getNoreplyPassword(), "\n")
+
+	THRESHHOLD := float64(85.0)
+
 	if (isRootFull(THRESHHOLD)) {
+
 		fmt.Printf("sending email...\n")
-		sendRootFullEmail(pw)
+
+		e.RootFullSubj		= "Subject"
+		e.RootFullMsg		= "SBJENKINS root filesystem full."
+		e.RootFullBody1		= "text/html"
+		e.RootFullBody2		= "jenkins-root filesystem is full. Clean old build areas."
+
+		m.SetHeader(e.RootFullSubj, e.RootFullMsg)
+		m.SetBody(e.RootFullBody1, e.RootFullBody2)
+
+		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
+
+		err := d.DialAndSend(m)
+
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
+
 	if (isJenkinsRunning()) {
 		fmt.Printf("Jenkins is UP.\n")
 	} else {
 		fmt.Printf("Jenkins is DOWN.\n")
-                sendJenkinsDownEmail(pw)
+
+		e.JenkinsDownSubj	= "Subject"
+		e.JenkinsDownMsg	= "SBJENKINS JENKINS is DOWN."
+		e.JenkinsDownBody1	= "text/html"
+		e.JenkinsDownBody2 	= "Jenkins is DOWN. Please restart & investigate."
+
+		m.SetHeader(e.JenkinsDownSubj, e.JenkinsDownMsg)
+		m.SetBody(e.JenkinsDownBody1, e.JenkinsDownBody2)
+
+		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
+
+		err := d.DialAndSend(m)
+
+
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }
