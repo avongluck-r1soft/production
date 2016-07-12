@@ -48,18 +48,10 @@ func isJenkinsRunning() bool {
 	if err != nil {
 		fmt.Sprintf("Failed to execute command: %s", cmd)
 	}
-
-	fmt.Printf("%s\n", status)
 	i, err := strconv.Atoi(string(status))
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	// lolwut. \o/. shell baby. shell. 
-	if i == 0 {
-		return true
-	} 
+	fmt.Printf("DEBUG: %d\n", i)
+	if i == 0 { return true }
+	if i == 1 { return false }
 	return false
 }
 
@@ -94,10 +86,7 @@ func main() {
 	e.ToAcct1	= "scott.gillespie@r1soft.com"
 	e.ToAcct2	= "alex.vongluck@r1soft.com"
 	e.ToAcct3	= "stan.love@r1soft.com"
-	e.RootFullSubj	= "Subject"
-	e.RootFullMsg	= "SBJENKINS root filesystem full."
 	e.RootFullBody1	= "text/html"
-	e.RootFullBody2 = "jenkins-root filesystem is full. Please clenup some old builds."
 	e.SMTPServer	= "smtp.office365.com"
 	e.SMTPPort	= 587
 
@@ -129,9 +118,7 @@ func main() {
 		}
 	}
 
-	if (isJenkinsRunning()) {
-		fmt.Printf("Jenkins is UP.\n")
-	} else {
+	if (!isJenkinsRunning()) {
 		fmt.Printf("Jenkins is DOWN.\n")
 
 		e.JenkinsDownSubj	= "Subject"
@@ -146,9 +133,8 @@ func main() {
 
 		err := d.DialAndSend(m)
 
-
 		if err != nil {
 			log.Fatal(err)
 		}
-	}
+	}  
 }
