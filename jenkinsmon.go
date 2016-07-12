@@ -94,8 +94,8 @@ func main() {
 	e.SMTPPort	= 587
 
 	m.SetHeader(e.From, e.NoReplyAcct)
-	m.SetHeader(e.To, e.ToAcct1)
-	//m.SetHeader(e.To, e.ToAcct1, e.ToAcct2, e.ToAcct3)
+	//m.SetHeader(e.To, e.ToAcct1)
+	m.SetHeader(e.To, e.ToAcct1, e.ToAcct2, e.ToAcct3)
 
 	pw := strings.Trim(getNoreplyPassword(), "\n")
 
