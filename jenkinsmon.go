@@ -42,18 +42,21 @@ func isRootFull(THRESHHOLD float64) bool {
 	}
 }
 
-func isJenkinsRunning() bool {
+func isJenkinsDown() bool {
 	cmd := "ps -ef|grep [j]enkinsci >/dev/null 2>&1; echo $?"
 	status, err := exec.Command("bash","-c",cmd).Output()
 	if err != nil {
 		fmt.Sprintf("Failed to execute command: %s", cmd)
 	}
-	i, err := strconv.Atoi(string(status))
-	fmt.Printf("DEBUG: %d\n", i)
-	if i == 0 { return true }
-	if i == 1 { return false }
-	return false
+
+	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
+
+	if i == 0 {
+		return false
+	}
+	return true
 }
+
 
 type email struct {
 	From 			string
@@ -91,7 +94,8 @@ func main() {
 	e.SMTPPort	= 587
 
 	m.SetHeader(e.From, e.NoReplyAcct)
-	m.SetHeader(e.To, e.ToAcct1, e.ToAcct2, e.ToAcct3)
+	m.SetHeader(e.To, e.ToAcct1)
+	//m.SetHeader(e.To, e.ToAcct1, e.ToAcct2, e.ToAcct3)
 
 	pw := strings.Trim(getNoreplyPassword(), "\n")
 
@@ -99,6 +103,7 @@ func main() {
 
 	if (isRootFull(THRESHHOLD)) {
 
+		fmt.Printf("Jenkins root directory is FULL.\n")
 		fmt.Printf("sending email...\n")
 
 		e.RootFullSubj		= "Subject"
@@ -118,8 +123,9 @@ func main() {
 		}
 	}
 
-	if (!isJenkinsRunning()) {
+	if (isJenkinsDown()) {
 		fmt.Printf("Jenkins is DOWN.\n")
+		fmt.Printf("sending email...\n")
 
 		e.JenkinsDownSubj	= "Subject"
 		e.JenkinsDownMsg	= "SBJENKINS JENKINS is DOWN."
@@ -136,5 +142,5 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-	}  
+	}
 }
