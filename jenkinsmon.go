@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os/exec"
+	"strconv"
 	"strings"
 	"syscall"
 	"gopkg.in/gomail.v2"
@@ -40,13 +42,63 @@ func isRootFull(THRESHHOLD float64) bool {
 	}
 }
 
-//func isJenkinsRunning() bool {
-//
-//}
+// You can get the unix admin out of shell programming, 
+// but you can't take the shell programming out of the unix admin.
+// Kludge. Kludge. Kludge. 
+func isJenkinsRunning() bool {
+	cmd := "ps -ef|grep [j]enkinsci >/dev/null 2>&1; echo $?"
+	status, err := exec.Command("bash","-c",cmd).Output()
+	if err != nil {
+		fmt.Sprintf("Failed to execute command: %s", cmd)
+	}
 
-//func sendJenkinsDownEmail() {
-//
-//}
+	fmt.Printf("%s\n", status)
+	i, err := strconv.Atoi(string(status))
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// lolwut. \o/. shell baby. shell. 
+	if i == 0 {
+		return true
+	} 
+	return false
+}
+
+// violating DRY... Figure out a better way to do this.
+func sendJenkinsDownEmail(pw string) {
+
+	m := gomail.NewMessage()
+	e := email{}
+
+	e.From		= "From"
+	e.NoReplyAcct   = "noreply@r1soft.com"
+	e.To		= "To"
+	e.ToAcct1	= "scott.gillespie@r1soft.com"
+	e.ToAcct2	= "alex.vongluck@r1soft.com"
+	e.ToAcct3	= "stan.love@r1soft.com"
+	e.RootFullSubj	= "Subject"
+	e.RootFullMsg	= "SBJENKINS JENKINS is DOWN."
+	e.RootFullBody1	= "text/html"
+	e.RootFullBody2 = "Jenkins is DOWN. Please restart & investigate."
+	e.SMTPServer	= "smtp.office365.com"
+	e.SMTPPort	= 587
+
+	m.SetHeader(e.From, e.NoReplyAcct)
+	m.SetHeader(e.To, e.ToAcct1, e.ToAcct2, e.ToAcct3)
+	m.SetHeader(e.RootFullSubj, e.RootFullMsg)
+	m.SetBody(e.RootFullBody1, e.RootFullBody2)
+
+	d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
+
+	err := d.DialAndSend(m)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 
 type email struct {
 	From 			string
@@ -68,6 +120,7 @@ type email struct {
 }
 
 func sendRootFullEmail(pw string) {
+
 	m := gomail.NewMessage()
 
 	e := email{}
@@ -105,5 +158,11 @@ func main() {
 	if (isRootFull(THRESHHOLD)) {
 		fmt.Printf("sending email...\n")
 		sendRootFullEmail(pw)
+	}
+	if (isJenkinsRunning()) {
+		fmt.Printf("Jenkins is UP.\n")
+	} else {
+		fmt.Printf("Jenkins is DOWN.\n")
+                sendJenkinsDownEmail(pw)
 	}
 }
