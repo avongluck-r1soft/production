@@ -50,7 +50,6 @@ func jenkinsIsDown() bool {
 	}
 
 	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
-
 	if i == 0 {
 		return false
 	}
