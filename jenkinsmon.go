@@ -100,7 +100,7 @@ func main() {
 	THRESHHOLD := float64(85.0)
 
 	if (rootIsFull(THRESHHOLD)) {
-		fmt.Printf("Jenkins root directory is FULL.\n")
+		fmt.Printf("Jenkins - sbjenkins root directory is FULL.\n")
 		fmt.Printf("sending email...\n")
 
 		e.RootFullMsg    = "SBJENKINS root filesystem full."
@@ -118,11 +118,11 @@ func main() {
 	}
 
 	if (jenkinsIsDown()) {
-		fmt.Printf("Jenkins is DOWN.\n")
+		fmt.Printf("Jenkins - jenkinsci process is DOWN.\n")
 		fmt.Printf("sending email...\n")
 
-		e.JenkinsDownMsg    = "SBJENKINS JENKINS is DOWN."
-		e.JenkinsDownBody2  = "Jenkins is DOWN. Please restart & investigate."
+		e.JenkinsDownMsg    = "SBJENKINS jenkinsci process is DOWN."
+		e.JenkinsDownBody2  = "Jenkins - jenkinsci process is DOWN. Please restart & investigate."
 
 		m.SetHeader(e.Subject, e.JenkinsDownMsg)
 		m.SetBody(e.TxtHTMLBody, e.JenkinsDownBody2)
