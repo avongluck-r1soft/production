@@ -49,8 +49,7 @@ func jenkinsIsDown() bool {
 	}
 
 	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
-
-	// grep failed if $? is not equal to 0 from cmd above... process DOWN
+	// grep failed if $? is not equal to 0 from cmd above then process is DOWN
 	if i != 0 { 
 		fmt.Printf("jenkinsci process DOWN on sbjenkins! Restart and investigate.\n")
 		return true
