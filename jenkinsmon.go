@@ -56,7 +56,6 @@ func jenkinsIsDown() bool {
 	return true
 }
 
-
 type email struct {
 	From              string
 	NoReplyAcct       string
