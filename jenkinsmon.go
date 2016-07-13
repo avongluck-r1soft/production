@@ -37,9 +37,8 @@ func rootIsFull(THRESHHOLD float64) bool {
 	if pctUsed >= THRESHHOLD {
 		fmt.Printf("percent used for root filesystem, /, on sbjenkins: %.2f\n", pctUsed)
 		return true
-	} else {
-		return false
-	}
+	} 
+	return false
 }
 
 func jenkinsIsDown() bool {
@@ -50,10 +49,10 @@ func jenkinsIsDown() bool {
 	}
 
 	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
-	if i == 0 {
-		return false
-	}
-	return true
+	if i != 0 { // grep failed if $? is not equal to 0 - process DOWN
+		return true
+	} 
+	return false
 }
 
 type email struct {
