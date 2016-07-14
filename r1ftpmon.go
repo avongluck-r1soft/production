@@ -20,7 +20,7 @@ func getNoreplyPassword() string {
 	return pw
 }
 
-func proftpdDown() bool {
+func proftpdIsDown() bool {
 	cmd := "ps -ef|grep [p]roftpd >/dev/null 2>&1; echo $?"
 	status, err := exec.Command("bash","-c",cmd).Output()
 	if err != nil {
@@ -35,17 +35,17 @@ func proftpdDown() bool {
 }
 
 type email struct {
-	From              string
-	NoReplyAcct       string
-	To                string
-	ToAcct            string
-	Subject           string
-	TxtHTMLBody       string
-	proftpdDownMsg    string
-	proftpDownBody1   string
-	proftpdDownBody2  string
-	SMTPServer        string
-	SMTPPort          int
+	From                string
+	NoReplyAcct         string
+	To                  string
+	ToAcct              string
+	Subject             string
+	TxtHTMLBody         string
+	proftpdIsDownMsg    string
+	proftpdIsDownBody1  string
+	proftpdIsDownBody2  string
+	SMTPServer          string
+	SMTPPort            int
 }
 
 func main() {
@@ -68,15 +68,15 @@ func main() {
 
 	pw := strings.Trim(getNoreplyPassword(), "\n")
 
-	if (proftpdDown()) {
+	if (proftpdIsDown()) {
 
 		hostname, _ := os.Hostname()
 
-		e.proftpdDownMsg    = "PROFTPD DOWN ON " + hostname
-		e.proftpdDownBody2  = "proftpd server is down on host: " + hostname
+		e.proftpdIsDownMsg    = "PROFTPD DOWN ON " + hostname
+		e.proftpdIsDownBody2  = "proftpd server is down on host: " + hostname
 
-		m.SetHeader(e.Subject, e.proftpdDownMsg)
-		m.SetBody(e.TxtHTMLBody, e.proftpdDownBody2)
+		m.SetHeader(e.Subject, e.proftpdIsDownMsg)
+		m.SetBody(e.TxtHTMLBody, e.proftpdIsDownBody2)
 
 		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
 
