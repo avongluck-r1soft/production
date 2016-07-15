@@ -42,8 +42,7 @@ type email struct {
 	Subject             string
 	TxtHTMLBody         string
 	proftpdIsDownMsg    string
-	proftpdIsDownBody1  string
-	proftpdIsDownBody2  string
+	proftpdIsDownBody   string
 	SMTPServer          string
 	SMTPPort            int
 }
@@ -73,10 +72,10 @@ func main() {
 		hostname, _ := os.Hostname()
 
 		e.proftpdIsDownMsg    = "PROFTPD DOWN ON " + hostname
-		e.proftpdIsDownBody2  = "proftpd server is down on host: " + hostname
+		e.proftpdIsDownBody   = "proftpd server is down on host: " + hostname
 
 		m.SetHeader(e.Subject, e.proftpdIsDownMsg)
-		m.SetBody(e.TxtHTMLBody, e.proftpdIsDownBody2)
+		m.SetBody(e.TxtHTMLBody, e.proftpdIsDownBody)
 
 		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
 
