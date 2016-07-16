@@ -55,7 +55,6 @@ func main() {
 	e.NoReplyAcct   = "noreply@r1soft.com"
 	e.To		= "To"
 	e.ToAcct        = "c247devops@r1soft.com"
-	//e.ToAcct        = "scott.gillespie@r1soft.com"
 	e.TxtHTMLBody   = "text/html"
 	e.Subject       = "Subject"
 	e.SMTPServer    = "smtp.office365.com"

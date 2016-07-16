@@ -61,9 +61,7 @@ type email struct {
 	From              string
 	NoReplyAcct       string
 	To                string
-	ToAcct1           string
-	ToAcct2           string
-	ToAcct3           string
+	ToAcct            string
 	Subject           string
 	TxtHTMLBody       string
 	RootFullMsg       string
@@ -81,10 +79,7 @@ func main() {
 	e.From		= "From"
 	e.NoReplyAcct   = "noreply@r1soft.com"
 	e.To		= "To"
-	e.ToAcct1       = "scott.gillespie@r1soft.com"
-	e.ToAcct2       = "c247devops@r1soft.com"
-	//e.ToAcct2       = "alex.vongluck@r1soft.com"
-	//e.ToAcct3       = "stan.love@r1soft.com"
+	e.ToAcct        = "c247devops@r1soft.com"
 	e.TxtHTMLBody   = "text/html"
 	e.Subject       = "Subject"
 	e.SMTPServer    = "smtp.office365.com"
@@ -93,8 +88,7 @@ func main() {
 	m := gomail.NewMessage()
 
 	m.SetHeader(e.From, e.NoReplyAcct)
-	//m.SetHeader(e.To, e.ToAcct1, e.ToAcct2, e.ToAcct3)
-	m.SetHeader(e.To, e.ToAcct1, e.ToAcct2)
+	m.SetHeader(e.To, e.ToAcct)
 
 	pw := strings.Trim(getNoreplyPassword(), "\n")
 
