@@ -41,8 +41,8 @@ type email struct {
 	ToAcct              string
 	Subject             string
 	TxtHTMLBody         string
-	proftpdIsDownMsg    string
-	proftpdIsDownBody   string
+	ProftpdIsDownMsg    string
+	ProftpdIsDownBody   string
 	SMTPServer          string
 	SMTPPort            int
 }
@@ -55,6 +55,7 @@ func main() {
 	e.NoReplyAcct   = "noreply@r1soft.com"
 	e.To		= "To"
 	e.ToAcct        = "c247devops@r1soft.com"
+	//e.ToAcct        = "scott.gillespie@r1soft.com"
 	e.TxtHTMLBody   = "text/html"
 	e.Subject       = "Subject"
 	e.SMTPServer    = "smtp.office365.com"
@@ -71,11 +72,11 @@ func main() {
 
 		hostname, _ := os.Hostname()
 
-		e.proftpdIsDownMsg    = "PROFTPD DOWN ON " + hostname
-		e.proftpdIsDownBody   = "proftpd server is down on host: " + hostname
+		e.ProftpdIsDownMsg    = "PROFTPD DOWN ON " + hostname
+		e.ProftpdIsDownBody   = "proftpd server is down on host: " + hostname
 
-		m.SetHeader(e.Subject, e.proftpdIsDownMsg)
-		m.SetBody(e.TxtHTMLBody, e.proftpdIsDownBody)
+		m.SetHeader(e.Subject, e.ProftpdIsDownMsg)
+		m.SetBody(e.TxtHTMLBody, e.ProftpdIsDownBody)
 
 		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
 
