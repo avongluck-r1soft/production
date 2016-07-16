@@ -67,10 +67,9 @@ type email struct {
 	Subject           string
 	TxtHTMLBody       string
 	RootFullMsg       string
-	RootFullBody2     string
+	RootFullBody      string
 	JenkinsDownMsg    string
-	JenkinsDownBody1  string
-	JenkinsDownBody2  string
+	JenkinsDownBody   string
 	SMTPServer        string
 	SMTPPort          int
 }
@@ -106,10 +105,10 @@ func main() {
 		fmt.Printf("sending email...\n")
 
 		e.RootFullMsg    = "SBJENKINS root filesystem full."
-		e.RootFullBody2  = "jenkins-root filesystem is full. Clean old build areas."
+		e.RootFullBody   = "jenkins-root filesystem is full. Clean old build areas."
 
 		m.SetHeader(e.Subject, e.RootFullMsg)
-		m.SetBody(e.TxtHTMLBody, e.RootFullBody2)
+		m.SetBody(e.TxtHTMLBody, e.RootFullBody)
 
 		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
 
@@ -124,10 +123,10 @@ func main() {
 		fmt.Printf("sending email...\n")
 
 		e.JenkinsDownMsg    = "SBJENKINS jenkinsci process is DOWN."
-		e.JenkinsDownBody2  = "Jenkins - jenkinsci process is DOWN. Please restart & investigate."
+		e.JenkinsDownBody   = "Jenkins - jenkinsci process is DOWN. Please restart & investigate."
 
 		m.SetHeader(e.Subject, e.JenkinsDownMsg)
-		m.SetBody(e.TxtHTMLBody, e.JenkinsDownBody2)
+		m.SetBody(e.TxtHTMLBody, e.JenkinsDownBody)
 
 		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
 
