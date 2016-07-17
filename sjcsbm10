@@ -1,0 +1,26 @@
+
+Looks like there are two GUIDs are responsible for most of the syslog messages on sjcsbm10:
+
+root@sjcsbm10:/var/log# grep "ould not read" syslog |wc -l
+2899
+root@sjcsbm10:/var/log# grep "ould not read" syslog | awk '{print $11}' | sed -e "s/\[//g" -e "s/\]//g" -e "s/-://g" | sort -u
+
+95bf11e4-af40-41ac-9161-33afebb8a12d
+b37f9b8a-c802-43d5-912d-24176271b7ed
+
+^^ these two are generating tons of messages
+
+looking at both, they both seem to be hung up trying to create spool files (see below):
+
+root@sjcsbm10:/var/log# grep 95bf11e4 syslog | grep storage0| head -2
+Jul 17 06:25:17 sjcsbm10 /opt/r1soft/r1ctl/bin/r1ctl[45130]: 2016/07/17 06:25:17.797001 client.go:1979: Remote Replication [95bf11e4-af40-41ac-9161-33afebb8a12d-]: Replicating recovery point 986 for disk safe /storage06/replication/95bf11e4-af40-41ac-9161-33afebb8a12d
+Jul 17 06:25:19 sjcsbm10 /opt/r1soft/r1ctl/bin/r1ctl[45130]: 2016/07/17 06:25:19.150651 client.go:1983: Remote Replication [95bf11e4-af40-41ac-9161-33afebb8a12d-]: Failed to process server request: Failed to create spool file: Failed to list disk safes for agent: Request failed with status: 500.  Fault: Could not read disk safe meta data for Disk Safe '/storage08/replication/95bf11e4-af40-41ac-9161-33afebb8a12d'
+
+
+
+root@sjcsbm10:/var/log# grep b37f9 syslog | grep storage0| head -2
+Jul 17 06:25:05 sjcsbm10 /opt/r1soft/r1ctl/bin/r1ctl[45130]: 2016/07/17 06:25:05.462295 client.go:1983: Remote Replication [b37f9b8a-c802-43d5-912d-24176271b7ed-]: Failed to process server request: Failed to create spool file: Failed to list disk safes for agent: Request failed with status: 500.  Fault: Could not read disk safe meta data for Disk Safe '/storage08/replication/b37f9b8a-c802-43d5-912d-24176271b7ed'
+Jul 17 06:25:17 sjcsbm10 /opt/r1soft/r1ctl/bin/r1ctl[45130]: 2016/07/17 06:25:17.796447 client.go:1979: Remote Replication [b37f9b8a-c802-43d5-912d-24176271b7ed-]: Replicating recovery point 11 for disk safe /storage07/replication/b37f9b8a-c802-43d5-912d-24176271b7ed
+root@sjcsbm10:/var/log# grep "ould not read" syslog |wc -l
+2927
+
