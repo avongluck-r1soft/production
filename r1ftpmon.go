@@ -24,7 +24,7 @@ func proftpdIsDown() bool {
 	cmd := "ps -ef|grep [p]roftpd >/dev/null 2>&1; echo $?"
 	status, err := exec.Command("bash","-c",cmd).Output()
 	if err != nil {
-		fmt.Sprintf("Failed to execute command: %s", cmd)
+		fmt.Sprintf("Failed to execute command: %s\n", cmd)
 	}
 
 	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
@@ -32,6 +32,16 @@ func proftpdIsDown() bool {
 		return true
 	} 
 	return false
+}
+
+func restartProftpd() bool {
+	cmd := "service proftpd restart"
+	_, err := exec.Command("bash","-c",cmd).Output()
+	if err != nil {
+		fmt.Sprintf("Failed to execute command: %s\n", cmd)
+		return false
+	}
+	return true
 }
 
 type email struct {
@@ -82,6 +92,15 @@ func main() {
 		err := d.DialAndSend(m)
 		if err != nil {
 			log.Fatal(err)
+		}
+
+		// restart proftpd
+		fmt.Printf("restarting proftpd on %s.\n", hostname)
+		ret := restartProftpd()
+		if ret {
+			fmt.Printf("proftpd restarted on %s.\n", hostname)
+		} else {
+			fmt.Printf("unable to restart proftpd on %s. Please investigate.\n", hostname)
 		}
 	}
 }
