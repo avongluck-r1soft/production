@@ -1,7 +1,7 @@
 #!/bin/bash
 
-USER=""
-PASS=""
+USER="continuum"
+PASS="c0ng0*88"
 
 HOSTS=(
 sjcsbm06
@@ -37,5 +37,5 @@ wdcsbm04
 
 for host in ${HOSTS[*]}; do
 	echo "*** on $host ***"
-	sshpass -p $PASS ssh -f $USER@$host "echo $PASS | sudo -S find /storage* -name ".migration.log" -exec ls -altr {} \;"
+	sshpass -p $PASS ssh -f $USER@$host "echo $PASS | sudo -S find /storage* -name bbc131c1*" -exec ls -altr {} \;"
 done
