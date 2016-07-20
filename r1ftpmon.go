@@ -36,12 +36,16 @@ func proftpdIsDown() bool {
 
 func restartProftpd() bool {
 	cmd := "service proftpd restart"
-	_, err := exec.Command("bash","-c",cmd).Output()
+	status, err := exec.Command("bash","-c",cmd).Output()
 	if err != nil {
 		fmt.Sprintf("Failed to execute command: %s\n", cmd)
-		return false
 	}
-	return true
+
+	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
+	if i != 0 {
+		return true
+	}
+	return false
 }
 
 type email struct {
