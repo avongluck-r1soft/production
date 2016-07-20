@@ -29,6 +29,7 @@ func proftpdIsDown() bool {
 
 	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
 	if i != 0 { 
+		// grep for proftpd process failed, service is down.
 		return true
 	} 
 	return false
@@ -42,7 +43,8 @@ func proftpdRestarted() bool {
 	}
 
 	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
-	if i != 0 {
+	if i == 0 {
+		// command completed with exit 0, service restarted.
 		return true
 	}
 	return false
