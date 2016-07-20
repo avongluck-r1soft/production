@@ -50,6 +50,19 @@ func proftpdRestarted() bool {
 	return false
 }
 
+func serviceIsDown(serviceName string) bool {
+	cmd := "service " + serviceName + " status"
+	status, err := exec.Command("bash","-c",cmd).Output()
+	if err != nil {
+		fmt.Sprintf("Failed to execute command: %s\n", cmd)
+	}
+	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
+	if i == 0 {
+		return true
+	}
+	return false
+}
+
 type email struct {
 	From                 string
 	NoReplyAcct          string
@@ -86,6 +99,10 @@ func main() {
 
 	hostname, _ := os.Hostname()
 	pw := strings.Trim(getNoreplyPassword(), "\n")
+
+	if (serviceIsDown("r1ctl")) {
+		fmt.Printf("r1ctl process is down on %s\n", hostname)
+	}
 
 	if (proftpdIsDown()) {
 
