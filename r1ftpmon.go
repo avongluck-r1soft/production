@@ -72,7 +72,8 @@ func main() {
 	e.From		= "From"
 	e.NoReplyAcct   = "noreply@r1soft.com"
 	e.To		= "To"
-	e.ToAcct        = "c247devops@r1soft.com"
+	//e.ToAcct        = "c247devops@r1soft.com"
+	e.ToAcct        = "scott.gillespie@r1soft.com"
 	e.TxtHTMLBody   = "text/html"
 	e.Subject       = "Subject"
 	e.SMTPServer    = "smtp.office365.com"
@@ -102,42 +103,42 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-	}
 
-	fmt.Printf("restarting proftpd on %s.\n", hostname)
+		fmt.Printf("restarting proftpd on %s.\n", hostname)
 
-	if (proftpdRestarted()) {
+		if (proftpdRestarted()) {
 
-		fmt.Printf("proftpd restarted successfully on %s.\n", hostname)
+			fmt.Printf("proftpd restarted successfully on %s.\n", hostname)
 
-		e.ProftpdRestartedMsg   = "PROFTPD RESTARTED ON " + hostname
-		e.ProftpdRestartedBody  = "proftpd restarted on host: " + hostname
+			e.ProftpdRestartedMsg   = "PROFTPD RESTARTED ON " + hostname
+			e.ProftpdRestartedBody  = "proftpd restarted on host: " + hostname
 
-		m.SetHeader(e.Subject, e.ProftpdRestartedMsg)
-		m.SetBody(e.TxtHTMLBody, e.ProftpdRestartedBody)
+			m.SetHeader(e.Subject, e.ProftpdRestartedMsg)
+			m.SetBody(e.TxtHTMLBody, e.ProftpdRestartedBody)
 
-		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
+			d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
 
-		err := d.DialAndSend(m)
-		if err != nil {
-			log.Fatal(err)
-		}
+			err := d.DialAndSend(m)
+			if err != nil {
+				log.Fatal(err)
+			}
 
-	} else {
+		} else {
 
-		fmt.Printf("unable to restart proftpd on %s. Please investigate.\n", hostname)
+			fmt.Printf("unable to restart proftpd on %s. Please investigate.\n", hostname)
 
-		e.ProftpdRestartedMsg   = "PROFTPD DID NOT RESTART ON " + hostname
-		e.ProftpdRestartedBody  = "proftpd failed to restart on host: " + hostname
+			e.ProftpdRestartedMsg   = "PROFTPD DID NOT RESTART ON " + hostname
+			e.ProftpdRestartedBody  = "proftpd failed to restart on host: " + hostname
 
-		m.SetHeader(e.Subject, e.ProftpdRestartedMsg)
-		m.SetBody(e.TxtHTMLBody, e.ProftpdRestartedBody)
+			m.SetHeader(e.Subject, e.ProftpdRestartedMsg)
+			m.SetBody(e.TxtHTMLBody, e.ProftpdRestartedBody)
 
-		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
+			d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
 
-		err := d.DialAndSend(m)
-		if err != nil {
-			log.Fatal(err)
+			err := d.DialAndSend(m)
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
 	}
 }
