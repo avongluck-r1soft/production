@@ -53,6 +53,7 @@ type email struct {
 	TxtHTMLBody         string
 	ProftpdIsDownMsg    string
 	ProftpdIsDownBody   string
+	ProftpdRestartedMsg string
 	SMTPServer          string
 	SMTPPort            int
 }
@@ -98,8 +99,27 @@ func main() {
 		fmt.Printf("restarting proftpd on %s.\n", hostname)
 		ret := restartProftpd()
 		if ret {
+
+			e.ProftpdRestartedMsg  = "proftpd restarted on host: " + hostname
+			m.SetBody(e.TxtHTMLBody, e.ProftpdRestartedMsg)
+			d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
+
+			err := d.DialAndSend(m)
+			if err != nil {
+				log.Fatal(err)
+			}
 			fmt.Printf("proftpd restarted on %s.\n", hostname)
+
 		} else {
+
+			e.ProftpdRestartedMsg  = "proftpd did not restart on host: " + hostname
+			m.SetBody(e.TxtHTMLBody, e.ProftpdRestartedMsg)
+			d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
+
+			err := d.DialAndSend(m)
+			if err != nil {
+				log.Fatal(err)
+			}
 			fmt.Printf("unable to restart proftpd on %s. Please investigate.\n", hostname)
 		}
 	}
