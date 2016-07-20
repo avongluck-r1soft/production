@@ -28,7 +28,7 @@ fixup_api_properties() {
 
 	sed -i 's/ssl-enabled=.*/ssl-enabled=true/g' $PROPERTIES
 	sed -i 's/ssl-port=.*/ssl-port=9443/g' $PROPERTIES
-	sed -i 's/ssl-max-connection=.*/ssl-max-connections=1000/g' $PROPERTIES
+	sed -i 's/ssl-max-connections=.*/ssl-max-connections=1000/g' $PROPERTIES
 	sed -i 's/http-enabled=.*/http-enabled=false/g' $PROPERTIES
 
 }
@@ -38,15 +38,13 @@ fixup_web_properties() {
 	PROPERTIES=$SBMDIR/conf/web.properties
 	cp $PROPERTIES $PROPERTIES.orig
 
-	SSL_KEYSTORE='/usr/sbin/r1soft/conf/keystore'
-
 	sed -i 's/http-enabled=.*/http-enabled=false/g' $PROPERTIES
 	sed -i 's/http-port=.*/http-port=80/g' $PROPERTIES
 	sed -i 's/http-max-connections=.*/http-max-connections=100/g' $PROPERTIES
 	sed -i 's/ssl-enabled=.*/ssl-enabled=true/g' $PROPERTIES
 	sed -i 's/ssl-port=.*/ssl-port=8443/g' $PROPERTIES
 	sed -i 's/ssl-max-connections=.*/ssl-max-connections=100/g' $PROPERTIES
-	sed -i 's/ssl-keystore=.*/ssl-keystore=$SSL_KEYSTORE/g' $PROPERTIES
+	sed -i 's/ssl-keystore=.*/ssl-keystore=\/usr\/sbin\/r1soft\/conf\/keystore/g' $PROPERTIES
 
 }
 
