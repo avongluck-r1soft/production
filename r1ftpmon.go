@@ -49,17 +49,18 @@ func proftpdRestarted() bool {
 }
 
 type email struct {
-	From                string
-	NoReplyAcct         string
-	To                  string
-	ToAcct              string
-	Subject             string
-	TxtHTMLBody         string
-	ProftpdIsDownMsg    string
-	ProftpdIsDownBody   string
-	ProftpdRestartedMsg string
-	SMTPServer          string
-	SMTPPort            int
+	From                 string
+	NoReplyAcct          string
+	To                   string
+	ToAcct               string
+	Subject              string
+	TxtHTMLBody          string
+	ProftpdIsDownMsg     string
+	ProftpdIsDownBody    string
+	ProftpdRestartedMsg  string
+	ProftpdRestartedBody string
+	SMTPServer           string
+	SMTPPort             int
 }
 
 func main() {
@@ -80,11 +81,12 @@ func main() {
 	m.SetHeader(e.From, e.NoReplyAcct)
 	m.SetHeader(e.To, e.ToAcct)
 
+	hostname, _ := os.Hostname()
 	pw := strings.Trim(getNoreplyPassword(), "\n")
 
 	if (proftpdIsDown()) {
 
-		hostname, _ := os.Hostname()
+		fmt.Printf("proftpd is down on %s.\n", hostname)
 
 		e.ProftpdIsDownMsg    = "PROFTPD DOWN ON " + hostname
 		e.ProftpdIsDownBody   = "proftpd server is down on host: " + hostname
@@ -98,32 +100,42 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
+	}
 
-		// restart proftpd
-		fmt.Printf("restarting proftpd on %s.\n", hostname)
-		if (proftpdRestarted()) {
+	fmt.Printf("restarting proftpd on %s.\n", hostname)
 
-			e.ProftpdRestartedMsg  = "proftpd restarted on host: " + hostname
-			m.SetBody(e.TxtHTMLBody, e.ProftpdRestartedMsg)
-			d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
+	if (proftpdRestarted()) {
 
-			err := d.DialAndSend(m)
-			if err != nil {
-				log.Fatal(err)
-			}
-			fmt.Printf("proftpd restarted on %s.\n", hostname)
+		fmt.Printf("proftpd restarted successfully on %s.\n", hostname)
 
-		} else {
+		e.ProftpdRestartedMsg   = "PROFTPD RESTARTED ON " + hostname
+		e.ProftpdRestartedBody  = "proftpd restarted on host: " + hostname
 
-			e.ProftpdRestartedMsg  = "proftpd did not restart on host: " + hostname
-			m.SetBody(e.TxtHTMLBody, e.ProftpdRestartedMsg)
-			d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
+		m.SetHeader(e.Subject, e.ProftpdRestartedMsg)
+		m.SetBody(e.TxtHTMLBody, e.ProftpdRestartedBody)
 
-			err := d.DialAndSend(m)
-			if err != nil {
-				log.Fatal(err)
-			}
-			fmt.Printf("unable to restart proftpd on %s. Please investigate.\n", hostname)
+		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
+
+		err := d.DialAndSend(m)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+	} else {
+
+		fmt.Printf("unable to restart proftpd on %s. Please investigate.\n", hostname)
+
+		e.ProftpdRestartedMsg   = "PROFTPD DID NOT RESTART ON " + hostname
+		e.ProftpdRestartedBody  = "proftpd failed to restart on host: " + hostname
+
+		m.SetHeader(e.Subject, e.ProftpdRestartedMsg)
+		m.SetBody(e.TxtHTMLBody, e.ProftpdRestartedBody)
+
+		d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
+
+		err := d.DialAndSend(m)
+		if err != nil {
+			log.Fatal(err)
 		}
 	}
 }
