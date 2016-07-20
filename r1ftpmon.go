@@ -34,7 +34,7 @@ func proftpdIsDown() bool {
 	return false
 }
 
-func restartProftpd() bool {
+func proftpdRestarted() bool {
 	cmd := "service proftpd restart"
 	status, err := exec.Command("bash","-c",cmd).Output()
 	if err != nil {
@@ -101,8 +101,7 @@ func main() {
 
 		// restart proftpd
 		fmt.Printf("restarting proftpd on %s.\n", hostname)
-		ret := restartProftpd()
-		if ret {
+		if (proftpdRestarted()) {
 
 			e.ProftpdRestartedMsg  = "proftpd restarted on host: " + hostname
 			m.SetBody(e.TxtHTMLBody, e.ProftpdRestartedMsg)
