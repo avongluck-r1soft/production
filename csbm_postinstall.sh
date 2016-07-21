@@ -78,41 +78,9 @@ fixup_dirty_cache_sysctld() {
 	fi
 }
 
-fixup_repos() {
-	echo "# DO NOT USE, see sources.list.d" > /etc/apt/sources.list
-
-	cat <<- EOF > /etc/apt/sources.list.d/c247cloud-release.list
-		deb [arch=amd64] http://c247repo.itsupport247.net/c247 0.1.0 cloud
-		deb [arch=amd64] http://c247repo.itsupport247.net/trusty-kernel trusty main
-	EOF
-
-	echo "deb http://hwraid.le-vert.net/ubuntu precise main" > /etc/apt/sources.list.d/hwraid.list
-
-	apt update
-
-        apt install -V linux-headers-3.16.0-57-generic 
-	apt install -V linux-headers-3.16.0-57 
-	apt install -V linux-image-3.16.0-57-generic 
-	apt install -V linux-image-extra-3.16.0-57-generic 
-	update-initramfs -c -k all
-
-	apt install -V serverbackup-enterprise
-	apt install -V serverbackup-manager
-	apt install -V serverbackup-setup
-	apt install -V r1ctl-cloud
-	apt install -V ufw-cloud
-	apt install -V r1soft-docstore
-	apt install -V r1ctl-cloud
-	apt install -V c247cis
-	apt install -V c247tools
-	apt install -V c247skiff
-	apt install -V c247mon # does r1ServerMon have a dpkg installer? 
-}
-
 fixup_network_interfaces() {
 
-	# either get these from SoftLayer or start building a config file
-	# to scrape these values from.
+	# figure out how to do this.
 
 	CSBM_IP=
 	NETMASK=
@@ -153,7 +121,38 @@ fixup_network_interfaces() {
 	EOF
 
 }
-	
+
+fixup_repos() {
+	echo "# DO NOT USE, see sources.list.d" > /etc/apt/sources.list
+
+	cat <<- EOF > /etc/apt/sources.list.d/c247cloud-release.list
+		deb [arch=amd64] http://c247repo.itsupport247.net/c247 0.1.0 cloud
+		deb [arch=amd64] http://c247repo.itsupport247.net/trusty-kernel trusty main
+	EOF
+
+	echo "deb http://hwraid.le-vert.net/ubuntu precise main" > /etc/apt/sources.list.d/hwraid.list
+
+	apt update
+
+        apt install -V linux-headers-3.16.0-57-generic 
+	apt install -V linux-headers-3.16.0-57 
+	apt install -V linux-image-3.16.0-57-generic 
+	apt install -V linux-image-extra-3.16.0-57-generic 
+	update-initramfs -c -k all
+
+	apt install -V serverbackup-enterprise
+	apt install -V serverbackup-manager
+	apt install -V serverbackup-setup
+	apt install -V r1ctl-cloud
+	apt install -V ufw-cloud
+	apt install -V r1soft-docstore
+	apt install -V r1ctl-cloud
+	apt install -V c247cis
+	apt install -V c247tools
+	apt install -V c247skiff
+	apt install -V c247mon # does r1ServerMon have a dpkg installer? 
+}
+
 fixup_server_properties
 fixup_api_properties
 fixup_web_properties
