@@ -59,7 +59,7 @@ fixup_remote_replication_properties() {
 fixup_dirty_cache_sysctld() {
 	# sysctld dirty cache prevention
 	if [ ! -f "/etc/sysctl.d/60-continuity247.conf" ]; then
-		cat <<- __EOF__ > /etc/sysctl/60-continuity247.conf
+		cat <<- EOF > /etc/sysctl/60-continuity247.conf
 		########################################################
 		# 2016 R1Soft DevOps
 		# This prevents queuing up large amounts of dirty cache
@@ -69,7 +69,7 @@ fixup_dirty_cache_sysctld() {
 		#  at 300MiB we begin flushing to disk in the background
 		vm.dirty_background_bytes = 314572800
 		########################################################
-		__EOF__ 
+		EOF
 	fi
 }
 
