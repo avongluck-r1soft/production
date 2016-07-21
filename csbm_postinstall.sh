@@ -78,9 +78,39 @@ fixup_dirty_cache_sysctld() {
 	fi
 }
 
+fixup_repos() {
+	echo "# DO NOT USE, see sources.list.d" > /etc/apt/sources.list
+	echo "deb [arch=amd64] http://c247repo.itsupport247.net/c247 0.1.0 cloud" > /etc/apt/sources.list.d/c247cloud-release.list
+	echo "deb [arch=amd64] http://c247repo.itsupport247.net/trusty-kernel trusty main" >> /etc/apt/sources.list.d/c247cloud-release.list
+	echo "deb http://hwraid.le-vert.net/ubuntu precise main" > /etc/apt/sources.list.d/hwraid.list
 
+	apt update
+
+        apt install -V linux-headers-3.16.0-57-generic 
+	apt install -V linux-headers-3.16.0-57 
+	apt install -V linux-image-3.16.0-57-generic 
+	apt install -V linux-image-extra-3.16.0-57-generic 
+	update-initramfs -c -k all
+
+	apt install -V serverbackup-enterprise
+	apt install -V serverbackup-manager
+	apt install -V serverbackup-setup
+	apt install -V r1ctl-cloud
+	apt install -V ufw-cloud
+	apt install -V r1soft-docstore
+	apt install -V r1ctl-cloud
+	apt install -V c247cis
+	apt install -V c247tools
+	apt install -V c247skiff
+	apt install -V c247mon # does r1ServerMon have a dpkg installer? 
+}
+
+#fixup_network_interfaces() {
+#}
+	
 fixup_server_properties
 fixup_api_properties
 fixup_web_properties
 fixup_remote_replication_properties
 fixup_dirty_cache_sysctld
+fixup_repos
