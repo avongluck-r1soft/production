@@ -1,0 +1,10 @@
+
+    slcli vs list
+    slcli vs detail [vs_id]
+    slcli hardware list
+    slcli hardware detail [hw_id]
+    slcli subnet list
+    slcli subnet detail [subnet_id]
+    slcli vlan detail [vlan_id]
+    slcli globalip list
+
