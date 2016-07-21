@@ -5,6 +5,11 @@
 #                       This is not a replacement for flightCheck - run flightCheck
 #                       AFTER running this script. Trust but verify.
 
+if [ $(whoami) != "root" ]; then
+	echo "$0 must run as the root user account. Exiting."
+	exit 42
+fi
+
 SBMDIR='/usr/sbin/r1soft'
 
 fixup_server_properties() {
