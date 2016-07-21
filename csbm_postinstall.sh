@@ -64,7 +64,7 @@ fixup_remote_replication_properties() {
 fixup_dirty_cache_sysctld() {
 	# sysctld dirty cache prevention
 	if [ ! -f "/etc/sysctl.d/60-continuity247.conf" ]; then
-		cat <<- EOF > /etc/sysctl/60-continuity247.conf
+		cat <<- EOF > /etc/sysctl.d/60-continuity247.conf
 		########################################################
 		# 2016 R1Soft DevOps
 		# This prevents queuing up large amounts of dirty cache
