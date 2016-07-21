@@ -109,8 +109,50 @@ fixup_repos() {
 	apt install -V c247mon # does r1ServerMon have a dpkg installer? 
 }
 
-#fixup_network_interfaces() {
-#}
+fixup_network_interfaces() {
+
+	# either get these from SoftLayer or start building a config file
+	# to scrape these values from.
+
+	CSBM_IP=
+	NETMASK=
+	NETWORK=
+	BROADCAST=
+	GATEWAY=
+	PRIVATE_IP=
+	PRIVATE_NETMASK=
+	PRIVATE_NET=
+	PRIVATE_GATEWAY=
+
+	cat <<- EOF > /etc/network/interfaces
+		# This file describes the network interfaces available on your system
+		# and how to activate them. For more information, see interfaces(5).
+
+		# The loopback network interface
+		auto lo
+		iface lo inet loopback
+
+		auto em2
+		iface em2 inet static
+		address $CSBM_IP
+		netmask $NETMASK
+		network $NETWORK
+		broadcast $BROADCAST
+		gateway $GATEWAY
+		dns-nameservers 8.8.8.8 8.8.4.4
+		dns-search itsupport247.net
+		post-up ethtool -K $IFACE lro off
+
+		# The primary network interface
+		auto em1
+		iface em1 inet static
+		address $PRIVATE_IP
+		netmask $PRIVATE_NETMASK
+		#up route add -net 10.0.0.0/8 gw 10.160.189.129
+		up route add -net $PRIVATE_NET gw $PRIVATE_GATEWAY
+	EOF
+
+}
 	
 fixup_server_properties
 fixup_api_properties
@@ -118,3 +160,4 @@ fixup_web_properties
 fixup_remote_replication_properties
 fixup_dirty_cache_sysctld
 fixup_repos
+#fixup_network_interfaces
