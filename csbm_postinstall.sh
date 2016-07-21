@@ -56,7 +56,26 @@ fixup_remote_replication_properties() {
 	sed -i 's/remote-replication-listener-enabled=.*/remote-replication-listener-enabled=true/g' $PROPERTIES
 }
 
+fixup_dirty_cache_sysctld() {
+	# sysctld dirty cache prevention
+	if [ ! -f "/etc/sysctl.d/60-continuity247.conf" ]; then
+		cat <<- __EOF__ > /etc/sysctl/60-continuity247.conf
+		########################################################
+		# 2016 R1Soft DevOps
+		# This prevents queuing up large amounts of dirty cache
+		########################################################
+		#  4GiB maximum dirty cache
+		vm.dirty_bytes = 4294967296
+		#  at 300MiB we begin flushing to disk in the background
+		vm.dirty_background_bytes = 314572800
+		########################################################
+		__EOF__ 
+	fi
+}
+
+
 fixup_server_properties
 fixup_api_properties
 fixup_web_properties
 fixup_remote_replication_properties
+fixup_dirty_cache_sysctld
