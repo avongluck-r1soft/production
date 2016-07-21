@@ -80,8 +80,12 @@ fixup_dirty_cache_sysctld() {
 
 fixup_repos() {
 	echo "# DO NOT USE, see sources.list.d" > /etc/apt/sources.list
-	echo "deb [arch=amd64] http://c247repo.itsupport247.net/c247 0.1.0 cloud" > /etc/apt/sources.list.d/c247cloud-release.list
-	echo "deb [arch=amd64] http://c247repo.itsupport247.net/trusty-kernel trusty main" >> /etc/apt/sources.list.d/c247cloud-release.list
+
+	cat <<- EOF > /etc/apt/sources.list.d/c247cloud-release.list
+		deb [arch=amd64] http://c247repo.itsupport247.net/c247 0.1.0 cloud
+		deb [arch=amd64] http://c247repo.itsupport247.net/trusty-kernel trusty main
+	EOF
+
 	echo "deb http://hwraid.le-vert.net/ubuntu precise main" > /etc/apt/sources.list.d/hwraid.list
 
 	apt update
