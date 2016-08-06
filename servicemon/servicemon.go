@@ -8,8 +8,32 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
+
 	"gopkg.in/gomail.v2"
 )
+
+type email struct {
+	From                 string
+	NoReplyAcct          string
+	To                   string
+	ToAcct               string
+	Subject              string
+	TxtHTMLBody          string
+	ProftpdIsDownMsg     string
+	ProftpdIsDownBody    string
+	ProftpdRestartedMsg  string
+	ProftpdRestartedBody string
+	SMTPServer           string
+	SMTPPort             int
+}
+
+var serviceNames [...]string (
+	"r1ctl"
+	"r1rm"
+	"cdpserver"
+	"proftpd"
+)
+
 
 func getNoreplyPassword() string {
 	file, err := ioutil.ReadFile("/home/continuum/bin/.noreplypw")
@@ -51,32 +75,17 @@ func proftpdRestarted() bool {
 	return true
 }
 
-//func serviceIsDown(serviceName string) bool {
-//	cmd := "service " + serviceName + " status"
-//	status, err := exec.Command("bash","-c",cmd).Output()
-//	if err != nil {
-//		fmt.Sprintf("Failed to execute command: %s\n", cmd)
-//	}
-//	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
-//	if i == 0 {
-//		return true
-//	}
-//	return false
-//}
-
-type email struct {
-	From                 string
-	NoReplyAcct          string
-	To                   string
-	ToAcct               string
-	Subject              string
-	TxtHTMLBody          string
-	ProftpdIsDownMsg     string
-	ProftpdIsDownBody    string
-	ProftpdRestartedMsg  string
-	ProftpdRestartedBody string
-	SMTPServer           string
-	SMTPPort             int
+func serviceIsDown(serviceName string) bool {
+	cmd := "service " + serviceName + " status"
+	status, err := exec.Command("bash","-c",cmd).Output()
+	if err != nil {
+		fmt.Sprintf("Failed to execute command: %s\n", cmd)
+	}
+	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
+	if i == 0 {
+		return true
+	}
+	return false
 }
 
 func main() {
