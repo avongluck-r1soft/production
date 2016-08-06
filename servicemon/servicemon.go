@@ -44,25 +44,25 @@ func proftpdRestarted() bool {
 	}
 
 	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
-	if i == 0 {
-		// command completed with exit 0, service restarted.
-		return true
+	if i != 0 {
+		fmt.Printf("Unable to restart proftpd: " err.Error())
+		return false
 	}
-	return false
+	return true
 }
 
-func serviceIsDown(serviceName string) bool {
-	cmd := "service " + serviceName + " status"
-	status, err := exec.Command("bash","-c",cmd).Output()
-	if err != nil {
-		fmt.Sprintf("Failed to execute command: %s\n", cmd)
-	}
-	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
-	if i == 0 {
-		return true
-	}
-	return false
-}
+//func serviceIsDown(serviceName string) bool {
+//	cmd := "service " + serviceName + " status"
+//	status, err := exec.Command("bash","-c",cmd).Output()
+//	if err != nil {
+//		fmt.Sprintf("Failed to execute command: %s\n", cmd)
+//	}
+//	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
+//	if i == 0 {
+//		return true
+//	}
+//	return false
+//}
 
 type email struct {
 	From                 string
@@ -124,18 +124,15 @@ func main() {
 
 		fmt.Printf("restarting proftpd on %s.\n", hostname)
 
+
 		if (proftpdRestarted()) {
 
 			fmt.Printf("proftpd restarted successfully on %s.\n", hostname)
-
 			e.ProftpdRestartedMsg   = "PROFTPD RESTARTED ON " + hostname
 			e.ProftpdRestartedBody  = "proftpd restarted on host: " + hostname
-
 			m.SetHeader(e.Subject, e.ProftpdRestartedMsg)
 			m.SetBody(e.TxtHTMLBody, e.ProftpdRestartedBody)
-
 			d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
-
 			err := d.DialAndSend(m)
 			if err != nil {
 				log.Fatal(err)
@@ -144,15 +141,11 @@ func main() {
 		} else {
 
 			fmt.Printf("unable to restart proftpd on %s. Please investigate.\n", hostname)
-
 			e.ProftpdRestartedMsg   = "PROFTPD DID NOT RESTART ON " + hostname
 			e.ProftpdRestartedBody  = "proftpd failed to restart on host: " + hostname
-
 			m.SetHeader(e.Subject, e.ProftpdRestartedMsg)
 			m.SetBody(e.TxtHTMLBody, e.ProftpdRestartedBody)
-
 			d := gomail.NewDialer(e.SMTPServer, e.SMTPPort, e.NoReplyAcct, pw)
-
 			err := d.DialAndSend(m)
 			if err != nil {
 				log.Fatal(err)
