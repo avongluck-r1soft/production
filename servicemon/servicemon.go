@@ -27,12 +27,18 @@ type email struct {
 	SMTPPort             int
 }
 
-var serviceNames [...]string (
-	"r1ctl"
-	"r1rm"
-	"cdpserver"
-	"proftpd"
-)
+var serviceNames []string = []string{
+	"r1ctl",
+	"r1rm",
+	"cdpserver",
+	"proftpd",
+}
+
+func listServices() {
+	for i := range serviceNames {
+		fmt.Println(serviceNames[i])
+	}
+}
 
 
 func getNoreplyPassword() string {
@@ -44,7 +50,7 @@ func getNoreplyPassword() string {
 	return pw
 }
 
-func proftpdIsUp() bool {
+func proftpdIsDown() bool {
 	cmd := "ps -ef|grep [p]roftpd >/dev/null 2>&1; echo $?"
 
 	status, err := exec.Command("bash","-c",cmd).Output()
@@ -53,11 +59,11 @@ func proftpdIsUp() bool {
 	}
 
 	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
-	if i != 0 {
-		return false
+	if i == 0 {
+		return true
 	}
 
-	return true
+	return false
 }
 
 func proftpdRestarted() bool {
@@ -69,7 +75,7 @@ func proftpdRestarted() bool {
 
 	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
 	if i != 0 {
-		fmt.Printf("Unable to restart proftpd: " err.Error())
+		fmt.Printf("Unable to restart proftpd: ", err.Error())
 		return false
 	}
 	return true
@@ -89,6 +95,8 @@ func serviceIsDown(serviceName string) bool {
 }
 
 func main() {
+	
+	listServices()
 
 	e := email{}
 
