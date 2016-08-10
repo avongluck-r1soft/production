@@ -20,7 +20,7 @@ var directories []string = []string {
 	"/storage09/replication",
 }
 
-func checkDirInfo(dirname string) {
+func checkDirPerms(dirname string) {
 	hostname, _ := os.Hostname()
 	fileInfo, err := os.Lstat(dirname)
 	if err != nil {
@@ -63,6 +63,6 @@ func checkDirInfo(dirname string) {
 
 func main() {
 	for i := range directories {
-		checkDirInfo(directories[i])
+		checkDirPerms(directories[i])
 	}
 }
