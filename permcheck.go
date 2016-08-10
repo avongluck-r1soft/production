@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 var directories []string = []string {
@@ -27,12 +28,36 @@ func checkDirInfo(dirname string) {
 		return
 	}
 
+	mode := strings.Trim(fileInfo.Mode().Perm().String(), "\n")
+
 	if dirname == "/home/continuum" {
-		fmt.Println(hostname + " dir: " + dirname + " perms: \t\t", fileInfo.Mode())
+
+		wantedMode := "-rwxr-xr-x"
+		ret := strings.Compare(mode, wantedMode)
+		if ret == 0 {
+			fmt.Println("GOOD " + hostname + " " + dirname + " perms: \t\t", mode)
+		} else {
+			fmt.Println("BAD  " + hostname + " " + dirname + " perms: \t\t", mode)
+		}
+
 	} else if dirname == "/storage" {
-		fmt.Println(hostname + " dir: " + dirname + " perms: \t\t\t", fileInfo.Mode())
+
+		wantedMode := "-rwxrwxrwx"
+		ret := strings.Compare(mode, wantedMode)
+		if ret == 0 {
+			fmt.Println("GOOD " + hostname + " " + dirname + " perms: \t\t\t", mode)
+		} else {
+			fmt.Println("BAD  " + hostname + " " + dirname + " perms: \t\t\t", mode)
+		}
+
 	} else {
-		fmt.Println(hostname + " dir: "+dirname+" perms: \t", fileInfo.Mode())
+		wantedMode := "-rwx------"
+		ret := strings.Compare(mode, wantedMode)
+		if ret == 0 {
+			fmt.Println("GOOD " + hostname + " " + dirname + " perms: \t", mode)
+		} else {
+			fmt.Println("BAD  " + hostname + " " + dirname + " perms: \t", mode)
+		}
 	}
 }
 
