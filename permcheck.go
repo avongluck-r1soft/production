@@ -34,34 +34,21 @@ func checkDirPerms(dirname string) {
 
 	mode := strings.Trim(fileInfo.Mode().Perm().String(), "\n")
 
+	var wantedMode = ""
+
 	if dirname == "/home/continuum" {
-
-		wantedMode := "-rwxr-xr-x"
-		ret := strings.Compare(mode, wantedMode)
-		if ret == 0 {
-			fmt.Println("GOOD " + hostname + " " + dirname + " perms: \t\t", mode)
-		} else {
-			fmt.Println("BAD  " + hostname + " " + dirname + " perms: \t\t", mode)
-		}
-
+		wantedMode = "-rwxr-xr-x"
 	} else if dirname == "/storage" {
-
-		wantedMode := "-rwxrwxrwx"
-		ret := strings.Compare(mode, wantedMode)
-		if ret == 0 {
-			fmt.Println("GOOD " + hostname + " " + dirname + " perms: \t\t\t", mode)
-		} else {
-			fmt.Println("BAD  " + hostname + " " + dirname + " perms: \t\t\t", mode)
-		}
-
+		wantedMode = "-rwxrwxrwx"
 	} else {
-		wantedMode := "-rwx------"
-		ret := strings.Compare(mode, wantedMode)
-		if ret == 0 {
-			fmt.Println("GOOD " + hostname + " " + dirname + " perms: \t", mode)
-		} else {
-			fmt.Println("BAD  " + hostname + " " + dirname + " perms: \t", mode)
-		}
+		wantedMode = "-rwx------"
+	}
+
+	ret := strings.Compare(mode, wantedMode)
+	if ret == 0 {
+		fmt.Println("GOOD " + hostname + " " + dirname + " perms: \t\t", mode)
+	} else {
+		fmt.Println("BAD  " + hostname + " " + dirname + " perms: \t\t", mode)
 	}
 }
 
