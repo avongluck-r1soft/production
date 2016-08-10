@@ -7,6 +7,7 @@ import (
 )
 
 var directories []string = []string {
+
 	"/home/continuum",
 	"/storage",
 	"/storage01/replication",
@@ -18,10 +19,13 @@ var directories []string = []string {
 	"/storage07/replication",
 	"/storage08/replication",
 	"/storage09/replication",
+
 }
 
 func checkDirPerms(dirname string) {
+
 	hostname, _ := os.Hostname()
+
 	fileInfo, err := os.Lstat(dirname)
 	if err != nil {
 		fmt.Printf("Error getting directory info for dir: %s\n", dirname)
@@ -62,7 +66,9 @@ func checkDirPerms(dirname string) {
 }
 
 func main() {
+
 	for i := range directories {
 		checkDirPerms(directories[i])
 	}
+
 }
