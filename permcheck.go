@@ -50,6 +50,7 @@ func checkDirPerms(dirname string) {
 	} else {
 		fmt.Println("BAD  " + hostname + " " + dirname + " perms: \t\t", mode)
 	}
+
 }
 
 func main() {
