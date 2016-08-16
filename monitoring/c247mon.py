@@ -91,17 +91,25 @@ def check_swapspace(MAX_USED_SWAP):
 
 def check_diskspace(MAX_DISKSPACE_PCT):
 
+    # create a mount-point, usage dict (this is the same as a hash in perl)
+    #FS_USAGE = {}
+
     with open("/proc/mounts", "r") as f:
         for line in f:
             fs_spec, fs_file, fs_vfstype, fs_mntops, fs_freq, fs_passno = line.split()
             if fs_spec.startswith('/'):
                 r = os.statvfs(fs_file)
                 block_usage_pct = 100.0 - (float(r.f_bavail) / float(r.f_blocks) * 100)
+                print("DEBUG!!" + str(block_usage_pct))
+      
+                #FS_USAGE.append(
 
                 if block_usage_pct > MAX_DISKSPACE_PCT:
                     log_event("disk_space_/" + fs_spec + "DiskUsage high = " + block_usage_pct + " mount_point = " + fs_file)
 
                 print "%s\t%s\t\t%d%%" % (fs_spec, fs_file, block_usage_pct)
+
+    return "Hey not done here."
                  
                 
 if __name__ == "__main__":
