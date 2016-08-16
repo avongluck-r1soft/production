@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"syscall"
-	"encoding/json"
+	//"encoding/json"
 )
 
 type DiskStatus struct {
