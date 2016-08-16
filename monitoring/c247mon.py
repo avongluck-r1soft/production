@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
 from datetime import datetime
+from subprocess import Popen,PIPE,STDOUT
+
 import contextlib
 import commands
 import time
@@ -10,6 +12,7 @@ import psutil
 import logging
 import logging.handlers
 import os 
+import subprocess
 import sys
 
 """ globals begin """
@@ -48,7 +51,7 @@ def main():
         print("check_cpu             = " + str(check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT)))
         print("check_swapspace       = " + str(check_swapspace(MAX_USED_SWAP)))
         print("check_diskspace       = " + str(check_diskspace(MAX_DISKSPACE_PCT)))
-        print("check_service_running = " + str(check_service_running("r1rm")))
+        #print("check_service_running = " + str(check_service_running("r1rm")))
         print("check_service_running = " + str(check_service_running("apache2")))
 
         time.sleep(60)
@@ -111,23 +114,29 @@ def check_diskspace(MAX_DISKSPACE_PCT):
 
     return DF_OUTPUT
 
+def restart_service(name):
+    restartcmd = ['service', name, 'restart']
+    subprocess.call(restartcmd, shell=False)
+
 def check_service_running(name):
+
+    p = Popen(["service", name, "status"], stdout=PIPE)
+    output = p.communicate()[0]
     
-    service_status = commands.getstatusoutput('service ' + name + ' status >/dev/null 2>&1; echo $?')
-    print("DEBUG: " + str(service_status))
-    msg = name + " is UP"
+    if p.returncode != 0:
+        log_event("DEVOPS -- Service " + name + " is DOWN on " + hostname + ".")
 
-    if service_status != 0: 
-
-        msg = name + " is DOWN"
-        print(msg)
-        log_event("DEVOPS -- Service " + name + " is down on " + hostname + ".")
         log_event("Restarting " + name + " on " + hostname + ".")
+        restart_service(name)
+
         print("DEVOPS -- Service " + name + " is down on " + hostname + ".")
         print("Restarting " + name + " on " + hostname + ".")
+
     else: 
-        print msg
-    return msg
+
+        print("Service: " + name + " on " + hostname + " is UP.")
+        
+    return "OK"
 
 if __name__ == "__main__":
     main()
