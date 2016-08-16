@@ -117,10 +117,13 @@ def check_service_running(name):
         log_event("DEVOPS -- Service " + name + " is DOWN on " + hostname + ".")
         log_event("Restarting " + name + " on " + hostname + ".")
         restart_service(name)
+        return name + " DOWN"
     else: 
         print("Service: " + name + " on " + hostname + " is UP.")
         
-    return "OK"
+    return name + " UP"
+
+
 
 if __name__ == "__main__":
     main()
