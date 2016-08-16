@@ -45,7 +45,7 @@ def main():
         print("hostname        = " + hostname)
         print("ip_address      = " + ip_addr)
         print("check_cpu       = " + str(check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT)))
-        #print("check_swapspace = " + check_swapspace())
+        print("check_swapspace = " + str(check_swapspace(MAX_USED_SWAP)))
 
         time.sleep(60)
 
@@ -58,8 +58,9 @@ def check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT):
 
         if HIGH_CPU_COUNT >= MAX_HIGH_CPU_COUNT:
             log_event("DEVOPS -- WARNING " + hostname + " (" + ip_addr + ") ")
+            log_event("High CPU usage on : " + hostname + " ip: " + ip_addr)
 
-    log_event("DEVOPS -- WARNING " + hostname + " (" + ip_addr + ") ")
+    #log_event("DEVOPS -- WARNING " + hostname + " (" + ip_addr + ") ")
     return usage
 
 
@@ -77,8 +78,15 @@ def log_event(msg):
     my_logger.warn(msg)
   
     
-#def check_swapspace():
+def check_swapspace(MAX_USED_SWAP):
 
+    swap_inuse = psutil.swap_memory()
+
+    if swap_inuse.percent > MAX_USED_SWAP:
+        log_event("DEVOPS -- WARNING " + hostname + " (" + ip_addr + ") ")
+        log_event("High swap usage on : " + hostname + " ip: " + ip_addr)
+
+    return swap_inuse.percent
 
 if __name__ == "__main__":
     main()
