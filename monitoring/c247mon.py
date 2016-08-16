@@ -1,13 +1,15 @@
 #!/usr/bin/python
 
 from datetime import datetime
+import contextlib
 import time
 import socket
 import multiprocessing
 import psutil
 import logging
 import logging.handlers
-
+import os 
+import sys
 
 """ globals begin """
 hostname = socket.gethostname()
@@ -46,6 +48,7 @@ def main():
         print("ip_address      = " + ip_addr)
         print("check_cpu       = " + str(check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT)))
         print("check_swapspace = " + str(check_swapspace(MAX_USED_SWAP)))
+        print("check_diskspace = " + str(check_diskspace(MAX_DISKSPACE_PCT)))
 
         time.sleep(60)
 
@@ -88,6 +91,21 @@ def check_swapspace(MAX_USED_SWAP):
 
     return swap_inuse.percent
 
+def check_diskspace(MAX_DISKSPACE_PCT):
+
+    with open("/proc/mounts", "r") as f:
+        for line in f:
+            fs_spec, fs_file, fs_vfstype, fs_mntops, fs_freq, fs_passno = line.split()
+            if fs_spec.startswith('/'):
+                r = os.statvfs(fs_file)
+                block_usage_pct = 100.0 - (float(r.f_bavail) / float(r.f_blocks) * 100)
+
+                if block_usage_pct > MAX_DISKSPACE_PCT:
+                    log_event("disk_space_/" + fs_spec + "DiskUsage high = " + block_usage_pct + " mount_point = " + fs_file)
+
+                print "%s\t%s\t\t%d%%" % (fs_spec, fs_file, block_usage_pct)
+                 
+                
 if __name__ == "__main__":
     main()
 
