@@ -8,16 +8,19 @@ import psutil
 import logging
 import logging.handlers
 
-""" 
-globals begin 
 hostname = socket.gethostname()
+
+def get_ip_address(hostname):
+    
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect((hostname, 0))
+    return s.getsockname()[0]
+
 ip_addr  = get_ip_address(hostname)
-globals end  
-"""
 
 def main():
 
-    hostname = socket.gethostname()
+    #hostname = socket.gethostname()
     ip_addr  = get_ip_address(hostname)
     MAX_USED_SWAP      = 25
     HIGH_CPU_COUNT     = 0
@@ -42,12 +45,6 @@ def main():
 
         time.sleep(60)
 
-def get_ip_address(hostname):
-    
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect((hostname, 0))
-    return s.getsockname()[0]
-
 def check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT):
     
     usage = psutil.cpu_percent()
@@ -58,11 +55,16 @@ def check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT):
         if HIGH_CPU_COUNT >= MAX_HIGH_CPU_COUNT:
             log_event("DEVOPS -- WARNING " + hostname + " (" + ip_addr + ") ")
 
+    log_event("DEVOPS -- WARNING " + hostname + " (" + ip_addr + ") ")
     return usage
 
 
 def log_event(msg):
 
+    print("#### DEVOPS WARNING ####")
+    print("sending the following message to /var/log/syslog:")
+    print(msg)
+    print("#### DEVOPS WARNING ####")
     my_logger = logging.getLogger('EventLogger')
     my_logger.setLevel(logging.WARN)
 
