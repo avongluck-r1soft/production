@@ -8,6 +8,8 @@ import psutil
 import logging
 import logging.handlers
 
+
+""" globals begin """
 hostname = socket.gethostname()
 
 def get_ip_address(hostname):
@@ -17,6 +19,8 @@ def get_ip_address(hostname):
     return s.getsockname()[0]
 
 ip_addr  = get_ip_address(hostname)
+
+""" globals end  """
 
 def main():
 
