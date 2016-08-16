@@ -5,7 +5,15 @@ import time
 import socket
 import multiprocessing
 import psutil
+import logging
+import logging.handlers
 
+""" 
+globals begin 
+hostname = socket.gethostname()
+ip_addr  = get_ip_address(hostname)
+globals end  
+"""
 
 def main():
 
@@ -29,7 +37,7 @@ def main():
         print("\n########### " + now + " ###########\n")
         print("hostname        = " + hostname)
         print("ip_address      = " + ip_addr)
-        print("check_cpu       = " + str(check_cpu()))
+        print("check_cpu       = " + str(check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT)))
         #print("check_swapspace = " + check_swapspace())
 
         time.sleep(60)
@@ -40,16 +48,27 @@ def get_ip_address(hostname):
     s.connect((hostname, 0))
     return s.getsockname()[0]
 
-def check_cpu():
+def check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT):
     
-    cpu_used = psutil.cpu_percent()
+    usage = psutil.cpu_percent()
 
-    #if cpu_used > MAX_HIGH_CPU:
-    #    HIGH_CPU_COUNT = HIGH_CPU_COUNT + 1
-    #    if HIGH_CPU_COUNT >= MAX_HIGH_CPU_COUNT:
-            
+    if usage > MAX_HIGH_CPU:
+        HIGH_CPU_COUNT = HIGH_CPU_COUNT + 1
 
-    return cpu_used
+        if HIGH_CPU_COUNT >= MAX_HIGH_CPU_COUNT:
+            log_event("DEVOPS -- WARNING " + hostname + " (" + ip_addr + ") ")
+
+    return usage
+
+
+def log_event(msg):
+
+    my_logger = logging.getLogger('EventLogger')
+    my_logger.setLevel(logging.WARN)
+
+    handler = logging.handlers.SysLogHandler(address='/dev/log')
+    my_logger.addHandler(handler)
+    my_logger.warn(msg)
   
     
 #def check_swapspace():
