@@ -49,6 +49,7 @@ def main():
         print("check_swapspace       = " + str(check_swapspace(MAX_USED_SWAP)))
         print("check_diskspace       = " + str(check_diskspace(MAX_DISKSPACE_PCT)))
         print("check_service_running = " + str(check_service_running("r1rm")))
+        print("check_service_running = " + str(check_service_running("apache2")))
 
         time.sleep(60)
 
@@ -114,11 +115,19 @@ def check_diskspace(MAX_DISKSPACE_PCT):
 def check_service_running(name):
     
     service_status = commands.getstatusoutput('service ' + name + ' status >/dev/null 2>&1; echo $?')
-    if service_status == 1:
+    print("DEBUG: " + str(service_status))
+    msg = name + " is UP"
+
+    if service_status != 0: 
+
+        msg = name + " is DOWN"
+        print(msg)
         log_event("DEVOPS -- Service " + name + " is down on " + hostname + ".")
         log_event("Restarting " + name + " on " + hostname + ".")
-
-    msg = name + " is up"
+        print("DEVOPS -- Service " + name + " is down on " + hostname + ".")
+        print("Restarting " + name + " on " + hostname + ".")
+    else: 
+        print msg
 
     return msg
                  
