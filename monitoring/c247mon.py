@@ -26,8 +26,6 @@ ip_addr  = get_ip_address(hostname)
 
 def main():
 
-    #hostname = socket.gethostname()
-    ip_addr  = get_ip_address(hostname)
     MAX_USED_SWAP      = 25
     HIGH_CPU_COUNT     = 0
     MAX_HIGH_CPU_COUNT = 10  
