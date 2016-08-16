@@ -51,13 +51,12 @@ def main():
         print("check_cpu             = " + str(check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT)))
         print("check_swapspace       = " + str(check_swapspace(MAX_USED_SWAP)))
         print("check_diskspace       = " + str(check_diskspace(MAX_DISKSPACE_PCT)))
-        #print("check_service_running = " + str(check_service_running("r1rm")))
+        print("check_service_running = " + str(check_service_running("r1rm")))
         print("check_service_running = " + str(check_service_running("apache2")))
 
         time.sleep(60)
 
 def check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT):
-    
     usage = psutil.cpu_percent()
 
     if usage > MAX_HIGH_CPU:
@@ -71,7 +70,6 @@ def check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT):
 
 
 def log_event(msg):
-
     print("#### DEVOPS WARNING ####")
     print("sending the following message to /var/log/syslog:")
     print(msg)
@@ -85,7 +83,6 @@ def log_event(msg):
   
     
 def check_swapspace(MAX_USED_SWAP):
-
     swap_inuse = psutil.swap_memory()
 
     if swap_inuse.percent > MAX_USED_SWAP:
@@ -119,7 +116,6 @@ def restart_service(name):
     subprocess.call(restartcmd, shell=False)
 
 def check_service_running(name):
-
     p = Popen(["service", name, "status"], stdout=PIPE)
     output = p.communicate()[0]
     
