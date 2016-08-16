@@ -19,7 +19,6 @@ import sys
 hostname = socket.gethostname()
 
 def get_ip_address(hostname):
-    
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect((hostname, 0))
     return s.getsockname()[0]
@@ -29,7 +28,6 @@ ip_addr  = get_ip_address(hostname)
 """ globals end  """
 
 def main():
-
     MAX_USED_SWAP      = 25
     HIGH_CPU_COUNT     = 0
     MAX_HIGH_CPU_COUNT = 10  
@@ -43,7 +41,6 @@ def main():
     running = True
 
     while running:
-
         now = str(datetime.now())
         print("\n############### " + now + " ###############\n")
         print("hostname              = " + hostname)
@@ -92,7 +89,6 @@ def check_swapspace(MAX_USED_SWAP):
     return swap_inuse.percent
 
 def check_diskspace(MAX_DISKSPACE_PCT):
-
     DF_OUTPUT = {}
 
     with open("/proc/mounts", "r") as f:
@@ -107,8 +103,6 @@ def check_diskspace(MAX_DISKSPACE_PCT):
                 if block_usage_pct > MAX_DISKSPACE_PCT:
                     log_event("DEVOPS -- disk_space_/" + fs_spec + "DiskUsage high = " + block_usage_pct + " mount_point = " + fs_file)
 
-                print("%s\t%s\t%d%%" % (fs_spec, fs_file, block_usage_pct))
-
     return DF_OUTPUT
 
 def restart_service(name):
@@ -121,12 +115,9 @@ def check_service_running(name):
     
     if p.returncode != 0:
         log_event("DEVOPS -- Service " + name + " is DOWN on " + hostname + ".")
-
         log_event("Restarting " + name + " on " + hostname + ".")
         restart_service(name)
-
     else: 
-
         print("Service: " + name + " on " + hostname + " is UP.")
         
     return "OK"
