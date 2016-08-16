@@ -64,7 +64,6 @@ def check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT):
             log_event("DEVOPS -- WARNING " + hostname + " (" + ip_addr + ") ")
             log_event("High CPU usage on : " + hostname + " ip: " + ip_addr)
 
-    #log_event("DEVOPS -- WARNING " + hostname + " (" + ip_addr + ") ")
     return usage
 
 
@@ -128,9 +127,8 @@ def check_service_running(name):
         print("Restarting " + name + " on " + hostname + ".")
     else: 
         print msg
-
     return msg
-                 
+
 if __name__ == "__main__":
     main()
 
