@@ -50,8 +50,25 @@ def main():
         print("check_diskspace       = " + str(check_diskspace(MAX_DISKSPACE_PCT)))
         print("check_service_running = " + str(check_service_running("r1rm")))
         print("check_service_running = " + str(check_service_running("apache2")))
+        print("get_system_type       = " + get_system_type())
 
         time.sleep(60)
+
+def get_system_type():
+    if os.path.exists("/opt/r1soft/r1rm/bin/r1rm"):
+        return "r1rm"
+    if os.path.exists("/opt/r1soft/r1cm/bin/r1cm"):
+        return "r1cm"
+    if os.path.exists("/opt/r1soft/ftp/home"):
+        return "ftp"
+    if os.path.exists("/usr/sbin/r1soft/bin/cdpserver"):
+        return "csbm"
+    """ make sure this works!!! it's a glob() in the original perl """
+    if os.path.exists("/opt/apache-cassandra*"):
+        return "cassandra"
+    if os.path.exists("/var/lib/tftpboot/pxelinux.0"):
+        return "pxe"
+    return "unknown"
 
 def check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT):
     usage = psutil.cpu_percent()
