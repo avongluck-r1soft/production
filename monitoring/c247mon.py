@@ -15,6 +15,7 @@ import os
 import subprocess
 import sys
 
+
 """ globals begin """
 hostname = socket.gethostname()
 
@@ -26,6 +27,7 @@ def get_ip_address(hostname):
 ip_addr  = get_ip_address(hostname)
 
 """ globals end  """
+
 
 def main():
     MAX_USED_SWAP      = 25
@@ -54,6 +56,7 @@ def main():
 
         time.sleep(60)
 
+
 def get_system_type():
     if os.path.exists("/opt/r1soft/r1rm/bin/r1rm"):
         return "r1rm"
@@ -69,6 +72,7 @@ def get_system_type():
     if os.path.exists("/var/lib/tftpboot/pxelinux.0"):
         return "pxe"
     return "unknown"
+
 
 def check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT):
     usage = psutil.cpu_percent()
@@ -105,6 +109,7 @@ def check_swapspace(MAX_USED_SWAP):
 
     return swap_inuse.percent
 
+
 def check_diskspace(MAX_DISKSPACE_PCT):
     DF_OUTPUT = {}
 
@@ -121,6 +126,7 @@ def check_diskspace(MAX_DISKSPACE_PCT):
                     log_event("DEVOPS -- disk_space_/" + fs_spec + "DiskUsage high = " + block_usage_pct + " mount_point = " + fs_file)
 
     return DF_OUTPUT
+
 
 def restart_service(name):
     restartcmd = ['service', name, 'restart']
@@ -139,7 +145,6 @@ def check_service_running(name):
         print("Service: " + name + " on " + hostname + " is UP.")
         
     return name + " is UP on " + hostname
-
 
 
 if __name__ == "__main__":
