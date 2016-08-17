@@ -108,6 +108,7 @@ def check_diskspace(MAX_DISKSPACE_PCT):
 def restart_service(name):
     restartcmd = ['service', name, 'restart']
     subprocess.call(restartcmd, shell=False)
+    log_event(name + " service restarted on " + hostname)
 
 def check_service_running(name):
     p = Popen(["service", name, "status"], stdout=PIPE)
@@ -115,13 +116,12 @@ def check_service_running(name):
     
     if p.returncode != 0:
         log_event("DEVOPS -- Service " + name + " is DOWN on " + hostname + ".")
-        log_event("Restarting " + name + " on " + hostname + ".")
         restart_service(name)
-        return name + " DOWN"
+        return name + " is DOWN on " + hostname
     else: 
         print("Service: " + name + " on " + hostname + " is UP.")
         
-    return name + " UP"
+    return name + " is UP on " + hostname
 
 
 
