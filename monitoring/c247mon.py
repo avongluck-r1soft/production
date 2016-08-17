@@ -34,7 +34,8 @@ def main():
     HIGH_CPU_COUNT     = 0
     MAX_HIGH_CPU_COUNT = 10  
     MAX_HIGH_CPU       = 75
-    MAX_DISKSPACE_PCT  = 70
+    #MAX_DISKSPACE_PCT  = 70
+    MAX_DISKSPACE_PCT  = 2
     MAX_OPEN_FILES     = 20000
     MAX_SOCKETS        = 20000
     MAX_PROCS          = 2500
@@ -51,7 +52,8 @@ def main():
         print("check_swapspace       = " + str(check_swapspace(MAX_USED_SWAP)))
         print("check_diskspace       = " + str(check_diskspace(MAX_DISKSPACE_PCT)))
         print("check_service_running = " + str(check_service_running("r1rm")))
-        print("check_service_running = " + str(check_service_running("apache2")))
+        print("check_service_running = " + str(check_service_running("apache2")))  # test on local machine
+        print("check_service_running = " + str(check_service_running("ufw")))
         print("get_system_type       = " + get_system_type())
 
         time.sleep(60)
@@ -81,7 +83,7 @@ def check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT):
         HIGH_CPU_COUNT = HIGH_CPU_COUNT + 1
 
         if HIGH_CPU_COUNT >= MAX_HIGH_CPU_COUNT:
-            log_event("DEVOPS -- WARNING " + hostname + " (" + ip_addr + ") ")
+            log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " ")
             log_event("High CPU usage on : " + hostname + " ip: " + ip_addr)
 
     return usage
@@ -104,7 +106,7 @@ def check_swapspace(MAX_USED_SWAP):
     swap_inuse = psutil.swap_memory()
 
     if swap_inuse.percent > MAX_USED_SWAP:
-        log_event("DEVOPS -- WARNING " + hostname + " (" + ip_addr + ") ")
+        log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " ")
         log_event("High swap usage on : " + hostname + " ip: " + ip_addr)
 
     return swap_inuse.percent
@@ -123,7 +125,8 @@ def check_diskspace(MAX_DISKSPACE_PCT):
                 DF_OUTPUT[fs_file] = block_usage_pct
       
                 if block_usage_pct > MAX_DISKSPACE_PCT:
-                    log_event("DEVOPS -- disk_space_/" + fs_spec + "DiskUsage high = " + block_usage_pct + " mount_point = " + fs_file)
+                    #log_event("DEVOPS -- disk_space_/" + fs_spec + "DiskUsage high = " + block_usage_pct + " mount_point = " + fs_file)
+                    print("ALERT!")
 
     return DF_OUTPUT
 
@@ -145,6 +148,11 @@ def check_service_running(name):
         print("Service: " + name + " on " + hostname + " is UP.")
         
     return name + " is UP on " + hostname
+
+def enable_ufw():
+    cmd = ['ufw', 'enable']
+    subprocess.call(cmd, shell=False)
+    log_event("DEVOPS -- ufw enabled.")
 
 
 if __name__ == "__main__":
