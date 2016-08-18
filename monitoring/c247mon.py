@@ -25,7 +25,6 @@ def get_ip_address(hostname):
     return s.getsockname()[0]
 
 ip_addr  = get_ip_address(hostname)
-
 """ globals end  """
 
 
@@ -34,8 +33,7 @@ def main():
     HIGH_CPU_COUNT     = 0
     MAX_HIGH_CPU_COUNT = 10  
     MAX_HIGH_CPU       = 75
-    #MAX_DISKSPACE_PCT  = 70
-    MAX_DISKSPACE_PCT  = 1
+    MAX_DISKSPACE_PCT  = 70
     MAX_OPEN_FILES     = 20000
     MAX_SOCKETS        = 20000
     MAX_PROCS          = 2500
