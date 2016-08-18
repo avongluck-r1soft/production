@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 	"syscall"
+
 	"gopkg.in/gomail.v2"
 )
 
@@ -92,7 +93,7 @@ func main() {
 
 	pw := strings.Trim(getNoreplyPassword(), "\n")
 
-	THRESHHOLD := float64(85.0)
+	THRESHHOLD := float64(90.0)
 
 	if (rootIsFull(THRESHHOLD)) {
 		fmt.Printf("Jenkins - sbjenkins root directory is FULL.\n")
