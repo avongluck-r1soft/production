@@ -35,7 +35,7 @@ def main():
     MAX_HIGH_CPU_COUNT = 10  
     MAX_HIGH_CPU       = 75
     #MAX_DISKSPACE_PCT  = 70
-    MAX_DISKSPACE_PCT  = 2
+    MAX_DISKSPACE_PCT  = 1
     MAX_OPEN_FILES     = 20000
     MAX_SOCKETS        = 20000
     MAX_PROCS          = 2500
@@ -125,8 +125,8 @@ def check_diskspace(MAX_DISKSPACE_PCT):
                 DF_OUTPUT[fs_file] = block_usage_pct
       
                 if block_usage_pct > MAX_DISKSPACE_PCT:
-                    #log_event("DEVOPS -- disk_space_/" + fs_spec + "DiskUsage high = " + block_usage_pct + " mount_point = " + fs_file)
-                    print("ALERT!")
+                    print("DEVOPS -- " + hostname + " ALERT! " + str(fs_file) + " -> " + str(block_usage_pct))
+                    log_event("DEVOPS -- " + hostname + " ALERT " + str(fs_file) + " -> " + str(block_usage_pct))
 
     return DF_OUTPUT
 
@@ -149,10 +149,10 @@ def check_service_running(name):
         
     return name + " is UP on " + hostname
 
-def enable_ufw():
-    cmd = ['ufw', 'enable']
-    subprocess.call(cmd, shell=False)
-    log_event("DEVOPS -- ufw enabled.")
+#def enable_ufw():
+#    cmd = ['ufw', 'enable']
+#    subprocess.call(cmd, shell=False)
+#    log_event("DEVOPS -- ufw enabled.")
 
 
 if __name__ == "__main__":
