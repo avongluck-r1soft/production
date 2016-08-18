@@ -12,52 +12,6 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
-func getDiskSpace(path string) (total, free int, err error) {
-	s := syscall.Statfs_t{}
-	err = syscall.Statfs(path, &s)
-	if err != nil {
-		fmt.Printf("%s\n", err.Error())
-	}
-	total = int(s.Bsize) * int(s.Blocks)
-	free  = int(s.Bsize) * int(s.Bfree)
-	return
-}
-
-func getNoreplyPassword() string {
-	file, err := ioutil.ReadFile("/home/zadmin/bin/.noreplypw")
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	pw := string(file)
-	return pw
-}
-
-func rootIsFull(THRESHHOLD float64) bool {
-	total, free, _ := getDiskSpace("/")
-	pctUsed := float64(100.00) - ( float64(free) / float64(total) * 100.0 )
-	if pctUsed >= THRESHHOLD {
-		fmt.Printf("percent used for root filesystem, /, on sbjenkins: %.2f\n", pctUsed)
-		return true
-	} 
-	return false
-}
-
-func jenkinsIsDown() bool {
-	cmd := "ps -ef|grep [j]enkinsci >/dev/null 2>&1; echo $?"
-	status, err := exec.Command("bash","-c",cmd).Output()
-	if err != nil {
-		fmt.Sprintf("Failed to execute command: %s", cmd)
-	}
-
-	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
-	// grep failed if $? is not equal to 0 from cmd above then process is DOWN
-	if i != 0 { 
-		fmt.Printf("jenkinsci process DOWN on sbjenkins! Restart and investigate.\n")
-		return true
-	} 
-	return false
-}
-
 type email struct {
 	From              string
 	NoReplyAcct       string
@@ -72,6 +26,56 @@ type email struct {
 	SMTPServer        string
 	SMTPPort          int
 }
+
+
+func getDiskSpace(path string) (total, free int, err error) {
+	s := syscall.Statfs_t{}
+	err = syscall.Statfs(path, &s)
+	if err != nil {
+		fmt.Printf("%s\n", err.Error())
+	}
+	total = int(s.Bsize) * int(s.Blocks)
+	free  = int(s.Bsize) * int(s.Bfree)
+	return
+}
+
+
+func getNoreplyPassword() string {
+	file, err := ioutil.ReadFile("/home/zadmin/bin/.noreplypw")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	pw := string(file)
+	return pw
+}
+
+
+func rootIsFull(THRESHHOLD float64) bool {
+	total, free, _ := getDiskSpace("/")
+	pctUsed := float64(100.00) - ( float64(free) / float64(total) * 100.0 )
+	if pctUsed >= THRESHHOLD {
+		fmt.Printf("percent used for root filesystem, /, on sbjenkins: %.2f\n", pctUsed)
+		return true
+	} 
+	return false
+}
+
+
+func jenkinsIsDown() bool {
+	cmd := "ps -ef|grep [j]enkinsci >/dev/null 2>&1; echo $?"
+	status, err := exec.Command("bash","-c",cmd).Output()
+	if err != nil {
+		fmt.Sprintf("Failed to execute command: %s", cmd)
+	}
+
+	i, _ := strconv.Atoi(strings.Trim(string(status), "\n"))
+	if i != 0 { 
+		fmt.Printf("jenkinsci process DOWN on sbjenkins! Restart and investigate.\n")
+		return true
+	} 
+	return false
+}
+
 
 func main() {
 
