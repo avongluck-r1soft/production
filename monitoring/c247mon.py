@@ -199,7 +199,8 @@ def check_ufw_rules():
     ret = filecmp.cmp("/tmp/.ufw_status", "/opt/r1soft/devops/rules")
     if ret == False:
         log_event("DEVOPS -- ufw incorrectly configured on " + hostname) 
-    
+        return "ufw status BROKEN on " + hostname
+
     return "ufw status OK on " + hostname
         
 
