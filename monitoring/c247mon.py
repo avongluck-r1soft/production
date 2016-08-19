@@ -16,7 +16,7 @@ import subprocess
 import sys
 
 
-""" globals """
+""" globals BEGIN """
 hostname = socket.gethostname()
 
 def get_ip_address(hostname):
@@ -26,12 +26,9 @@ def get_ip_address(hostname):
 
 ip_addr  = get_ip_address(hostname)
 
-MAX_HIGH_CPU_COUNT = 10  
-HIGH_CPU_COUNT     = 0
-MAX_OPEN_FILES     = 20000
-MAX_SOCKETS        = 20000
-MAX_CM_QUEUE       = 300
-
+HIGH_CPU_COUNT = 0
+MAX_CM_QUEUE   = 300
+""" globals END """
 
 def main():
 
@@ -40,12 +37,15 @@ def main():
     while running:
         now = str(datetime.now())
         print("\n############### " + now + " ###############\n")
+
         print("hostname              = " + hostname)
         print("ip_address            = " + ip_addr)
         print("check_cpu             = " + str(check_cpu()))
         print("check_swapspace       = " + str(check_swapspace()))
         print("check_diskspace       = " + str(check_diskspace()))
         print("check_num_processes   = " + str(check_num_processes()))
+        print("check_max_open_files  = " + str(check_max_open_files()))
+        print("check_num_sockets     = " + str(check_num_sockets()))
         print("check_service_running = " + str(check_service_running("r1rm")))
         print("check_service_running = " + str(check_service_running("apache2")))  # test on local machine
         print("check_service_running = " + str(check_service_running("ufw")))
@@ -157,10 +157,26 @@ def check_service_running(name):
 def check_num_processes():
     num_procs = len(psutil.pids())
     if num_procs > 2500:
-        log_event("DEVOPS -- too many processes running on host: " + hostname)
+        log_event("DEVOPS -- high number of processes on " + hostname + " : " + num_procs)
 
     return num_procs
 
+def check_max_open_files():
+    with open ("/proc/sys/fs/file-nr") as f:
+        for line in f:
+            allocated, free, maximum, = line.split()
+
+    if allocated > 20000:
+        log_event("DEVOPS -- high number of open files on " + hostname + " : " + str(allocated))
+
+    return allocated, free, maximum
+
+def check_num_sockets():
+    MAX_SOCKETS = 20000
+    num_sockets = subprocess.call('netstat -np|wc -l', shell=True)
+    print("DEBUG: " + str(num_sockets))
+    return num_sockets
+    
 
 #def enable_ufw():
 #    cmd = ['ufw', 'enable']
