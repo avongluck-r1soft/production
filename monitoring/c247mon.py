@@ -26,15 +26,10 @@ def get_ip_address(hostname):
 
 ip_addr  = get_ip_address(hostname)
 
-MAX_USED_SWAP      = 25
 MAX_HIGH_CPU_COUNT = 10  
 HIGH_CPU_COUNT     = 0
-#MAX_HIGH_CPU       = 75
-MAX_HIGH_CPU       = 1    # testing
-MAX_DISKSPACE_PCT  = 70
 MAX_OPEN_FILES     = 20000
 MAX_SOCKETS        = 20000
-MAX_PROCS          = 2500
 MAX_CM_QUEUE       = 300
 
 
@@ -47,17 +42,16 @@ def main():
         print("\n############### " + now + " ###############\n")
         print("hostname              = " + hostname)
         print("ip_address            = " + ip_addr)
-        print("check_cpu             = " + str(check_cpu(MAX_HIGH_CPU)))
-        print("DEBUG: HIGH_CPU_COUNT -> " + str(HIGH_CPU_COUNT))
-        print("check_swapspace       = " + str(check_swapspace(MAX_USED_SWAP)))
-        print("check_diskspace       = " + str(check_diskspace(MAX_DISKSPACE_PCT)))
+        print("check_cpu             = " + str(check_cpu()))
+        print("check_swapspace       = " + str(check_swapspace()))
+        print("check_diskspace       = " + str(check_diskspace()))
+        print("check_num_processes   = " + str(check_num_processes()))
         print("check_service_running = " + str(check_service_running("r1rm")))
         print("check_service_running = " + str(check_service_running("apache2")))  # test on local machine
         print("check_service_running = " + str(check_service_running("ufw")))
         print("get_system_type       = " + get_system_type())
 
-        #time.sleep(60)
-        time.sleep(4)
+        time.sleep(60)
 
 
 def get_system_type():
@@ -77,20 +71,20 @@ def get_system_type():
     return "unknown"
 
 
-def check_cpu(MAX_HIGH_CPU):
-    usage = psutil.cpu_percent()
+def check_cpu():
+    global HIGH_CPU_COUNT 
+    cpu_usage = psutil.cpu_percent()
 
-    global HIGH_CPU_COUNT
-    global MAX_HIGH_CPU_COUNT
+    THRESHHOLD = 75
 
-    if usage > MAX_HIGH_CPU:
+    if cpu_usage > THRESHHOLD:
         HIGH_CPU_COUNT += 1
 
-    if HIGH_CPU_COUNT >= MAX_HIGH_CPU_COUNT:
+    if HIGH_CPU_COUNT >= 10:
         log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " ")
         log_event("High CPU usage on : " + hostname + " ip: " + ip_addr)
 
-    return usage
+    return cpu_usage
 
 
 def log_event(msg):
@@ -106,7 +100,10 @@ def log_event(msg):
     my_logger.warn(msg)
   
     
-def check_swapspace(MAX_USED_SWAP):
+def check_swapspace():
+
+    MAX_USED_SWAP = 25
+
     swap_inuse = psutil.swap_memory()
 
     if swap_inuse.percent > MAX_USED_SWAP:
@@ -116,8 +113,10 @@ def check_swapspace(MAX_USED_SWAP):
     return swap_inuse.percent
 
 
-def check_diskspace(MAX_DISKSPACE_PCT):
+def check_diskspace():
     DF_OUTPUT = {}
+
+    MAX_DISKSPACE_PCT = 70
 
     with open("/proc/mounts", "r") as f:
         for line in f:
@@ -140,6 +139,7 @@ def restart_service(name):
     subprocess.call(restartcmd, shell=False)
     log_event(name + " service restarted on " + hostname)
 
+
 def check_service_running(name):
     p = Popen(["service", name, "status"], stdout=PIPE)
     output = p.communicate()[0]
@@ -153,6 +153,15 @@ def check_service_running(name):
         
     return name + " is UP on " + hostname
 
+
+def check_num_processes():
+    num_procs = len(psutil.pids())
+    if num_procs > 2500:
+        log_event("DEVOPS -- too many processes running on host: " + hostname)
+
+    return num_procs
+
+
 #def enable_ufw():
 #    cmd = ['ufw', 'enable']
 #    subprocess.call(cmd, shell=False)
@@ -161,4 +170,3 @@ def check_service_running(name):
 
 if __name__ == "__main__":
     main()
-
