@@ -196,12 +196,5 @@ def check_num_sockets():
     
     return num_sockets
 
-
-#def enable_ufw():
-#    cmd = ['ufw', 'enable']
-#    subprocess.call(cmd, shell=False)
-#    log_event("DEVOPS -- ufw enabled.")
-
-
 if __name__ == "__main__":
     main()
