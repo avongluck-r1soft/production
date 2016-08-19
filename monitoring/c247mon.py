@@ -5,6 +5,7 @@ from subprocess import Popen,PIPE,STDOUT
 
 import contextlib
 import commands
+import filecmp
 import time
 import socket
 import multiprocessing
@@ -62,12 +63,13 @@ def main():
             print("check_service_running = " + str(check_service_running("apparmor")))
             
 
-        #print("check_service_running = " + str(check_service_running("logentries")))
+       #print("check_service_running = " + str(check_service_running("logentries")))
         print("check_service_running = " + str(check_service_running("networking")))
         print("check_service_running = " + str(check_service_running("ssh")))
         print("check_service_running = " + str(check_service_running("fail2ban")))
         print("check_service_running = " + str(check_service_running("rsyslog")))
         print("check_service_running = " + str(check_service_running("ufw")))
+        print("check_ufw_rules       = " + str(check_ufw_rules()))
 
         time.sleep(60)
 
@@ -84,8 +86,6 @@ def get_system_type():
     """ make sure this works!!! it's a glob() in the original perl """
     if os.path.exists("/opt/apache-cassandra*"):
         return "cassandra"
-    if os.path.exists("/var/lib/tftpboot/pxelinux.0"):
-        return "pxe"
     return "unknown"
 
 
@@ -193,6 +193,15 @@ def check_num_sockets():
         log_event("DEVOPS -- high number of open network connections on " + hostname + " : " + str(num_sockets))
     
     return num_sockets
+
+def check_ufw_rules():
+    os.system('ufw status > /tmp/.ufw_status')
+    ret = filecmp.cmp("/tmp/.ufw_status", "/opt/r1soft/devops/rules")
+    if ret == False:
+        log_event("DEVOPS -- ufw incorrectly configured on " + hostname) 
+    
+    return "ufw status OK on " + hostname
+        
 
 if __name__ == "__main__":
     main()
