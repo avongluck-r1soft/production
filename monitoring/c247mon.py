@@ -68,7 +68,9 @@ def main():
         print("check_service_running = " + str(check_service_running("fail2ban")))
         print("check_service_running = " + str(check_service_running("rsyslog")))
         print("check_service_running = " + str(check_service_running("ufw")))
-        print("check_ufw_rules       = " + str(check_ufw_rules()))
+
+	if os.path.exists("/opt/r1soft/devops/rules"):
+            print("check_ufw_rules       = " + str(check_ufw_rules()))
 
         time.sleep(60)
 
@@ -91,8 +93,7 @@ def get_system_type():
 def check_cpu():
     global HIGH_CPU_COUNT 
     cpu_usage = psutil.cpu_percent()
-    #THRESHHOLD = 75
-    THRESHHOLD = 1
+    THRESHHOLD = 75
 
     if cpu_usage > THRESHHOLD:
         log_event("High CPU usage on : " + hostname + " ip: " + ip_addr)
