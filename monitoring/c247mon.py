@@ -63,7 +63,6 @@ def main():
             print("check_service_running = " + str(check_service_running("apparmor")))
             
 
-       #print("check_service_running = " + str(check_service_running("logentries")))
         print("check_service_running = " + str(check_service_running("networking")))
         print("check_service_running = " + str(check_service_running("ssh")))
         print("check_service_running = " + str(check_service_running("fail2ban")))
@@ -92,14 +91,16 @@ def get_system_type():
 def check_cpu():
     global HIGH_CPU_COUNT 
     cpu_usage = psutil.cpu_percent()
-    THRESHHOLD = 75
+    #THRESHHOLD = 75
+    THRESHHOLD = 1
 
     if cpu_usage > THRESHHOLD:
+        log_event("High CPU usage on : " + hostname + " ip: " + ip_addr)
         HIGH_CPU_COUNT += 1
 
     if HIGH_CPU_COUNT >= 10:
         log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " ")
-        log_event("High CPU usage on : " + hostname + " ip: " + ip_addr)
+        log_event("Prolonged high CPU usage on : " + hostname + " ip: " + ip_addr)
 
     return cpu_usage
 
@@ -126,7 +127,6 @@ def check_swapspace():
 
 def check_diskspace():
     DF_OUTPUT = {}
-
     MAX_DISKSPACE_PCT = 70
 
     with open("/proc/mounts", "r") as f:
