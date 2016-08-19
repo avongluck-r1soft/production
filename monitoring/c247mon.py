@@ -32,6 +32,7 @@ HIGH_CPU_COUNT = 0
 def main():
 
     running = True
+    system_type = get_system_type()
 
     while running:
         now = str(datetime.now())
@@ -45,10 +46,28 @@ def main():
         print("check_num_processes   = " + str(check_num_processes()))
         print("check_max_open_files  = " + str(check_max_open_files()))
         print("check_num_sockets     = " + str(check_num_sockets()))
-        print("check_service_running = " + str(check_service_running("r1rm")))
-        print("check_service_running = " + str(check_service_running("apache2")))  # test on local machine
+
+        if system_type == "r1rm":
+            print("check_service_running = " + str(check_service_running("r1rm")))
+            print("check_service_running = " + str(check_service_running("apparmor")))
+
+        if system_type == "r1cm":
+            print("check_service_running = " + str(check_service_running("r1cm")))
+            print("check_service_running = " + str(check_service_running("apparmor")))
+
+        if system_type == "csbm":
+            print("check_service_running = " + str(check_service_running("r1ctl")))
+            print("check_service_running = " + str(check_service_running("cdp-server")))
+            print("check_service_running = " + str(check_service_running("virtualbox")))
+            print("check_service_running = " + str(check_service_running("apparmor")))
+            
+
+        print("check_service_running = " + str(check_service_running("logentries")))
+        print("check_service_running = " + str(check_service_running("networking")))
+        print("check_service_running = " + str(check_service_running("ssh")))
+        print("check_service_running = " + str(check_service_running("fail2ban")))
+        print("check_service_running = " + str(check_service_running("rsyslog")))
         print("check_service_running = " + str(check_service_running("ufw")))
-        print("get_system_type       = " + get_system_type())
 
         time.sleep(60)
 
@@ -73,7 +92,6 @@ def get_system_type():
 def check_cpu():
     global HIGH_CPU_COUNT 
     cpu_usage = psutil.cpu_percent()
-
     THRESHHOLD = 75
 
     if cpu_usage > THRESHHOLD:
@@ -93,18 +111,14 @@ def log_event(msg):
     print("#### DEVOPS WARNING ####")
     my_logger = logging.getLogger('EventLogger')
     my_logger.setLevel(logging.WARN)
-
     handler = logging.handlers.SysLogHandler(address='/dev/log')
     my_logger.addHandler(handler)
     my_logger.warn(msg)
   
     
 def check_swapspace():
-
     MAX_USED_SWAP = 25
-
     swap_inuse = psutil.swap_memory()
-
     if swap_inuse.percent > MAX_USED_SWAP:
         log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " ")
         log_event("High swap usage on : " + hostname + " ip: " + ip_addr)
@@ -154,8 +168,9 @@ def check_service_running(name):
 
 
 def check_num_processes():
+    MAXPROCS = 2500
     num_procs = len(psutil.pids())
-    if num_procs > 2500:
+    if int(num_procs) > MAXPROCS:
         log_event("DEVOPS -- high number of processes on " + hostname + " : " + num_procs)
 
     return num_procs
@@ -166,7 +181,7 @@ def check_max_open_files():
         for line in f:
             allocated, free, maximum, = line.split()
 
-    if allocated > 20000:
+    if int(allocated) > 20000:
         log_event("DEVOPS -- high number of open files on " + hostname + " : " + str(allocated))
 
     return allocated, free, maximum
@@ -176,7 +191,7 @@ def check_num_sockets():
     MAX_SOCKETS = 20000
     num_sockets = len(psutil.net_connections())
 
-    if num_sockets > MAX_SOCKETS:
+    if int(num_sockets) > MAX_SOCKETS:
         log_event("DEVOPS -- high number of open network connections on " + hostname + " : " + str(num_sockets))
     
     return num_sockets
