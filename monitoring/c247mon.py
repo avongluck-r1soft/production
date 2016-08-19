@@ -61,13 +61,16 @@ def main():
             print("check_service_running = " + str(check_service_running("cdp-server")))
             print("check_service_running = " + str(check_service_running("virtualbox")))
             print("check_service_running = " + str(check_service_running("apparmor")))
-            
+
+        if system_type == "cassandra":
+            print("check_service_running = " + str(check_service_running("cassandra")))
 
         print("check_service_running = " + str(check_service_running("networking")))
         print("check_service_running = " + str(check_service_running("ssh")))
         print("check_service_running = " + str(check_service_running("fail2ban")))
         print("check_service_running = " + str(check_service_running("rsyslog")))
         print("check_service_running = " + str(check_service_running("ufw")))
+
 
 	if os.path.exists("/opt/r1soft/devops/rules"):
             print("check_ufw_rules       = " + str(check_ufw_rules()))
@@ -84,8 +87,7 @@ def get_system_type():
         return "ftp"
     if os.path.exists("/usr/sbin/r1soft/bin/cdpserver"):
         return "csbm"
-    """ make sure this works!!! it's a glob() in the original perl """
-    if os.path.exists("/opt/apache-cassandra*"):
+    if os.path.exists("/etc/sysctl.d/cassandra.conf")
         return "cassandra"
     return "unknown"
 
