@@ -87,7 +87,7 @@ def get_system_type():
         return "ftp"
     if os.path.exists("/usr/sbin/r1soft/bin/cdpserver"):
         return "csbm"
-    if os.path.exists("/etc/sysctl.d/cassandra.conf")
+    if os.path.exists("/etc/sysctl.d/cassandra.conf"):
         return "cassandra"
     return "unknown"
 
