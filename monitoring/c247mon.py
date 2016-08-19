@@ -16,7 +16,7 @@ import subprocess
 import sys
 
 
-""" globals begin """
+""" globals """
 hostname = socket.gethostname()
 
 def get_ip_address(hostname):
@@ -25,19 +25,20 @@ def get_ip_address(hostname):
     return s.getsockname()[0]
 
 ip_addr  = get_ip_address(hostname)
-""" globals end  """
+
+MAX_USED_SWAP      = 25
+MAX_HIGH_CPU_COUNT = 10  
+HIGH_CPU_COUNT     = 0
+#MAX_HIGH_CPU       = 75
+MAX_HIGH_CPU       = 1    # testing
+MAX_DISKSPACE_PCT  = 70
+MAX_OPEN_FILES     = 20000
+MAX_SOCKETS        = 20000
+MAX_PROCS          = 2500
+MAX_CM_QUEUE       = 300
 
 
 def main():
-    MAX_USED_SWAP      = 25
-    HIGH_CPU_COUNT     = 0
-    MAX_HIGH_CPU_COUNT = 10  
-    MAX_HIGH_CPU       = 75
-    MAX_DISKSPACE_PCT  = 70
-    MAX_OPEN_FILES     = 20000
-    MAX_SOCKETS        = 20000
-    MAX_PROCS          = 2500
-    MAX_CM_QUEUE       = 300
 
     running = True
 
@@ -46,7 +47,8 @@ def main():
         print("\n############### " + now + " ###############\n")
         print("hostname              = " + hostname)
         print("ip_address            = " + ip_addr)
-        print("check_cpu             = " + str(check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT)))
+        print("check_cpu             = " + str(check_cpu(MAX_HIGH_CPU)))
+        print("DEBUG: HIGH_CPU_COUNT -> " + str(HIGH_CPU_COUNT))
         print("check_swapspace       = " + str(check_swapspace(MAX_USED_SWAP)))
         print("check_diskspace       = " + str(check_diskspace(MAX_DISKSPACE_PCT)))
         print("check_service_running = " + str(check_service_running("r1rm")))
@@ -54,7 +56,8 @@ def main():
         print("check_service_running = " + str(check_service_running("ufw")))
         print("get_system_type       = " + get_system_type())
 
-        time.sleep(60)
+        #time.sleep(60)
+        time.sleep(4)
 
 
 def get_system_type():
@@ -74,15 +77,18 @@ def get_system_type():
     return "unknown"
 
 
-def check_cpu(MAX_HIGH_CPU, HIGH_CPU_COUNT):
+def check_cpu(MAX_HIGH_CPU):
     usage = psutil.cpu_percent()
 
-    if usage > MAX_HIGH_CPU:
-        HIGH_CPU_COUNT = HIGH_CPU_COUNT + 1
+    global HIGH_CPU_COUNT
+    global MAX_HIGH_CPU_COUNT
 
-        if HIGH_CPU_COUNT >= MAX_HIGH_CPU_COUNT:
-            log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " ")
-            log_event("High CPU usage on : " + hostname + " ip: " + ip_addr)
+    if usage > MAX_HIGH_CPU:
+        HIGH_CPU_COUNT += 1
+
+    if HIGH_CPU_COUNT >= MAX_HIGH_CPU_COUNT:
+        log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " ")
+        log_event("High CPU usage on : " + hostname + " ip: " + ip_addr)
 
     return usage
 
