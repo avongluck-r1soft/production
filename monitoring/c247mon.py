@@ -173,8 +173,11 @@ def check_max_open_files():
 
 def check_num_sockets():
     MAX_SOCKETS = 20000
-    num_sockets = subprocess.call('netstat -np|wc -l', shell=True)
-    print("DEBUG: " + str(num_sockets))
+    num_sockets = len(psutil.net_connections())
+
+    if num_sockets > MAX_SOCKETS:
+        log_event("DEVOPS -- high number of open network connections on " + hostname + " : " + str(num_sockets))
+    
     return num_sockets
     
 
