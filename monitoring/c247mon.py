@@ -62,7 +62,7 @@ def main():
             print("check_service_running = " + str(check_service_running("apparmor")))
             
 
-        print("check_service_running = " + str(check_service_running("logentries")))
+        #print("check_service_running = " + str(check_service_running("logentries")))
         print("check_service_running = " + str(check_service_running("networking")))
         print("check_service_running = " + str(check_service_running("ssh")))
         print("check_service_running = " + str(check_service_running("fail2ban")))
@@ -106,9 +106,7 @@ def check_cpu():
 
 def log_event(msg):
     print("#### DEVOPS WARNING ####")
-    print("sending the following message to /var/log/syslog:")
     print(msg)
-    print("#### DEVOPS WARNING ####")
     my_logger = logging.getLogger('EventLogger')
     my_logger.setLevel(logging.WARN)
     handler = logging.handlers.SysLogHandler(address='/dev/log')
