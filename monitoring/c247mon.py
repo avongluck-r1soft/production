@@ -27,7 +27,6 @@ def get_ip_address(hostname):
 ip_addr  = get_ip_address(hostname)
 
 HIGH_CPU_COUNT = 0
-MAX_CM_QUEUE   = 300
 """ globals END """
 
 def main():
@@ -161,6 +160,7 @@ def check_num_processes():
 
     return num_procs
 
+
 def check_max_open_files():
     with open ("/proc/sys/fs/file-nr") as f:
         for line in f:
@@ -171,6 +171,7 @@ def check_max_open_files():
 
     return allocated, free, maximum
 
+
 def check_num_sockets():
     MAX_SOCKETS = 20000
     num_sockets = len(psutil.net_connections())
@@ -179,7 +180,7 @@ def check_num_sockets():
         log_event("DEVOPS -- high number of open network connections on " + hostname + " : " + str(num_sockets))
     
     return num_sockets
-    
+
 
 #def enable_ufw():
 #    cmd = ['ufw', 'enable']
