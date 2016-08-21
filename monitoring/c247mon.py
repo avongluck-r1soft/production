@@ -9,12 +9,12 @@ import filecmp
 import time
 import socket
 import multiprocessing
-#import psutil    
 import logging
 import logging.handlers
 import os 
 import subprocess
 import sys
+#import psutil    
 
 
 """ globals BEGIN """
@@ -50,10 +50,10 @@ def run_command(str):
 
 def check_cpu(THRESHHOLD):
     global HIGH_CPU_COUNT 
-    #cpu_usage = psutil.cpu_percent()
+    #cpu_usage = psutil.cpu_percent()    Can't use psutil, it isn't in prod. 
     cpu_usage = run_command("top -bn5|awk \'/Cpu/{sum+=$2}END{print sum/5}\'")
 
-    if cpu_usage > THRESHHOLD:
+    if float(cpu_usage) > THRESHHOLD:
         log_event("High CPU usage on : " + hostname + " ip: " + ip_addr)
         HIGH_CPU_COUNT += 1
 
@@ -77,7 +77,7 @@ def log_event(msg):
 def check_swapspace(THRESHHOLD):
     swap_inuse = run_command("swapon -s | awk '/dev/ {print ($4/$3 * 100.0)}'")
 
-    if swap_inuse > THRESHHOLD:
+    if float(swap_inuse) > THRESHHOLD:
         log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " ")
         log_event("High swap usage on : " + hostname + " ip: " + ip_addr)
 
@@ -96,7 +96,7 @@ def check_diskspace(THRESHHOLD):
 
                 DF_OUTPUT[fs_file] = block_usage_pct
       
-                if block_usage_pct > THRESHHOLD:
+                if float(block_usage_pct) > THRESHHOLD:
                     print("DEVOPS -- " + hostname + " ALERT! " + str(fs_file) + " -> " + str(block_usage_pct))
                     log_event("DEVOPS -- " + hostname + " ALERT " + str(fs_file) + " -> " + str(block_usage_pct))
 
@@ -117,9 +117,7 @@ def check_service_running(name):
         log_event("DEVOPS -- Service " + name + " is DOWN on " + hostname + ".")
         restart_service(name)
         return name + " is DOWN on " + hostname
-    else: 
-        print("Service: " + name + " on " + hostname + " is UP.")
-        
+
     return name + " is UP on " + hostname
 
 
