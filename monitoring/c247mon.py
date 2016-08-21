@@ -24,7 +24,7 @@ def get_ip_address(hostname):
     s.connect((hostname, 0))
     return s.getsockname()[0]
 
-ip_addr  = get_ip_address(hostname)
+ip_addr = get_ip_address(hostname)
 
 HIGH_CPU_COUNT = 0
 """ globals END """
