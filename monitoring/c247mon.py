@@ -30,60 +30,6 @@ ip_addr  = get_ip_address(hostname)
 HIGH_CPU_COUNT = 0
 """ globals END """
 
-def main():
-
-    MAX_CPU        = 75
-    MAX_DISK       = 70
-    MAX_SWAP       = 25
-    MAX_OPEN_FILES = 20000
-    MAX_SOCKETS    = 20000
-    MAX_PROCS      = 2500
-
-    running = True
-    system_type = get_system_type()
-
-    while running:
-        now = str(datetime.now())
-        print("\n############### " + now + " ###############\n")
-
-        print("hostname              = " + hostname)
-        print("ip_address            = " + ip_addr)
-        print("check_cpu             = " + str(check_cpu(MAX_CPU)))
-        print("check_swapspace       = " + str(check_swapspace(MAX_SWAP)))
-        print("check_diskspace       = " + str(check_diskspace(MAX_DISK)))
-        print("check_num_processes   = " + str(check_num_processes(MAX_PROCS)))
-        print("check_max_open_files  = " + str(check_max_open_files(MAX_OPEN_FILES)))
-        print("check_num_sockets     = " + str(check_num_sockets(MAX_SOCKETS)))
-
-        if system_type == "r1rm":
-            print("check_service_running = " + str(check_service_running("r1rm")))
-            print("check_service_running = " + str(check_service_running("apparmor")))
-
-        if system_type == "r1cm":
-            print("check_service_running = " + str(check_service_running("r1cm")))
-            print("check_service_running = " + str(check_service_running("apparmor")))
-
-        if system_type == "csbm":
-            print("check_service_running = " + str(check_service_running("r1ctl")))
-            print("check_service_running = " + str(check_service_running("cdp-server")))
-            print("check_service_running = " + str(check_service_running("virtualbox")))
-            print("check_service_running = " + str(check_service_running("apparmor")))
-
-        if system_type == "cassandra":
-            print("check_service_running = " + str(check_service_running("cassandra")))
-
-        print("check_service_running = " + str(check_service_running("networking")))
-        print("check_service_running = " + str(check_service_running("ssh")))
-        print("check_service_running = " + str(check_service_running("fail2ban")))
-        print("check_service_running = " + str(check_service_running("rsyslog")))
-        print("check_service_running = " + str(check_service_running("ufw")))
-
-
-	if os.path.exists("/opt/r1soft/devops/rules"):
-            print("check_ufw_rules       = " + str(check_ufw_rules()))
-
-        time.sleep(60)
-
 
 def get_system_type():
     if os.path.exists("/opt/r1soft/r1rm/bin/r1rm"):
@@ -215,6 +161,64 @@ def check_ufw_rules():
 
     return "ufw status OK on " + hostname
         
+def main():
+
+    MAX_CPU        = 75
+    MAX_DISK       = 70
+    MAX_SWAP       = 25
+    MAX_OPEN_FILES = 20000
+    MAX_SOCKETS    = 20000
+    MAX_PROCS      = 2500
+
+    running = True
+    system_type = get_system_type()
+
+    while running:
+        now = str(datetime.now())
+        print("\n############### " + now + " ###############\n")
+
+        print("hostname              = " + hostname)
+        print("system_type           = " + system_type)
+        print("ip_address            = " + ip_addr)
+        print("check_cpu             = " + str(check_cpu(MAX_CPU)))
+        print("check_swapspace       = " + str(check_swapspace(MAX_SWAP)))
+        print("check_diskspace       = " + str(check_diskspace(MAX_DISK)))
+        print("check_num_processes   = " + str(check_num_processes(MAX_PROCS)))
+        print("check_max_open_files  = " + str(check_max_open_files(MAX_OPEN_FILES)))
+        print("check_num_sockets     = " + str(check_num_sockets(MAX_SOCKETS)))
+        
+        if system_type == "r1rm":
+            print("check_service_running = " + str(check_service_running("r1rm")))
+            print("check_service_running = " + str(check_service_running("apparmor")))
+
+        if system_type == "r1cm":
+            print("check_service_running = " + str(check_service_running("r1cm")))
+            print("check_service_running = " + str(check_service_running("apparmor")))
+
+        if system_type == "csbm":
+            print("check_service_running = " + str(check_service_running("r1ctl")))
+            print("check_service_running = " + str(check_service_running("cdp-server")))
+            print("check_service_running = " + str(check_service_running("virtualbox")))
+            print("check_service_running = " + str(check_service_running("apparmor")))
+
+        if system_type == "cassandra":
+            print("check_service_running = " + str(check_service_running("cassandra")))
+
+        if system_type == "ftp":
+            print("check_service_running = " + str(check_service_running("proftpd")))
+
+        # These services should be running everywhere.
+        print("check_service_running = " + str(check_service_running("networking")))
+        print("check_service_running = " + str(check_service_running("ssh")))
+        print("check_service_running = " + str(check_service_running("fail2ban")))
+        print("check_service_running = " + str(check_service_running("rsyslog")))
+        print("check_service_running = " + str(check_service_running("ufw")))
+	
+	if os.path.exists("/opt/r1soft/devops/rules"):
+            print("check_ufw_rules       = " + str(check_ufw_rules()))
+
+        time.sleep(60)
+
 
 if __name__ == "__main__":
     main()
