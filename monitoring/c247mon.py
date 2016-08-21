@@ -109,7 +109,6 @@ def check_service_running(name):
     output = p.communicate()[0]
     
     if p.returncode != 0:
-        print("DEVOPS -- Service " + name + " is DOWN on " + hostname + ".")
         log_event("DEVOPS -- Service " + name + " is DOWN on " + hostname + ".")
         restart_service(name)
         return name + " is DOWN on " + hostname
@@ -214,4 +213,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        sys.exit()
+
+        
