@@ -48,28 +48,28 @@ def main():
         print("check_max_open_files  = " + str(check_max_open_files()))
         print("check_num_sockets     = " + str(check_num_sockets()))
 
-        #if system_type == "r1rm":
-        #    print("check_service_running = " + str(check_service_running("r1rm")))
-        #    print("check_service_running = " + str(check_service_running("apparmor")))
+        if system_type == "r1rm":
+            print("check_service_running = " + str(check_service_running("r1rm")))
+            print("check_service_running = " + str(check_service_running("apparmor")))
 
-        #if system_type == "r1cm":
-        #    print("check_service_running = " + str(check_service_running("r1cm")))
-        #    print("check_service_running = " + str(check_service_running("apparmor")))
+        if system_type == "r1cm":
+            print("check_service_running = " + str(check_service_running("r1cm")))
+            print("check_service_running = " + str(check_service_running("apparmor")))
 
-        #if system_type == "csbm":
-        #    print("check_service_running = " + str(check_service_running("r1ctl")))
-        #    print("check_service_running = " + str(check_service_running("cdp-server")))
-        #    print("check_service_running = " + str(check_service_running("virtualbox")))
-        #    print("check_service_running = " + str(check_service_running("apparmor")))
+        if system_type == "csbm":
+            print("check_service_running = " + str(check_service_running("r1ctl")))
+            print("check_service_running = " + str(check_service_running("cdp-server")))
+            print("check_service_running = " + str(check_service_running("virtualbox")))
+            print("check_service_running = " + str(check_service_running("apparmor")))
 
-        #if system_type == "cassandra":
-        #    print("check_service_running = " + str(check_service_running("cassandra")))
+        if system_type == "cassandra":
+            print("check_service_running = " + str(check_service_running("cassandra")))
 
-        #print("check_service_running = " + str(check_service_running("networking")))
-        #print("check_service_running = " + str(check_service_running("ssh")))
-        #print("check_service_running = " + str(check_service_running("fail2ban")))
-        #print("check_service_running = " + str(check_service_running("rsyslog")))
-        #print("check_service_running = " + str(check_service_running("ufw")))
+        print("check_service_running = " + str(check_service_running("networking")))
+        print("check_service_running = " + str(check_service_running("ssh")))
+        print("check_service_running = " + str(check_service_running("fail2ban")))
+        print("check_service_running = " + str(check_service_running("rsyslog")))
+        print("check_service_running = " + str(check_service_running("ufw")))
 
 
 	if os.path.exists("/opt/r1soft/devops/rules"):
