@@ -74,7 +74,7 @@ def check_swapspace(THRESHHOLD):
     swap_inuse = run_command("swapon -s | awk '/dev/ {print ($4/$3 * 100.0)}'")
 
     if float(swap_inuse) > THRESHHOLD:
-        log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " High swap usage.")
+        log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " High swap usage: " + str(swap_inuse).rstrip() + "%")
 
     return float(swap_inuse)
 
