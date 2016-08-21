@@ -63,7 +63,7 @@ def check_host_entries():
 		    LOCAL.append(host)
                     print color_message.OK + "  OK: found " + host + " in /etc/hosts file."
 
-    if found_hosts == 2:
+    if found_hosts == len(R1HOSTS): 
         print color_message.OK + "  OK: found both R1 hosts in /etc/hosts file."
     else:
         for host in R1HOSTS:
