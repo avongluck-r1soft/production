@@ -41,35 +41,35 @@ def main():
 
         print("hostname              = " + hostname)
         print("ip_address            = " + ip_addr)
-        print("check_cpu             = " + str(check_cpu()))
+        print("check_cpu             = " + str(check_cpu()) + "%")
         print("check_swapspace       = " + str(check_swapspace()))
         print("check_diskspace       = " + str(check_diskspace()))
         print("check_num_processes   = " + str(check_num_processes()))
         print("check_max_open_files  = " + str(check_max_open_files()))
         print("check_num_sockets     = " + str(check_num_sockets()))
 
-        if system_type == "r1rm":
-            print("check_service_running = " + str(check_service_running("r1rm")))
-            print("check_service_running = " + str(check_service_running("apparmor")))
+        #if system_type == "r1rm":
+        #    print("check_service_running = " + str(check_service_running("r1rm")))
+        #    print("check_service_running = " + str(check_service_running("apparmor")))
 
-        if system_type == "r1cm":
-            print("check_service_running = " + str(check_service_running("r1cm")))
-            print("check_service_running = " + str(check_service_running("apparmor")))
+        #if system_type == "r1cm":
+        #    print("check_service_running = " + str(check_service_running("r1cm")))
+        #    print("check_service_running = " + str(check_service_running("apparmor")))
 
-        if system_type == "csbm":
-            print("check_service_running = " + str(check_service_running("r1ctl")))
-            print("check_service_running = " + str(check_service_running("cdp-server")))
-            print("check_service_running = " + str(check_service_running("virtualbox")))
-            print("check_service_running = " + str(check_service_running("apparmor")))
+        #if system_type == "csbm":
+        #    print("check_service_running = " + str(check_service_running("r1ctl")))
+        #    print("check_service_running = " + str(check_service_running("cdp-server")))
+        #    print("check_service_running = " + str(check_service_running("virtualbox")))
+        #    print("check_service_running = " + str(check_service_running("apparmor")))
 
-        if system_type == "cassandra":
-            print("check_service_running = " + str(check_service_running("cassandra")))
+        #if system_type == "cassandra":
+        #    print("check_service_running = " + str(check_service_running("cassandra")))
 
-        print("check_service_running = " + str(check_service_running("networking")))
-        print("check_service_running = " + str(check_service_running("ssh")))
-        print("check_service_running = " + str(check_service_running("fail2ban")))
-        print("check_service_running = " + str(check_service_running("rsyslog")))
-        print("check_service_running = " + str(check_service_running("ufw")))
+        #print("check_service_running = " + str(check_service_running("networking")))
+        #print("check_service_running = " + str(check_service_running("ssh")))
+        #print("check_service_running = " + str(check_service_running("fail2ban")))
+        #print("check_service_running = " + str(check_service_running("rsyslog")))
+        #print("check_service_running = " + str(check_service_running("ufw")))
 
 
 	if os.path.exists("/opt/r1soft/devops/rules"):
@@ -185,17 +185,21 @@ def check_max_open_files():
     if int(allocated) > 20000:
         log_event("DEVOPS -- high number of open files on " + hostname + " : " + str(allocated))
 
-    return allocated, free, maximum
+    #return allocated, free, maximum
+    return allocated
 
+def run_command(str):
+    process = Popen(args=str, stdout=PIPE, shell=True)
+    return process.communicate()[0]
 
 def check_num_sockets():
     MAX_SOCKETS = 20000
-    num_sockets = len(psutil.net_connections())
+    num_sockets = run_command('netstat -na|wc -l')
 
     if int(num_sockets) > MAX_SOCKETS:
         log_event("DEVOPS -- high number of open network connections on " + hostname + " : " + str(num_sockets))
     
-    return num_sockets
+    return int(num_sockets)
 
 def check_ufw_rules():
     os.system('ufw status > /tmp/.ufw_status')
