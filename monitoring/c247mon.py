@@ -92,7 +92,6 @@ def check_diskspace(THRESHHOLD):
                 DF_OUTPUT[fs_file] = block_usage_pct
       
                 if float(block_usage_pct) > THRESHHOLD:
-                    print("DEVOPS -- WARNING " + hostname + " " + str(fs_file) + " -> " + str(block_usage_pct) + " disk space usage exceeded")
                     log_event("DEVOPS -- WARNING " + hostname + " " + str(fs_file) + " -> " + str(block_usage_pct) + " disk space usage exceeded")
 
     return DF_OUTPUT
