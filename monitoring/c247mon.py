@@ -14,7 +14,6 @@ import logging.handlers
 import os 
 import subprocess
 import sys
-#import psutil    
 
 
 """ globals BEGIN """
@@ -50,7 +49,6 @@ def run_command(str):
 
 def check_cpu(THRESHHOLD):
     global HIGH_CPU_COUNT 
-    #cpu_usage = psutil.cpu_percent()    Can't use psutil, it isn't in prod. 
     cpu_usage = run_command("top -bn5|awk \'/Cpu/{sum+=$2}END{print sum/5}\'")
 
     if float(cpu_usage) > THRESHHOLD:
@@ -122,7 +120,6 @@ def check_service_running(name):
 
 
 def check_num_processes(THRESHHOLD):
-    #num_procs = len(psutil.pids())
     num_procs = run_command('ps -dfeal|wc -l')
 
     if int(num_procs) > THRESHHOLD:
