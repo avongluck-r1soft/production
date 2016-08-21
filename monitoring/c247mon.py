@@ -63,7 +63,6 @@ def check_cpu(THRESHHOLD):
 
 
 def log_event(msg):
-    print("#### DEVOPS WARNING ####")
     print(msg)
     my_logger = logging.getLogger('EventLogger')
     my_logger.setLevel(logging.WARN)
