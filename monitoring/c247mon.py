@@ -9,7 +9,7 @@ import filecmp
 import time
 import socket
 import multiprocessing
-import psutil
+#import psutil    
 import logging
 import logging.handlers
 import os 
@@ -32,6 +32,13 @@ HIGH_CPU_COUNT = 0
 
 def main():
 
+    MAX_CPU        = 75
+    MAX_DISK       = 70
+    MAX_SWAP       = 25
+    MAX_OPEN_FILES = 20000
+    MAX_SOCKETS    = 20000
+    MAX_PROCS      = 2500
+
     running = True
     system_type = get_system_type()
 
@@ -41,12 +48,12 @@ def main():
 
         print("hostname              = " + hostname)
         print("ip_address            = " + ip_addr)
-        print("check_cpu             = " + str(check_cpu()) + "%")
-        print("check_swapspace       = " + str(check_swapspace()))
-        print("check_diskspace       = " + str(check_diskspace()))
-        print("check_num_processes   = " + str(check_num_processes()))
-        print("check_max_open_files  = " + str(check_max_open_files()))
-        print("check_num_sockets     = " + str(check_num_sockets()))
+        print("check_cpu             = " + str(check_cpu(MAX_CPU)))
+        print("check_swapspace       = " + str(check_swapspace(MAX_SWAP)))
+        print("check_diskspace       = " + str(check_diskspace(MAX_DISK)))
+        print("check_num_processes   = " + str(check_num_processes(MAX_PROCS)))
+        print("check_max_open_files  = " + str(check_max_open_files(MAX_OPEN_FILES)))
+        print("check_num_sockets     = " + str(check_num_sockets(MAX_SOCKETS)))
 
         if system_type == "r1rm":
             print("check_service_running = " + str(check_service_running("r1rm")))
@@ -91,11 +98,14 @@ def get_system_type():
         return "cassandra"
     return "unknown"
 
+def run_command(str):
+    process = Popen(args=str, stdout=PIPE, shell=True)
+    return process.communicate()[0]
 
-def check_cpu():
+def check_cpu(THRESHHOLD):
     global HIGH_CPU_COUNT 
-    cpu_usage = psutil.cpu_percent()
-    THRESHHOLD = 75
+    #cpu_usage = psutil.cpu_percent()
+    cpu_usage = run_command("top -bn5|awk \'/Cpu/{sum+=$2}END{print sum/5}\'")
 
     if cpu_usage > THRESHHOLD:
         log_event("High CPU usage on : " + hostname + " ip: " + ip_addr)
@@ -105,7 +115,7 @@ def check_cpu():
         log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " ")
         log_event("Prolonged high CPU usage on : " + hostname + " ip: " + ip_addr)
 
-    return cpu_usage
+    return float(cpu_usage)
 
 
 def log_event(msg):
@@ -118,19 +128,18 @@ def log_event(msg):
     my_logger.warn(msg)
   
     
-def check_swapspace():
-    MAX_USED_SWAP = 25
-    swap_inuse = psutil.swap_memory()
-    if swap_inuse.percent > MAX_USED_SWAP:
+def check_swapspace(THRESHHOLD):
+    swap_inuse = run_command("swapon -s | awk '/dev/ {print ($4/$3 * 100.0)}'")
+
+    if swap_inuse > THRESHHOLD:
         log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " ")
         log_event("High swap usage on : " + hostname + " ip: " + ip_addr)
 
-    return swap_inuse.percent
+    return float(swap_inuse)
 
 
-def check_diskspace():
+def check_diskspace(THRESHHOLD):
     DF_OUTPUT = {}
-    MAX_DISKSPACE_PCT = 70
 
     with open("/proc/mounts", "r") as f:
         for line in f:
@@ -141,7 +150,7 @@ def check_diskspace():
 
                 DF_OUTPUT[fs_file] = block_usage_pct
       
-                if block_usage_pct > MAX_DISKSPACE_PCT:
+                if block_usage_pct > THRESHHOLD:
                     print("DEVOPS -- " + hostname + " ALERT! " + str(fs_file) + " -> " + str(block_usage_pct))
                     log_event("DEVOPS -- " + hostname + " ALERT " + str(fs_file) + " -> " + str(block_usage_pct))
 
@@ -168,35 +177,31 @@ def check_service_running(name):
     return name + " is UP on " + hostname
 
 
-def check_num_processes():
-    MAXPROCS = 2500
-    num_procs = len(psutil.pids())
-    if int(num_procs) > MAXPROCS:
+def check_num_processes(THRESHHOLD):
+    #num_procs = len(psutil.pids())
+    num_procs = run_command('ps -dfeal|wc -l')
+
+    if int(num_procs) > THRESHHOLD:
         log_event("DEVOPS -- high number of processes on " + hostname + " : " + num_procs)
 
-    return num_procs
+    return int(num_procs)
 
 
-def check_max_open_files():
+def check_max_open_files(THRESHHOLD):
     with open ("/proc/sys/fs/file-nr") as f:
         for line in f:
             allocated, free, maximum, = line.split()
 
-    if int(allocated) > 20000:
+    if int(allocated) > THRESHHOLD:
         log_event("DEVOPS -- high number of open files on " + hostname + " : " + str(allocated))
 
     #return allocated, free, maximum
     return allocated
 
-def run_command(str):
-    process = Popen(args=str, stdout=PIPE, shell=True)
-    return process.communicate()[0]
-
-def check_num_sockets():
-    MAX_SOCKETS = 20000
+def check_num_sockets(THRESHHOLD):
     num_sockets = run_command('netstat -na|wc -l')
 
-    if int(num_sockets) > MAX_SOCKETS:
+    if int(num_sockets) > THRESHHOLD:
         log_event("DEVOPS -- high number of open network connections on " + hostname + " : " + str(num_sockets))
     
     return int(num_sockets)
