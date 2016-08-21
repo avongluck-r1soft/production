@@ -98,6 +98,14 @@ def check_diskspace(THRESHHOLD):
 
 
 def restart_service(name):
+    #
+    # Do not restart core services if they are down. 
+    # Get engineering involved to help troubleshoot service crashes. 
+    #
+    if name == "r1rm" or name == "cdpserver" or name == "cdp-server" or name == "r1cm":
+        log_event("DEVOPS -- restart_service will not restart " + name + " on " + hostname)
+	return 
+    
     restartcmd = ['service', name, 'restart']
     subprocess.call(restartcmd, shell=False)
     log_event(name + " service restarted on " + hostname)
