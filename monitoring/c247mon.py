@@ -52,12 +52,11 @@ def check_cpu(THRESHHOLD):
     cpu_usage = run_command("top -bn5|awk \'/Cpu/{sum+=$2}END{print sum/5}\'")
 
     if float(cpu_usage) > THRESHHOLD:
-        log_event("High CPU usage on : " + hostname + " ip: " + ip_addr)
+        log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " High CPU usage.")
         HIGH_CPU_COUNT += 1
 
     if HIGH_CPU_COUNT >= 10:
-        log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " ")
-        log_event("Prolonged high CPU usage on : " + hostname + " ip: " + ip_addr)
+        log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " Prolonged high CPU usage.")
 
     return float(cpu_usage)
 
@@ -75,8 +74,7 @@ def check_swapspace(THRESHHOLD):
     swap_inuse = run_command("swapon -s | awk '/dev/ {print ($4/$3 * 100.0)}'")
 
     if float(swap_inuse) > THRESHHOLD:
-        log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " ")
-        log_event("High swap usage on : " + hostname + " ip: " + ip_addr)
+        log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " High swap usage.")
 
     return float(swap_inuse)
 
@@ -94,8 +92,8 @@ def check_diskspace(THRESHHOLD):
                 DF_OUTPUT[fs_file] = block_usage_pct
       
                 if float(block_usage_pct) > THRESHHOLD:
-                    print("DEVOPS -- " + hostname + " ALERT! " + str(fs_file) + " -> " + str(block_usage_pct))
-                    log_event("DEVOPS -- " + hostname + " ALERT " + str(fs_file) + " -> " + str(block_usage_pct))
+                    print("DEVOPS -- WARNING " + hostname + " " + str(fs_file) + " -> " + str(block_usage_pct) + " disk space usage exceeded"))
+                    log_event("DEVOPS -- WARNING " + hostname + " " + str(fs_file) + " -> " + str(block_usage_pct) + " disk space usage exceede")
 
     return DF_OUTPUT
 
@@ -111,6 +109,7 @@ def check_service_running(name):
     output = p.communicate()[0]
     
     if p.returncode != 0:
+        print("DEVOPS -- Service " + name + " is DOWN on " + hostname + ".")
         log_event("DEVOPS -- Service " + name + " is DOWN on " + hostname + ".")
         restart_service(name)
         return name + " is DOWN on " + hostname
