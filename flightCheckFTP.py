@@ -3,6 +3,7 @@
 from subprocess import Popen,PIPE,STDOUT
 
 import subprocess
+import sys
 
 class color_message:
     OK   = '\033[92m'
@@ -15,7 +16,7 @@ def run_command(str):
 
 def check_host_keys():
 
-    FAILURES = 0
+    failures = 0
 
     print("Host Keys in /usr/sbin/r1soft/etc/server.allow dir:")
 
@@ -36,45 +37,58 @@ def check_host_keys():
             print color_message.FAIL + "Add key using the following command:"
             print color_message.FAIL + "wget --no-check-certificate https://" + sbm + ":8443/public_info -O /usr/sbin/r1soft/etc/server.allow/" + sbm
 
-	    FAILURES += 1
+	    failures += 1
         else: 
             print color_message.OK + "  OK: " + sbm
 
-    return FAILURES
+    return failures
 
 
 #
 # check for r1rm and r1cm host entries
 #
 def check_host_entries():
- 
-    FAILURES = 0
-    FOUND = 0
+
+    failures = 0
+    found_hosts = 0
 
     R1HOSTS = [ "r1rm_prod.itsupport247.net", "r1cm_prod.itsupport247.net" ]
-
     LOCAL = []
 
     with open("/etc/hosts", "r") as f:
         for line in f:
             for host in R1HOSTS:
                 if host in line:
-                    FOUND += 1
+                    found_hosts += 1
 		    LOCAL.append(host)
                     print color_message.OK + "  OK: found " + host + " in /etc/hosts file."
 
-    if FOUND == 2:
+    if found_hosts == 2:
         print color_message.OK + "  OK: found both R1 hosts in /etc/hosts file."
     else:
         for host in R1HOSTS:
             if host not in LOCAL:
-                FAILURES += 1
+                failures += 1
                 print color_message.FAIL + " FAIL: missing " + host + " in /etc/hosts file."
 
-    return FAILURES
+    return failures
 
-TOTAL_FAILURES = []
-TOTAL_FAILURES.append(check_host_keys())
-TOTAL_FAILURES.append(check_host_entries())
+def main():
+    TOTAL_FAILURES = []
+    TOTAL_FAILURES.append(check_host_keys())
+    TOTAL_FAILURES.append(check_host_entries())
 
-print color_message.FAIL + str(sum(TOTAL_FAILURES)) + " total failures in flightCheckFTP."
+    SUM = sum(TOTAL_FAILURES)
+
+    if SUM > 0:
+        print color_message.FAIL + "FAIL: " + str(SUM) + " total failures in flightCheckFTP."
+    else:
+        print color_message.OK + "  OK: zero issues on this FTP server."
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        sys.exit()
+
