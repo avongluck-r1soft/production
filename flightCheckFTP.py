@@ -29,11 +29,11 @@ def check_host_keys():
 
     for sbm in sbms:
         if sbm not in installed_host_keys:
-            print color_message.FAIL + "host key for " + sbm + " not present in /usr/sbin/r1soft/etc/server.allow dir..."
-            print color_message.FAIL + "Add it using the following command:"
-            print color_message.FAIL + "wget --no-check-certificate https://" + sbm + ":8443/public_info -O /usr/sbin/r1soft/conf/server.allow/" + sbm
+            print color_message.FAIL + "FAIL: " + sbm + " -- host key not present in /usr/sbin/r1soft/etc/server.allow dir..."
+            print color_message.FAIL + "Add key using the following command:"
+            print color_message.FAIL + "wget --no-check-certificate https://" + sbm + ":8443/public_info -O /usr/sbin/r1soft/etc/server.allow/" + sbm
         else: 
-            print color_message.OK + sbm + " OK"
+            print color_message.OK + "  OK: " + sbm
 
 
 check_host_keys()
