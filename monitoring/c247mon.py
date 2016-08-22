@@ -102,7 +102,7 @@ def restart_service(name):
     # Do not restart core services if they are down. 
     # Get engineering involved to help troubleshoot service crashes. 
     #
-    if name == "r1rm" or name == "cdpserver" or name == "cdp-server" or name == "r1cm" or name = "r1ctl":
+    if name == "r1rm" or name == "cdpserver" or name == "cdp-server" or name == "r1cm" or name == "r1ctl":
         log_event("not restarting " + name + " : contact engineering for service crashing issues.")
         return
 
