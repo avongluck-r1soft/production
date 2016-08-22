@@ -1,6 +1,6 @@
 ## c247mon.py
 
-c247mon.py runs in a 60 second loop on production servers. It runs basic
+c247mon.py runs every 15 minutes on production servers. It runs basic
 monitoring commands pulled from the original perl code and restarts services
 if they are down. If a service is down, a crack DevOps team member suits 
 up in all black protective gear, hops on their trusty time-travelling 
@@ -9,48 +9,25 @@ universe to get stuff fixed, usually after eating too much BBQ.
 
 Sample output:
 
-  ############### 2016-08-21 00:20:27.469911 ###############
+############### 2016-08-22 13:56:59.523272 ###############
 
-  hostname              = scott-VirtualBox  
-  system_type           = ftp  
-  ip_address            = 127.0.0.1  
-  check_cpu             = 13.44  
-  #### DEVOPS WARNING ####  
-  DEVOPS -- WARNING scott-VirtualBox 127.0.0.1  
-  #### DEVOPS WARNING ####  
-  High swap usage on : scott-VirtualBox ip: 127.0.0.1  
-  check_swapspace       = 36.2319  
-  check_diskspace       = {'/': 11.79861619580845}  
-  check_num_processes   = 194  
-  check_max_open_files  = 6624  
-  check_num_sockets     = 529  
-  check_service_running = proftpd is UP on scott-VirtualBox  
-  check_service_running = networking is UP on scott-VirtualBox  
-  check_service_running = ssh is UP on scott-VirtualBox  
-  check_service_running = fail2ban is UP on scott-VirtualBox  
-  check_service_running = rsyslog is UP on scott-VirtualBox  
-  check_service_running = ufw is UP on scott-VirtualBox  
-  check_ufw_rules       = ufw status OK on scott-VirtualBox  
+hostname              = scott-PowerEdge-T110-II
+system_type           = unknown
+ip_address            = 10.80.65.125
+check_cpu             = 4.14
+check_swapspace       = 0.0
+check_diskspace       = {'/boot': 56.93796415302534, '/boot/efi': 0.7032993914931467, '/': 6.172043341681359}
+check_num_processes   = 377
+check_max_open_files  = 9120
+check_num_sockets     = 782
+check_service_running = networking is UP on scott-PowerEdge-T110-II
+check_service_running = ssh is UP on scott-PowerEdge-T110-II
+check_service_running = fail2ban is UP on scott-PowerEdge-T110-II
+check_service_running = rsyslog is UP on scott-PowerEdge-T110-II
+DEVOPS -- WARNING scott-PowerEdge-T110-II 10.80.65.125  service ufw is DOWN
+DEVOPS -- WARNING scott-PowerEdge-T110-II 10.80.65.125 service ufw restarted.
+check_service_running = ufw is DOWN on scott-PowerEdge-T110-II
+check_ufw_rules       = ufw status OK on scott-PowerEdge-T110-II
 
-  ############### 2016-08-21 00:21:40.097018 ###############  
-  hostname              = scott-VirtualBox  
-  system_type           = ftp  
-  ip_address            = 127.0.0.1  
-  check_cpu             = 9.58  
-  #### DEVOPS WARNING ####  
-  DEVOPS -- WARNING scott-VirtualBox 127.0.0.1   
-  #### DEVOPS WARNING ####  
-  High swap usage on : scott-VirtualBox ip: 127.0.0.1  
-  check_swapspace       = 36.2315  
-  check_diskspace       = {'/': 11.798604436765359}  
-  check_num_processes   = 192
-  check_max_open_files  = 6624  
-  check_num_sockets     = 531  
-  check_service_running = proftpd is UP on scott-VirtualBox  
-  check_service_running = networking is UP on scott-VirtualBox  
-  check_service_running = ssh is UP on scott-VirtualBox  
-  check_service_running = fail2ban is UP on scott-VirtualBox  
-  check_service_running = rsyslog is UP on scott-VirtualBox  
-  check_service_running = ufw is UP on scott-VirtualBox  
-  check_ufw_rules       = ufw status OK on scott-VirtualBox  
-  
+
+
