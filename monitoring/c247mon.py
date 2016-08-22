@@ -52,16 +52,16 @@ def check_cpu(THRESHHOLD):
     cpu_usage = run_command("top -bn5|awk \'/Cpu/{sum+=$2}END{print sum/5}\'")
 
     if float(cpu_usage) > THRESHHOLD:
-        log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " High CPU usage.")
         HIGH_CPU_COUNT += 1
 
     if HIGH_CPU_COUNT >= 10:
-        log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " Prolonged high CPU usage.")
+        log_event("CPU Usage high for a prolonged time : " + str(HIGH_CPU_COUNT))
 
     return float(cpu_usage)
 
 
-def log_event(msg):
+def log_event(s):
+    msg = "DEVOPS -- WARNING " + hostname + " " + ip_addr + " " + s
     print(msg)
     my_logger = logging.getLogger('EventLogger')
     my_logger.setLevel(logging.WARN)
@@ -74,7 +74,7 @@ def check_swapspace(THRESHHOLD):
     swap_inuse = run_command("swapon -s | awk '/dev/ {print ($4/$3 * 100.0)}'")
 
     if float(swap_inuse) > THRESHHOLD:
-        log_event("DEVOPS -- WARNING " + hostname + " " + ip_addr + " High swap usage: " + str(swap_inuse).rstrip() + "%")
+        log_event("excessive swap space used = " + str(swap_inuse))
 
     return float(swap_inuse)
 
@@ -92,7 +92,7 @@ def check_diskspace(THRESHHOLD):
                 DF_OUTPUT[fs_file] = block_usage_pct
       
                 if float(block_usage_pct) > THRESHHOLD:
-                    log_event("DEVOPS -- WARNING " + hostname + " " + str(fs_file) + " -> " + str(block_usage_pct) + " disk space usage exceeded")
+                    log_event("disk_space_" + str(fs_file) + " Disk Usage high : " + str(block_usage_pct))
 
     return DF_OUTPUT
 
@@ -103,12 +103,12 @@ def restart_service(name):
     # Get engineering involved to help troubleshoot service crashes. 
     #
     if name == "r1rm" or name == "cdpserver" or name == "cdp-server" or name == "r1cm":
-        log_event("DEVOPS -- restart_service will not restart " + name + " on " + hostname)
-	return 
-    
+        log_event("not restarting " + name + " : contact engineering for service crashing issues.")
+        return
+
     restartcmd = ['service', name, 'restart']
     subprocess.call(restartcmd, shell=False)
-    log_event(name + " service restarted on " + hostname)
+    log_event("service restarted.")
 
 
 def check_service_running(name):
@@ -116,7 +116,7 @@ def check_service_running(name):
     output = p.communicate()[0]
     
     if p.returncode != 0:
-        log_event("DEVOPS -- Service " + name + " is DOWN on " + hostname + ".")
+        log_event(" service " + name + " is DOWN")
         restart_service(name)
         return name + " is DOWN on " + hostname
 
@@ -127,7 +127,7 @@ def check_num_processes(THRESHHOLD):
     num_procs = run_command('ps -dfeal|wc -l')
 
     if int(num_procs) > THRESHHOLD:
-        log_event("DEVOPS -- high number of processes on " + hostname + " : " + num_procs)
+        log_event("High number of processes : " + str(num_procs))
 
     return int(num_procs)
 
@@ -138,7 +138,7 @@ def check_max_open_files(THRESHHOLD):
             allocated, free, maximum, = line.split()
 
     if int(allocated) > THRESHHOLD:
-        log_event("DEVOPS -- high number of open files on " + hostname + " : " + str(allocated))
+        log_event("High number of open files : " + str(allocated))
 
     #return allocated, free, maximum
     return allocated
@@ -147,7 +147,7 @@ def check_num_sockets(THRESHHOLD):
     num_sockets = run_command('netstat -na|wc -l')
 
     if int(num_sockets) > THRESHHOLD:
-        log_event("DEVOPS -- high number of open network connections on " + hostname + " : " + str(num_sockets))
+        log_event("High number of open network connections: " + str(num_sockets))
     
     return int(num_sockets)
 
@@ -155,7 +155,7 @@ def check_ufw_rules():
     os.system('ufw status > /tmp/.ufw_status')
     ret = filecmp.cmp("/tmp/.ufw_status", "/opt/r1soft/devops/rules")
     if ret == False:
-        log_event("DEVOPS -- ufw incorrectly configured on " + hostname) 
+        log_event("ufw incorrectly configured")
         return "ufw status BROKEN on " + hostname
 
     return "ufw status OK on " + hostname
