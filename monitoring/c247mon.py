@@ -216,7 +216,7 @@ def main():
 	if os.path.exists("/opt/r1soft/devops/rules"):
             print("check_ufw_rules       = " + str(check_ufw_rules()))
 
-        time.sleep(60)
+        time.sleep(60*20)
 
 
 if __name__ == "__main__":
@@ -224,5 +224,3 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         sys.exit()
-
-        
