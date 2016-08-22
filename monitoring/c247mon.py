@@ -108,7 +108,7 @@ def restart_service(name):
 
     restartcmd = ['service', name, 'restart']
     subprocess.call(restartcmd, shell=False)
-    log_event("service restarted.")
+    log_event("service " + name + "restarted.")
 
 
 def check_service_running(name):
@@ -216,6 +216,7 @@ def main():
 	if os.path.exists("/opt/r1soft/devops/rules"):
             print("check_ufw_rules       = " + str(check_ufw_rules()))
 
+        # run every 20 minutes
         time.sleep(60*20)
 
 
