@@ -108,7 +108,7 @@ def restart_service(name):
 
     restartcmd = ['service', name, 'restart']
     subprocess.call(restartcmd, shell=False)
-    log_event("service " + name + "restarted.")
+    log_event("service " + name + " restarted.")
 
 
 def check_service_running(name):
