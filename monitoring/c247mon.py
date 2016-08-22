@@ -216,8 +216,8 @@ def main():
 	if os.path.exists("/opt/r1soft/devops/rules"):
             print("check_ufw_rules       = " + str(check_ufw_rules()))
 
-        # run every 20 minutes
-        time.sleep(60*20)
+        # run every 5 minutes
+        time.sleep(300)
 
 
 if __name__ == "__main__":

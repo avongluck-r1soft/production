@@ -1,6 +1,6 @@
 ## c247mon.py
 
-c247mon.py runs every 15 minutes on production servers. It runs basic
+c247mon.py runs every 5 minutes on production servers. It runs basic
 monitoring commands pulled from the original perl code and restarts services
 if they are down. If a service is down, a crack DevOps team member suits 
 up in all black protective gear, hops on their trusty time-travelling 
