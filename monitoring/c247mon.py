@@ -168,6 +168,7 @@ def main():
     MAX_OPEN_FILES = 20000
     MAX_SOCKETS    = 20000
     MAX_PROCS      = 2500
+    SLEEP_TIME     = 300 # 5 minutes
 
     running = True
     system_type = get_system_type()
@@ -216,8 +217,7 @@ def main():
 	if os.path.exists("/opt/r1soft/devops/rules"):
             print("check_ufw_rules       = " + str(check_ufw_rules()))
 
-        # run every 5 minutes
-        time.sleep(300)
+        time.sleep(SLEEP_TIME)
 
 
 if __name__ == "__main__":
