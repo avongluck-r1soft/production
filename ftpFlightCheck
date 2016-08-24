@@ -127,6 +127,37 @@ def check_host_entries():
 
     return failures
 
+def check_ftp_conf():
+
+    ftp_conf_dict = {
+        "UserAuthFile"          :"/opt/r1soft/ftp/users",
+        "DefaultUID"            :500,
+        "DefaultGID"            :65534,
+        "UsernamePrefix"        :"user",
+        "DefaultTimeoutSeconds" :345600,
+        "JailRoot"              :"/opt/r1soft/ftp/home",
+        "SCSIConf"              :"/opt/r1soft/ftp/conf",
+        "SCSIRoot"              :"/opt/r1soft/ftp/scsi"
+    }
+
+    print ftp_conf_dict
+
+    local_ftp_conf_dict = {}
+    
+    with open("/opt/r1soft/r1ctl/config/ftp.conf", "r") as f:
+        for line in f:
+            k, v = line.split(':')
+            local_ftp_conf_dict.append(k, v)
+
+
+            #for key, value in ftp_conf_dict.items():
+            #    if local_key == key:
+            #        print color_message.OK + "  OK: found " + key + " and " + value + " in /opt/r1soft/r1ctl/config/ftp.conf"
+            #    else:
+            #        print color_message.FAIL + "FAIL: " + key + " or " + value + " not in /opt/r1soft/r1ctl/config/ftp.conf"
+                   
+            
+
 def main():
 
     TOTAL_FAILURES = []
@@ -139,6 +170,10 @@ def main():
         print color_message.FAIL + "FAIL: " + str(SUM) + " total failures."
     else:
         print color_message.OK + "  OK: zero issues on this FTP server."
+
+    check_ftp_conf()
+
+
 
 
 if __name__ == "__main__":
