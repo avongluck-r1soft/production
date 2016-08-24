@@ -130,18 +130,22 @@ def check_host_entries():
 def check_ftp_conf():
 
     ftp_conf_dict = {
-        "UserAuthFile"          :"/opt/r1soft/ftp/users",
-        "DefaultUID"            :500,
-        "DefaultGID"            :65534,
-        "UsernamePrefix"        :"user",
-        "DefaultTimeoutSeconds" :345600,
-        "JailRoot"              :"/opt/r1soft/ftp/home",
-        "SCSIConf"              :"/opt/r1soft/ftp/conf",
-        "SCSIRoot"              :"/opt/r1soft/ftp/scsi"
+        "UserAuthFile"          : "/opt/r1soft/ftp/users",
+        "DefaultUID"            : 500,
+        "DefaultGID"            : 65534,
+        "UsernamePrefix"        : "user",
+        "DefaultTimeoutSeconds" : 345600,
+        "JailRoot"              : "/opt/r1soft/ftp/home",
+        "SCSIConf"              : "/opt/r1soft/ftp/conf",
+        "SCSIRoot"              : "/opt/r1soft/ftp/scsi"
     }
 
-    print ftp_conf_dict
-
+    #print ftp_conf_dict
+ 
+    #
+    # create a local dict of keys and values for ftp.conf
+    #
+    d = {}
     with open("/opt/r1soft/r1ctl/config/ftp.conf", "r") as f:
         for line in f:
             if line == "{\n" or line == "}\n":
@@ -149,6 +153,26 @@ def check_ftp_conf():
             
             k, v = line.split(':')
             print k + " " + v
+            d[k] = v
+     
+    print ftp_conf_dict
+    print d
+
+    local_keys = []
+
+    for key in ftp_conf_dict:
+        local_keys.append("\""+key+"\"")
+        
+ 
+    keys = []
+    for key in d:
+        print key.lstrip()
+        keys.append(key)
+    
+    print local_keys
+    print keys
+    
+    
             
 
 def main():
