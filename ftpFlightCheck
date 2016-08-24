@@ -136,7 +136,7 @@ def main():
     SUM = sum(TOTAL_FAILURES)
 
     if SUM > 0:
-        print color_message.FAIL + "FAIL: " + str(SUM) + " total failures in flightCheckFTP."
+        print color_message.FAIL + "FAIL: " + str(SUM) + " total failures."
     else:
         print color_message.OK + "  OK: zero issues on this FTP server."
 
