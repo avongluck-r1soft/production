@@ -15,7 +15,7 @@ def get_region():
             host, domain1, domain2 = line.split('.')
 
     return host[:3]
-        
+
 
 def run_command(str):
     process = Popen(args=str, stdout=PIPE, shell=True)
@@ -71,6 +71,15 @@ def check_host_keys():
 
     return failures
 
+#
+# see if we're in production or not. "itsupport247" value for domain1 means we're in production.
+#
+def get_environment():
+    with open("/etc/hostname", "r") as f:
+        for line in f:
+            host, domain1, domain2 = line.split('.')
+
+    return domain1    
 
 #
 # check for r1rm and r1cm host entries
@@ -79,6 +88,10 @@ def check_host_entries():
 
     failures = 0
     found_hosts = 0
+
+    if get_environment() == "itsupport247":
+        print color_message.OK + "  OK: r1rm_prod and r1cm_prod host entries not needed in production environment. Skipping check."
+        return failures
 
     R1HOSTS = [ "r1rm_prod.itsupport247.net", "r1cm_prod.itsupport247.net" ]
     LOCAL = []
@@ -102,6 +115,7 @@ def check_host_entries():
     return failures
 
 def main():
+
     TOTAL_FAILURES = []
     TOTAL_FAILURES.append(check_host_keys())
     TOTAL_FAILURES.append(check_host_entries())
