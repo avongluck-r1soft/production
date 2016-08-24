@@ -4,6 +4,7 @@ from subprocess import Popen,PIPE,STDOUT
 
 import subprocess
 import sys
+import ast
 
 class color_message:
     OK   = '\033[92m'
@@ -129,51 +130,40 @@ def check_host_entries():
 
 def check_ftp_conf():
 
-    ftp_conf_dict = {
-        "UserAuthFile"          : "/opt/r1soft/ftp/users",
-        "DefaultUID"            : 500,
-        "DefaultGID"            : 65534,
-        "UsernamePrefix"        : "user",
-        "DefaultTimeoutSeconds" : 345600,
-        "JailRoot"              : "/opt/r1soft/ftp/home",
-        "SCSIConf"              : "/opt/r1soft/ftp/conf",
-        "SCSIRoot"              : "/opt/r1soft/ftp/scsi"
-    }
+    ftp_conf_keys = [ 
+        '"UserAuthFile"', '"DefaultUID"', '"DefaultGID"', '"UsernamePrefix"', 
+        '"DefaultTimeoutSeconds"', '"JailRoot"', '"SCSIConf"', '"SCSIRoot"'
+    ]
 
-    #print ftp_conf_dict
- 
-    #
-    # create a local dict of keys and values for ftp.conf
-    #
-    d = {}
+    ftp_conf_vals = [ 
+        '/opt/r1soft/ftp/users', 500, '"65534"', '"user"', '"345600"', 
+        '"/opt/r1soft/ftp/home"', '"/opt/r1soft/ftp/conf"', '"/opt/r1soft/ftp/scsi"' 
+    ]
+
+    KEYS = []
+    VALS = []
+
     with open("/opt/r1soft/r1ctl/config/ftp.conf", "r") as f:
         for line in f:
             if line == "{\n" or line == "}\n":
                 continue
             
-            k, v = line.split(':')
-            print k + " " + v
-            d[k] = v
-     
-    print ftp_conf_dict
-    print d
+            k, colon, v = line.split()
+            KEYS.append(k)
+            VALS.append(v)
+  
+    for i in ftp_conf_keys:
+        if i in KEYS:
+            print color_message.OK + "  OK: found " + i + " in ftp.conf."
+        else:
+            print color_message.FAIL + "FAIL: cannot find " + i + " in ftp.conf."
 
-    local_keys = []
+    for i in ftp_conf_vals:
+        if i in VALS:
+            print color_message.OK + "  OK: found " + str(i) + " in ftp.conf."
+        else:
+            print color_message.FAIL + "FAIL: cannot find " + str(i) + " in ftp.conf."
 
-    for key in ftp_conf_dict:
-        local_keys.append("\""+key+"\"")
-        
- 
-    keys = []
-    for key in d:
-        print key.lstrip()
-        keys.append(key)
-    
-    print local_keys
-    print keys
-    
-    
-            
 
 def main():
 
@@ -189,7 +179,6 @@ def main():
         print color_message.OK + "  OK: zero issues on this FTP server."
 
     check_ftp_conf()
-
 
 
 
