@@ -142,20 +142,13 @@ def check_ftp_conf():
 
     print ftp_conf_dict
 
-    local_ftp_conf_dict = {}
-    
     with open("/opt/r1soft/r1ctl/config/ftp.conf", "r") as f:
         for line in f:
+            if line == "{\n" or line == "}\n":
+                continue
+            
             k, v = line.split(':')
-            local_ftp_conf_dict.append(k, v)
-
-
-            #for key, value in ftp_conf_dict.items():
-            #    if local_key == key:
-            #        print color_message.OK + "  OK: found " + key + " and " + value + " in /opt/r1soft/r1ctl/config/ftp.conf"
-            #    else:
-            #        print color_message.FAIL + "FAIL: " + key + " or " + value + " not in /opt/r1soft/r1ctl/config/ftp.conf"
-                   
+            print k + " " + v
             
 
 def main():
