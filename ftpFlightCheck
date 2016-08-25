@@ -130,18 +130,21 @@ def check_host_entries():
 
 def check_ftp_conf():
 
-    ftp_conf_keys = [ 
+    failures = 0
+
+    ftp_conf_names = [ 
         '"UserAuthFile"', '"DefaultUID"', '"DefaultGID"', '"UsernamePrefix"', 
         '"DefaultTimeoutSeconds"', '"JailRoot"', '"SCSIConf"', '"SCSIRoot"'
     ]
 
+    # fuck all of this.
     ftp_conf_vals = [ 
-        '/opt/r1soft/ftp/users', 500, '"65534"', '"user"', '"345600"', 
-        '"/opt/r1soft/ftp/home"', '"/opt/r1soft/ftp/conf"', '"/opt/r1soft/ftp/scsi"' 
+        '"/opt/r1soft/ftp/users",', '500,', '65534,', '"user",', '345600,', 
+        '"/opt/r1soft/ftp/home",', '"/opt/r1soft/ftp/conf",', '"/opt/r1soft/ftp/scsi"'
     ]
 
-    KEYS = []
-    VALS = []
+    NAMES  = []
+    VALUES = []
 
     with open("/opt/r1soft/r1ctl/config/ftp.conf", "r") as f:
         for line in f:
@@ -149,20 +152,24 @@ def check_ftp_conf():
                 continue
             
             k, colon, v = line.split()
-            KEYS.append(k)
-            VALS.append(v)
+            NAMES.append(k)
+            VALUES.append(v)
   
-    for i in ftp_conf_keys:
-        if i in KEYS:
+    for i in ftp_conf_names:
+        if i in NAMES:
             print color_message.OK + "  OK: found " + i + " in ftp.conf."
         else:
             print color_message.FAIL + "FAIL: cannot find " + i + " in ftp.conf."
+            failures += 1
 
     for i in ftp_conf_vals:
-        if i in VALS:
+        if i in VALUES:
             print color_message.OK + "  OK: found " + str(i) + " in ftp.conf."
         else:
             print color_message.FAIL + "FAIL: cannot find " + str(i) + " in ftp.conf."
+            failures += 1
+
+    return failures
 
 
 def main():
@@ -170,6 +177,7 @@ def main():
     TOTAL_FAILURES = []
     TOTAL_FAILURES.append(check_host_keys())
     TOTAL_FAILURES.append(check_host_entries())
+    TOTAL_FAILURES.append(check_ftp_conf())
 
     SUM = sum(TOTAL_FAILURES)
 
@@ -177,9 +185,6 @@ def main():
         print color_message.FAIL + "FAIL: " + str(SUM) + " total failures."
     else:
         print color_message.OK + "  OK: zero issues on this FTP server."
-
-    check_ftp_conf()
-
 
 
 if __name__ == "__main__":
