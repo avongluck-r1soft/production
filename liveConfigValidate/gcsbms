@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import numpy as np
 import sys
 import time
 import urllib2
@@ -14,7 +15,10 @@ def getCsbmList():
 def main():
     csbms = []
     csbms.append(getCsbmList())
-    print csbms
+    systems = np.asarray(csbms)
+    #print csbms
+    for i in systems:
+        print i
 
     
 if __name__ == "__main__":
