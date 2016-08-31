@@ -1,0 +1,672 @@
+{
+    "Config": {
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication"
+        ]
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ]
+    }, 
+    "Limits": {}
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 30
+    }, 
+    "Limits": {}
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ]
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {}, 
+    "Limits": {}
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 1800, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 40
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 30
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 1800, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 40
+    }, 
+    "Limits": {
+        "maxVMs": 15
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 30
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {}, 
+    "Limits": {}
+}
+{
+    "Config": {
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication"
+        ]
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {}
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ]
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication"
+        ]
+    }, 
+    "Limits": {}
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 1800, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 30
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {}, 
+    "Limits": {}
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication"
+        ]
+    }, 
+    "Limits": {}
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ]
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ]
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication"
+        ], 
+        "maxSpools": 20
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "bmrDiskType": "FLAT"
+    }, 
+    "Limits": {}
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 3600, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 30
+    }, 
+    "Limits": {
+        "maxVMs": 20
+    }
+}
+{
+    "Config": {
+        "DeltaCalculationFrequency": 432000, 
+        "SOAPTimeout": 1800, 
+        "advancedStorage": [
+            "/storage01/replication", 
+            "/storage02/replication", 
+            "/storage03/replication", 
+            "/storage04/replication", 
+            "/storage05/replication", 
+            "/storage06/replication", 
+            "/storage07/replication", 
+            "/storage08/replication", 
+            "/storage09/replication"
+        ], 
+        "maxSpools": 30
+    }, 
+    "Limits": {
+        "maxVMs": 15
+    }
+}
