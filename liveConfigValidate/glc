@@ -30,6 +30,7 @@ def main():
     for i in csbms:
         lcData = getLiveConfig(i)
         parsed = json.loads(lcData)
+        print(i)
         print json.dumps(parsed, indent=4, sort_keys=True)
 
 
