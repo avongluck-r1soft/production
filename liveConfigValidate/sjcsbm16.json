@@ -1,0 +1,1 @@
+{"Limits":{"maxVMs":20},"Config":{"DeltaCalculationFrequency":432000,"SOAPTimeout":3600,"advancedStorage":["/storage01/replication","/storage02/replication","/storage03/replication","/storage04/replication","/storage05/replication","/storage06/replication"],"maxSpools":20}}

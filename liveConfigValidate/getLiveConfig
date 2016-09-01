@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# != 1 ]; then
+    echo "usage: $0 <hostname>"
+    exit 1
+fi
+
+GUID=$(grep $1 prodhosts | awk '{print $1}')
+
+wget -qO- http://10.80.65.31:57988/r1rmGA/csbm/$GUID/liveConfig | python -m json.tool
