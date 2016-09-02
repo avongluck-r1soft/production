@@ -3,6 +3,7 @@
 import json
 import sys
 import urllib2
+from collections import OrderedDict
 
 class color_message:
     OK   = '\033[92m'
@@ -27,11 +28,11 @@ csbms = [
 
 GOLD_GEN2 = json.loads("""[
 {"Limits":{"maxVMs":20},"Config":{"DeltaCalculationFrequency":432000,"SOAPTimeout":3600,"advancedStorage":["/storage01/replication","/storage02/replication","/storage03/replication","/storage04/replication","/storage05/replication","/storage06/replication","/storage07/replication","/storage08/replication","/storage09/replication"],"maxSpools":40}}
-]""")
+]""", object_pairs_hook=OrderedDict)
 
 GOLD_GEN3 = json.loads("""[
 {"Limits":{"maxVMs":20},"Config":{"DeltaCalculationFrequency":432000,"SOAPTimeout":3600,"advancedStorage":["/storage01/replication","/storage02/replication","/storage03/replication","/storage04/replication","/storage05/replication","/storage06/replication"],"maxSpools":20}}
-]""")
+]""", object_pairs_hook=OrderedDict)
 
 
 def getLiveConfig(csbm):
@@ -55,7 +56,7 @@ def compareLiveConfigs(csbm):
 def main():
     for i in csbms:
         lcData = getLiveConfig(i)
-        parsed = json.loads(lcData)
+        parsed = json.loads(lcData, object_pairs_hook=OrderedDict)
         print(i)
         print json.dumps(parsed, indent=4, sort_keys=True)
         compareLiveConfigs(i)
@@ -65,5 +66,3 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         sys.exit()
-
-
