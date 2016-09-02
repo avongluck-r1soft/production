@@ -4,12 +4,11 @@ import json
 import sys
 import urllib2
 
-def getLiveConfig(csbm):
-    url = "http://10.80.65.31:57988/r1rmGA/csbm/"+csbm+"/liveConfig"
-    response = urllib2.urlopen(url)
-    content = response.read()
-    return content
+class color_message:
+    OK   = '\033[92m'
+    FAIL = '\033[91m'
 
+# TODO - get this dynamically.
 csbms = [
 "83a4ce52-6b2d-47c3-a6ff-35864e3d30ce","f8981d09-bb9a-4dad-8947-75ea5bd3a4dc","ff324bf5-0ca9-4be9-9753-fcdf06476b10",
 "cf24ab33-32e2-47cb-9468-4b000f95ec97","f82b8ac5-70f2-4b1c-9225-79e0f1d0431b","7a9c63ad-90ff-44f2-bb70-36b79834e9bc",
@@ -26,16 +25,45 @@ csbms = [
 "b6a75033-f95b-49ed-a25f-22f6ea7a9fc8","be96c92e-3716-433c-90e7-520857473e18"
 ]
 
+GOLD_GEN2 = json.loads("""[
+{"Limits":{"maxVMs":20},"Config":{"DeltaCalculationFrequency":432000,"SOAPTimeout":3600,"advancedStorage":["/storage01/replication","/storage02/replication","/storage03/replication","/storage04/replication","/storage05/replication","/storage06/replication","/storage07/replication","/storage08/replication","/storage09/replication"],"maxSpools":40}}
+]""")
+
+GOLD_GEN3 = json.loads("""[
+{"Limits":{"maxVMs":20},"Config":{"DeltaCalculationFrequency":432000,"SOAPTimeout":3600,"advancedStorage":["/storage01/replication","/storage02/replication","/storage03/replication","/storage04/replication","/storage05/replication","/storage06/replication"],"maxSpools":20}}
+]""")
+
+
+def getLiveConfig(csbm):
+    url = "http://10.80.65.31:57988/r1rmGA/csbm/"+csbm+"/liveConfig"
+    response = urllib2.urlopen(url)
+    content = response.read()
+    return content
+
+""" 
+Compare production and gold liveconfigs 
+"""
+def compareLiveConfigs(csbm):
+    csbmLiveConfig = getLiveConfig(csbm)
+    if csbmLiveConfig == GOLD_GEN2 or csbmLiveConfig == GOLD_GEN3: 
+        print color_message.OK + "  OK: " + csbm + " -- GOOD live config on cloud SBM."
+    else:
+        print color_message.FAIL + "FAIL: " + csbm + " -- BAD live config on cloud SBM."
+    
+
+
 def main():
     for i in csbms:
         lcData = getLiveConfig(i)
         parsed = json.loads(lcData)
         print(i)
         print json.dumps(parsed, indent=4, sort_keys=True)
-
+        compareLiveConfigs(i)
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
         sys.exit()
+
+
