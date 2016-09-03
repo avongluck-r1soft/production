@@ -25,13 +25,13 @@ csbms = [
 ]
 
 
-GOLD_GEN2 = json.loads("""[
+GOLD_GEN2 = json.loads("""
 {"Limits":{"maxVMs":20},"Config":{"DeltaCalculationFrequency":432000,"SOAPTimeout":3600,"advancedStorage":["/storage01/replication","/storage02/replication","/storage03/replication","/storage04/replication","/storage05/replication","/storage06/replication","/storage07/replication","/storage08/replication","/storage09/replication"],"maxSpools":40}}
-]""")
+""")
 
-GOLD_GEN3 = json.loads("""[
+GOLD_GEN3 = json.loads("""
 {"Limits":{"maxVMs":20},"Config":{"DeltaCalculationFrequency":432000,"SOAPTimeout":3600,"advancedStorage":["/storage01/replication","/storage02/replication","/storage03/replication","/storage04/replication","/storage05/replication","/storage06/replication"],"maxSpools":20}}
-]""")
+""")
 
 
 def getLiveConfig(csbm):
@@ -45,20 +45,18 @@ def getLiveConfig(csbm):
 """ 
 Compare production and gold liveconfigs 
 """
-def compareLiveConfigs(csbm):
-    csbmLiveConfig = json.dumps(getLiveConfig(csbm), sort_keys=True)
-    GEN2_SORTED = json.dumps(GOLD_GEN2, sort_keys=True)
+def checkLiveConfig(s):
+    csbmLiveConfig = getLiveConfig(s)
 
-    if csbmLiveConfig == GEN2_SORTED:
-        print color_message.OK + "  OK: liveConfig valid"
+    if GOLD_GEN3 == csbmLiveConfig:
+        print color_message.OK + "  OK: liveConfig valid for CSBM - " + s
     else:
-        print color_message.FAIL + "FAIL: liveConfig invalid for CSBM - " + csbm
-     
+        print color_message.FAIL + "FAIL: liveConfig invalid for CSBM - " + s
 
 
 def main():
     for i in csbms:
-        compareLiveConfigs(i)
+        checkLiveConfig(i)
 
 if __name__ == "__main__":
     try:
