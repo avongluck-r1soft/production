@@ -3,7 +3,6 @@
 import json
 import sys
 import urllib2
-from jsondiff import diff
 
 class color_message:
     OK   = '\033[92m'
@@ -38,20 +37,23 @@ GOLD_GEN3 = json.loads("""[
 def getLiveConfig(csbm):
     url = "http://10.80.65.31:57988/r1rmGA/csbm/"+csbm+"/liveConfig"
     response = urllib2.urlopen(url)
-    content = response.read()
-    return content
+    data = response.read()
+    liveConfigData = json.loads(data)
+    
+    return liveConfigData
 
 """ 
 Compare production and gold liveconfigs 
 """
 def compareLiveConfigs(csbm):
-    csbmLiveConfig = getLiveConfig(csbm)
-    if csbmLiveConfig == GOLD_GEN3:
-        print color_message.OK + "OK"
+    csbmLiveConfig = json.dumps(getLiveConfig(csbm), sort_keys=True)
+    GEN2_SORTED = json.dumps(GOLD_GEN2, sort_keys=True)
+
+    if csbmLiveConfig == GEN2_SORTED:
+        print color_message.OK + "  OK: liveConfig valid"
     else:
-        print color_message.FAIL + "FAIL"
+        print color_message.FAIL + "FAIL: liveConfig invalid for CSBM - " + csbm
      
-    
 
 
 def main():
