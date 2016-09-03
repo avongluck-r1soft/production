@@ -8,6 +8,7 @@ class color_message:
     OK   = '\033[92m'
     FAIL = '\033[91m'
 
+# TODO - separate these into GEN2 and GEN3 servers.
 csbms = [
 "83a4ce52-6b2d-47c3-a6ff-35864e3d30ce","f8981d09-bb9a-4dad-8947-75ea5bd3a4dc","ff324bf5-0ca9-4be9-9753-fcdf06476b10",
 "cf24ab33-32e2-47cb-9468-4b000f95ec97","f82b8ac5-70f2-4b1c-9225-79e0f1d0431b","7a9c63ad-90ff-44f2-bb70-36b79834e9bc",
@@ -45,18 +46,24 @@ def getLiveConfig(csbm):
 """ 
 Compare production and gold liveconfigs 
 """
-def checkLiveConfig(s):
+def checkLiveConfig(s, GEN):
     csbmLiveConfig = getLiveConfig(s)
-
-    if GOLD_GEN3 == csbmLiveConfig:
+    
+    if GEN == csbmLiveConfig:
         print color_message.OK + "  OK: liveConfig valid for CSBM - " + s
     else:
         print color_message.FAIL + "FAIL: liveConfig invalid for CSBM - " + s
 
 
 def main():
+    print "++++++++++++++++ GEN 2 CHECK ++++++++++++++++"
     for i in csbms:
-        checkLiveConfig(i)
+        checkLiveConfig(i, GOLD_GEN2)
+
+    print "++++++++++++++++ GEN 3 CHECK ++++++++++++++++"
+    for i in csbms:
+        checkLiveConfig(i, GOLD_GEN3)
+
 
 if __name__ == "__main__":
     try:
