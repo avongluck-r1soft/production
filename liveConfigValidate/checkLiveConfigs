@@ -48,10 +48,10 @@ def getLiveConfig(csbm):
 """ 
 Compare production and gold liveconfigs 
 """
-def checkLiveConfig(s, GEN):
+def checkLiveConfig(s, GOLD):
     csbmLiveConfig = getLiveConfig(s)
     
-    if GEN == csbmLiveConfig:
+    if GOLD == csbmLiveConfig:
         print color_message.OK + "  OK: liveConfig valid for CSBM - " + s
     else:
         print color_message.FAIL + "FAIL: liveConfig invalid for CSBM - " + s
