@@ -19,6 +19,9 @@ var gen2LiveConfig = []LiveConfig{{DeltaCalcFreq: 432000, SOAPTimeout: 3600, Max
 
 var gen3LiveConfig = []LiveConfig{{DeltaCalcFreq: 432000, SOAPTimeout: 3600, MaxSpools: 20, MaxVMs: 20, AdvancedStorage: []string{"/storage01/replication", "/storage02/replication", "/storage03/replication", "/storage04/replication", "/storage04/replication", "/storage05/replication", "/storage05/replication", "/storage06/replication"}}}
 
+//
+// TODO - make this dynamic. Determine if Gen2 or Gen3 CSBM by counting AdvancedStorage volumes.
+//
 var gen2Csbms = []string {
 "83a4ce52-6b2d-47c3-a6ff-35864e3d30ce", "f8981d09-bb9a-4dad-8947-75ea5bd3a4dc", "cf24ab33-32e2-47cb-9468-4b000f95ec97",
 "f82b8ac5-70f2-4b1c-9225-79e0f1d0431b", "7a9c63ad-90ff-44f2-bb70-36b79834e9bc", "911f15b0-60ec-44b5-bfdd-f963c2ad4a88",
@@ -38,15 +41,27 @@ var gen3Csbms = []string {
 "0372c590-22d1-4aeb-ac5a-ea6dfe385e39", "ca06d1dc-361d-4bca-b68f-f557670ddb27",
 }
 
+//func getServerGen(csbm string) gen int {
+	
+
 func getLiveConfig(csbm string) {
-	res, _ := http.Get("http://10.80.65.31:57988/r1rmGA/csbm/" + csbm + "/liveConfig")
-	body, _ := ioutil.ReadAll(res.Body)
+	res, err := http.Get("http://10.80.65.31:57988/r1rmGA/csbm/" + csbm + "/liveConfig")
+	if err != nil {
+		fmt.Printf("Unable to access proxy host: %s", err)
+		return
+	}
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Printf("Unable to read response body: %s", err)
+		return
+	}
+
 	res.Body.Close()
 	fmt.Printf("%s", body)
 }
 
 func main() {
-
 	fmt.Printf("Gen2 csbms:\n")
 	for i := range gen2Csbms {
 		fmt.Printf("\n\n")
@@ -61,17 +76,19 @@ func main() {
 		getLiveConfig(gen3Csbms[i])
 	}
 
+	fmt.Printf("Gen 2 Live Config:\n")
 	gen2data, err := json.MarshalIndent(gen2LiveConfig, "", "	")
 	if err != nil {
 		fmt.Printf("JSON marshaling failed: %s", err)
 	}
 	fmt.Printf("%s\n", gen2data)
-	
 
+
+	fmt.Printf("Gen 3 Live Config:\n")
 	gen3data, err := json.MarshalIndent(gen3LiveConfig, "", "	")
 	if err != nil {
 		fmt.Printf("JSON marshaling failed: %s", err)
 	}
-	fmt.Printf("%s\n", gen3data) 
+	fmt.Printf("%s\n", gen3data)
 
 }
