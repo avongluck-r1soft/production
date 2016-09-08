@@ -1,14 +1,24 @@
 package main
 
 import (
-	//"encoding/json"
-	//"errors"
-	//"flag"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	//"reflect"
 )
+
+type LiveConfig struct {
+	DeltaCalcFreq	int
+	SOAPTimeout	int
+	MaxSpools	int
+	MaxVMs		int
+	AdvancedStorage []string
+}
+
+var gen2LiveConfig = []LiveConfig{{DeltaCalcFreq: 432000, SOAPTimeout: 3600, MaxSpools: 20, MaxVMs: 20, AdvancedStorage: []string{"/storage01/replication", "/storage02/replication", "/storage03/replication", "/storage04/replication", "/storage04/replication", "/storage05/replication", "/storage05/replication", "/storage06/replication", "/storage07/replication", "/storage08/replication", "/storage09/replication"}}}
+
+var gen3LiveConfig = []LiveConfig{{DeltaCalcFreq: 432000, SOAPTimeout: 3600, MaxSpools: 20, MaxVMs: 20, AdvancedStorage: []string{"/storage01/replication", "/storage02/replication", "/storage03/replication", "/storage04/replication", "/storage04/replication", "/storage05/replication", "/storage05/replication", "/storage06/replication"}}}
+
 
 var gen2Csbms = []string {
 "83a4ce52-6b2d-47c3-a6ff-35864e3d30ce", "f8981d09-bb9a-4dad-8947-75ea5bd3a4dc", "cf24ab33-32e2-47cb-9468-4b000f95ec97",
@@ -38,6 +48,7 @@ func getLiveConfig(csbm string) {
 
 func main() {
 
+
 	fmt.Printf("Gen2 csbms:\n")
 	for i := range gen2Csbms {
 		fmt.Printf("\n\n")
@@ -51,4 +62,18 @@ func main() {
 		fmt.Println(gen3Csbms[i])
 		getLiveConfig(gen3Csbms[i])
 	}
+
+	gen2data, err := json.MarshalIndent(gen2LiveConfig, "", "	")
+	if err != nil {
+		fmt.Printf("JSON marshaling failed: %s", err)
+	}
+	fmt.Printf("%s\n", gen2data)
+	
+
+	gen3data, err := json.MarshalIndent(gen3LiveConfig, "", "	")
+	if err != nil {
+		fmt.Printf("JSON marshaling failed: %s", err)
+	}
+	fmt.Printf("%s\n", gen3data) 
+
 }
