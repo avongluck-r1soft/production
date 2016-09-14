@@ -1,9 +1,7 @@
 #!/usr/bin/perl
-
 #
 # Turn off all storage locator lights prior to a drive pull / swap
 #
-
 use strict;
 use warnings;
 
