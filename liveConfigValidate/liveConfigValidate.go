@@ -15,9 +15,11 @@ type LiveConfig struct {
 	AdvancedStorage []string
 }
 
-var gen2LiveConfig = []LiveConfig{{DeltaCalcFreq: 432000, SOAPTimeout: 3600, MaxSpools: 20, MaxVMs: 20, AdvancedStorage: []string{"/storage01/replication", "/storage02/replication", "/storage03/replication", "/storage04/replication", "/storage04/replication", "/storage05/replication", "/storage05/replication", "/storage06/replication", "/storage07/replication", "/storage08/replication", "/storage09/replication"}}}
+var gen2LiveConfigGOLD = []LiveConfig{{DeltaCalcFreq: 432000, SOAPTimeout: 3600, MaxSpools: 20, MaxVMs: 20, AdvancedStorage: []string{"/storage01/replication", "/storage02/replication", "/storage03/replication", "/storage04/replication", "/storage04/replication", "/storage05/replication", "/storage05/replication", "/storage06/replication", "/storage07/replication", "/storage08/replication", "/storage09/replication"}}}
 
-var gen3LiveConfig = []LiveConfig{{DeltaCalcFreq: 432000, SOAPTimeout: 3600, MaxSpools: 20, MaxVMs: 20, AdvancedStorage: []string{"/storage01/replication", "/storage02/replication", "/storage03/replication", "/storage04/replication", "/storage04/replication", "/storage05/replication", "/storage05/replication", "/storage06/replication"}}}
+var gen3LiveConfigGOLD = []LiveConfig{{DeltaCalcFreq: 432000, SOAPTimeout: 3600, MaxSpools: 20, MaxVMs: 20, AdvancedStorage: []string{"/storage01/replication", "/storage02/replication", "/storage03/replication", "/storage04/replication", "/storage04/replication", "/storage05/replication", "/storage05/replication", "/storage06/replication"}}}
+
+//func getCsbmGen([]LiveConfig) gen int {
 
 //
 // TODO - make this dynamic. Determine if Gen2 or Gen3 CSBM by counting AdvancedStorage volumes.
@@ -40,9 +42,6 @@ var gen3Csbms = []string {
 "95c9efb5-7b8c-4f99-956e-e712067a4736", "a554f3b3-e0b6-4b06-88cb-51ad686aef61", "ff324bf5-0ca9-4be9-9753-fcdf06476b10",
 "0372c590-22d1-4aeb-ac5a-ea6dfe385e39", "ca06d1dc-361d-4bca-b68f-f557670ddb27",
 }
-
-//func getServerGen(csbm string) gen int {
-	
 
 func getLiveConfig(csbm string) {
 	res, err := http.Get("http://10.80.65.31:57988/r1rmGA/csbm/" + csbm + "/liveConfig")
@@ -77,7 +76,7 @@ func main() {
 	}
 
 	fmt.Printf("Gen 2 Live Config:\n")
-	gen2data, err := json.MarshalIndent(gen2LiveConfig, "", "	")
+	gen2data, err := json.MarshalIndent(gen2LiveConfigGOLD, "", "	")
 	if err != nil {
 		fmt.Printf("JSON marshaling failed: %s", err)
 	}
@@ -85,7 +84,7 @@ func main() {
 
 
 	fmt.Printf("Gen 3 Live Config:\n")
-	gen3data, err := json.MarshalIndent(gen3LiveConfig, "", "	")
+	gen3data, err := json.MarshalIndent(gen3LiveConfigGOLD, "", "	")
 	if err != nil {
 		fmt.Printf("JSON marshaling failed: %s", err)
 	}
