@@ -27,7 +27,5 @@ foreach my $drive (@drives) {
     my @line = split ':', $drive;
     my $eid  = $line[0];
     my $slot = $line[1];
-    print("running storcli /c0 /e$eid /s$slot stop locate...\n"); 
     system("storcli /c0 /e$eid /s$slot stop locate"); 
-    print("storcli /c0 /e$eid /s$slot stop locate DONE.\n"); 
 }
