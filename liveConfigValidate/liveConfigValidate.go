@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"reflect"
 )
 
 type LiveConfig struct {
@@ -38,36 +39,88 @@ var gen3Csbms = []string{
 	"0372c590-22d1-4aeb-ac5a-ea6dfe385e39", "ca06d1dc-361d-4bca-b68f-f557670ddb27",
 }
 
-func getLiveConfig(csbm string) {
+func getLiveConfig(csbm string) string {
 	res, err := http.Get("http://10.80.65.31:57988/r1rmGA/csbm/" + csbm + "/liveConfig")
 	if err != nil {
 		fmt.Printf("Unable to access proxy host: %s", err)
-		return
+		return ""
 	}
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Printf("Unable to read response body: %s", err)
-		return
+		return ""
 	}
 
 	res.Body.Close()
-	fmt.Printf("%s", body)
+	return fmt.Sprintf("%s", body)
+}
+
+func equalJSON(s1, s2 string) (bool, error) {
+	var o1 interface{}
+	var o2 interface{}
+
+	var err error
+	err = json.Unmarshal([]byte(s1), &o1)
+	if err != nil {
+		return false, fmt.Errorf("Error mashalling string 1 :: %s", err.Error())
+	}
+	err = json.Unmarshal([]byte(s2), &o2)
+	if err != nil {
+		return false, fmt.Errorf("Error mashalling string 2 :: %s", err.Error())
+	}
+
+	return reflect.DeepEqual(o1, o2), nil
 }
 
 func main() {
 	fmt.Printf("Gen2 csbms:\n")
 	for i := range gen2Csbms {
-		fmt.Printf("\n\n")
+		s1 := getLiveConfig(gen2Csbms[i])
+		data, err := json.Marshal(gen2LiveConfigGOLD)
+		if err != nil {
+			fmt.Println("Error marshalling liveconfig string", err.Error())
+		}
+		s2 := fmt.Sprintf("%s", data)
+		fmt.Printf("DEBUG: %s", s2)
+		fmt.Printf("\n\n\n")
+
+		areEqual, err := equalJSON(s1, s2)
+
+		if err != nil {
+			fmt.Println("Error marshalling strings", err.Error())
+		}
+		fmt.Println("Valid JSON :: ", areEqual)
+
 		fmt.Println(gen2Csbms[i])
 		getLiveConfig(gen2Csbms[i])
 	}
 
 	fmt.Printf("Gen3 csbms:\n")
+
 	for i := range gen3Csbms {
+
+		s1 := getLiveConfig(gen3Csbms[i])
+
+		data, err := json.Marshal(gen3LiveConfigGOLD)
+		if err != nil {
+			fmt.Println("Error marshalling liveconfig string", err.Error())
+		}
+		s2 := fmt.Sprintf("%s", data)
+		fmt.Printf("DEBUG: %s", s2)
+		fmt.Printf("\n\n\n")
+
+		areEqual, err := equalJSON(s1, s2)
+
+		if err != nil {
+			fmt.Println("Error marshalling strings", err.Error())
+		}
+		fmt.Println("Valid JSON :: ", areEqual)
+
 		fmt.Printf("\n\n")
 		fmt.Println(gen3Csbms[i])
 		getLiveConfig(gen3Csbms[i])
+
 	}
 
 	fmt.Printf("Gen 2 Live Config:\n")
