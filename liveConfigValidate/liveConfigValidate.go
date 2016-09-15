@@ -78,9 +78,7 @@ func main() {
 		if err != nil {
 			fmt.Println("Error marshalling strings", err.Error())
 		}
-		fmt.Println("Valid JSON :: ", areEqual)
-
-		fmt.Println(gen2Csbms[i])
+		fmt.Println(gen2Csbms[i] + " Valid JSON :: ", areEqual)
 	}
 
 	fmt.Printf("Gen3 csbms:\n")
@@ -95,9 +93,6 @@ func main() {
 		if err != nil {
 			fmt.Println("Error marshalling strings", err.Error())
 		}
-		fmt.Println("Valid JSON :: ", areEqual)
-
-		fmt.Println(gen3Csbms[i])
-
+		fmt.Println(gen3Csbms[i] + " Valid JSON :: ", areEqual)
 	}
 }
