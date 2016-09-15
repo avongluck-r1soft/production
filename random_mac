@@ -1,0 +1,20 @@
+#!/usr/bin/python
+
+from random import randint
+from subprocess import Popen,PIPE,STDOUT
+
+first  = randint(1,255)
+second = randint(0,255)
+third  = randint(0,255)
+fourth = randint(0,255)
+
+ip = ''.join(str(first)+"."+str(second)+"."+str(third)+"."+str(fourth))
+#print ip
+
+def run_command(str):
+    process = Popen(args=str, stdout=PIPE, shell=True)
+    return process.communicate()[0]
+
+cmd = "echo " + ip + "| md5sum |sed 's/^\(..\)\(..\)\(..\)\(..\)\(..\).*$/02:\\1:\\2:\\3:\\4:\\5/'"
+mac = run_command(cmd)
+print str(mac)
