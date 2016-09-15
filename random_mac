@@ -9,7 +9,7 @@ third  = randint(0,255)
 fourth = randint(0,255)
 
 ip = ''.join(str(first)+"."+str(second)+"."+str(third)+"."+str(fourth))
-#print ip
+print ip
 
 def run_command(str):
     process = Popen(args=str, stdout=PIPE, shell=True)
