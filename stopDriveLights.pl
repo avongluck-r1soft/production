@@ -19,11 +19,18 @@ sub get_drives {
     return @eids_slots;
 }
 
-my @drives = get_drives();
+sub stop_lights {
 
-foreach my $drive (@drives) {
-    my @line = split ':', $drive;
-    my $eid  = $line[0];
-    my $slot = $line[1];
-    system("storcli /c0 /e$eid /s$slot stop locate"); 
+    my @drives = get_drives();
+
+    foreach my $drive (@drives) {
+        my @line = split ':', $drive;
+        my $eid  = $line[0];
+        my $slot = $line[1];
+        system("storcli /c0 /e$eid /s$slot stop locate"); 
+    }
+}
+
+sub main() {
+    stop_lights(); 
 }
