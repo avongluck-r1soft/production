@@ -8,18 +8,6 @@ import (
 	"reflect"
 )
 
-type LiveConfig struct {
-	DeltaCalcFreq   int
-	SOAPTimeout     int
-	MaxSpools       int
-	MaxVMs          int
-	AdvancedStorage []string
-}
-
-var gen2LiveConfigGOLD = []LiveConfig{{DeltaCalcFreq: 432000, SOAPTimeout: 3600, MaxSpools: 20, MaxVMs: 20, AdvancedStorage: []string{"/storage01/replication", "/storage02/replication", "/storage03/replication", "/storage04/replication", "/storage04/replication", "/storage05/replication", "/storage05/replication", "/storage06/replication", "/storage07/replication", "/storage08/replication", "/storage09/replication"}}}
-
-var gen3LiveConfigGOLD = []LiveConfig{{DeltaCalcFreq: 432000, SOAPTimeout: 3600, MaxSpools: 20, MaxVMs: 20, AdvancedStorage: []string{"/storage01/replication", "/storage02/replication", "/storage03/replication", "/storage04/replication", "/storage04/replication", "/storage05/replication", "/storage05/replication", "/storage06/replication"}}}
-
 var gen2Csbms = []string{
 	"83a4ce52-6b2d-47c3-a6ff-35864e3d30ce", "f8981d09-bb9a-4dad-8947-75ea5bd3a4dc", "cf24ab33-32e2-47cb-9468-4b000f95ec97",
 	"f82b8ac5-70f2-4b1c-9225-79e0f1d0431b", "7a9c63ad-90ff-44f2-bb70-36b79834e9bc", "911f15b0-60ec-44b5-bfdd-f963c2ad4a88",
@@ -74,18 +62,15 @@ func equalJSON(s1, s2 string) (bool, error) {
 }
 
 func main() {
+
+	gen2GOLD := getLiveConfig("d3a7fd9f-00af-4a19-a4cb-643871d7cca9") // wdcsbm10 GOLD LIVECONFIG
+	gen3GOLD := getLiveConfig("ca06d1dc-361d-4bca-b68f-f557670ddb27") // wdcsbm18 GOLD LIVECONFIG
+
 	fmt.Printf("Gen2 csbms:\n")
 	for i := range gen2Csbms {
+
 		s1 := getLiveConfig(gen2Csbms[i])
-		fmt.Printf("GEN2 CSBM LIVECONFIG ->\n %s\n\n", s1)
-
-		data, err := json.Marshal(gen2LiveConfigGOLD)
-		if err != nil {
-			fmt.Println("Error marshalling liveconfig string", err.Error())
-		}
-
-		s2 := fmt.Sprintf("%s", data)
-		fmt.Printf("GEN3 GOLD LIVECONFIG ->\n %s\n\n", s2)
+		s2 := gen2GOLD
 
 		areEqual, err := equalJSON(s1, s2)
 
@@ -103,15 +88,7 @@ func main() {
 	for i := range gen3Csbms {
 
 		s1 := getLiveConfig(gen3Csbms[i])
-		fmt.Printf("GEN3 CSBM LIVECONFIG ->\n %s\n\n", s1)
-
-		data, err := json.Marshal(gen3LiveConfigGOLD)
-		if err != nil {
-			fmt.Println("Error marshalling liveconfig string", err.Error())
-		}
-
-		s2 := fmt.Sprintf("%s", data)
-		fmt.Printf("GEN3 GOLD LIVECONFIG ->\n %s\n\n", s2)
+		s2 := gen3GOLD
 
 		areEqual, err := equalJSON(s1, s2)
 
@@ -120,24 +97,8 @@ func main() {
 		}
 		fmt.Println("Valid JSON :: ", areEqual)
 
-		fmt.Printf("\n\n")
 		fmt.Println(gen3Csbms[i])
 		getLiveConfig(gen3Csbms[i])
 
 	}
-
-	//fmt.Printf("Gen 2 Live Config:\n")
-	//gen2data, err := json.MarshalIndent(gen2LiveConfigGOLD, "", "	")
-	//if err != nil {
-	//	fmt.Printf("JSON marshaling failed: %s", err)
-	//}
-	//fmt.Printf("%s\n", gen2data)
-
-	//fmt.Printf("Gen 3 Live Config:\n")
-	//gen3data, err := json.MarshalIndent(gen3LiveConfigGOLD, "", "	")
-	//if err != nil {
-	//	fmt.Printf("JSON marshaling failed: %s", err)
-	//}
-	//fmt.Printf("%s\n", gen3data)
-
 }
