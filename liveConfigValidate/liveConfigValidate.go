@@ -81,7 +81,6 @@ func main() {
 		fmt.Println("Valid JSON :: ", areEqual)
 
 		fmt.Println(gen2Csbms[i])
-		getLiveConfig(gen2Csbms[i])
 	}
 
 	fmt.Printf("Gen3 csbms:\n")
@@ -99,7 +98,6 @@ func main() {
 		fmt.Println("Valid JSON :: ", areEqual)
 
 		fmt.Println(gen3Csbms[i])
-		getLiveConfig(gen3Csbms[i])
 
 	}
 }
