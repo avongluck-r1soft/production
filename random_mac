@@ -17,4 +17,4 @@ def run_command(str):
 
 cmd = "echo " + ip + "| md5sum |sed 's/^\(..\)\(..\)\(..\)\(..\)\(..\).*$/02:\\1:\\2:\\3:\\4:\\5/'"
 mac = run_command(cmd)
-print str(mac)
+print str(mac).upper()
