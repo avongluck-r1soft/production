@@ -77,13 +77,15 @@ func main() {
 	fmt.Printf("Gen2 csbms:\n")
 	for i := range gen2Csbms {
 		s1 := getLiveConfig(gen2Csbms[i])
+		fmt.Printf("GEN2 CSBM LIVECONFIG ->\n %s\n\n", s1)
+
 		data, err := json.Marshal(gen2LiveConfigGOLD)
 		if err != nil {
 			fmt.Println("Error marshalling liveconfig string", err.Error())
 		}
+
 		s2 := fmt.Sprintf("%s", data)
-		fmt.Printf("DEBUG: %s", s2)
-		fmt.Printf("\n\n\n")
+		fmt.Printf("GEN3 GOLD LIVECONFIG ->\n %s\n\n", s2)
 
 		areEqual, err := equalJSON(s1, s2)
 
@@ -101,14 +103,15 @@ func main() {
 	for i := range gen3Csbms {
 
 		s1 := getLiveConfig(gen3Csbms[i])
+		fmt.Printf("GEN3 CSBM LIVECONFIG ->\n %s\n\n", s1)
 
 		data, err := json.Marshal(gen3LiveConfigGOLD)
 		if err != nil {
 			fmt.Println("Error marshalling liveconfig string", err.Error())
 		}
+
 		s2 := fmt.Sprintf("%s", data)
-		fmt.Printf("DEBUG: %s", s2)
-		fmt.Printf("\n\n\n")
+		fmt.Printf("GEN3 GOLD LIVECONFIG ->\n %s\n\n", s2)
 
 		areEqual, err := equalJSON(s1, s2)
 
@@ -123,18 +126,18 @@ func main() {
 
 	}
 
-	fmt.Printf("Gen 2 Live Config:\n")
-	gen2data, err := json.MarshalIndent(gen2LiveConfigGOLD, "", "	")
-	if err != nil {
-		fmt.Printf("JSON marshaling failed: %s", err)
-	}
-	fmt.Printf("%s\n", gen2data)
+	//fmt.Printf("Gen 2 Live Config:\n")
+	//gen2data, err := json.MarshalIndent(gen2LiveConfigGOLD, "", "	")
+	//if err != nil {
+	//	fmt.Printf("JSON marshaling failed: %s", err)
+	//}
+	//fmt.Printf("%s\n", gen2data)
 
-	fmt.Printf("Gen 3 Live Config:\n")
-	gen3data, err := json.MarshalIndent(gen3LiveConfigGOLD, "", "	")
-	if err != nil {
-		fmt.Printf("JSON marshaling failed: %s", err)
-	}
-	fmt.Printf("%s\n", gen3data)
+	//fmt.Printf("Gen 3 Live Config:\n")
+	//gen3data, err := json.MarshalIndent(gen3LiveConfigGOLD, "", "	")
+	//if err != nil {
+	//	fmt.Printf("JSON marshaling failed: %s", err)
+	//}
+	//fmt.Printf("%s\n", gen3data)
 
 }
