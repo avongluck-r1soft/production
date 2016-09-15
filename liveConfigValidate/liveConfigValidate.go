@@ -67,6 +67,7 @@ func main() {
 	gen3GOLD := getLiveConfig("ca06d1dc-361d-4bca-b68f-f557670ddb27") // wdcsbm18 GOLD LIVECONFIG
 
 	fmt.Printf("Gen2 csbms:\n")
+
 	for i := range gen2Csbms {
 
 		s1 := getLiveConfig(gen2Csbms[i])
