@@ -51,7 +51,9 @@ func equalJSON(s1, s2 string) (bool, error) {
 	if err != nil {
 		return false, fmt.Errorf("Error mashalling string 1 :: %s", err.Error())
 	}
+
 	err = json.Unmarshal([]byte(s2), &o2)
+
 	if err != nil {
 		return false, fmt.Errorf("Error mashalling string 2 :: %s", err.Error())
 	}
