@@ -60,7 +60,13 @@ func equalJSON(s1, s2 string) (bool, error) {
 }
 
 func main() {
-
+	// GOLD liveconfig. These two GOLD examples (gen2 and gen3) are configured as:
+	//
+        // 	MaxSpools 	= 30 
+	//	SOAP timeout 	= 3600
+	//	DeltaCalcFreq	= 432000
+	//	MaxVMs		= 20
+	//
 	gen2GOLD := getLiveConfig("d3a7fd9f-00af-4a19-a4cb-643871d7cca9") // wdcsbm10 GOLD LIVECONFIG
 	gen3GOLD := getLiveConfig("ca06d1dc-361d-4bca-b68f-f557670ddb27") // wdcsbm18 GOLD LIVECONFIG
 
