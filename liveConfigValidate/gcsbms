@@ -8,7 +8,7 @@ import urllib2
 #"wget -qO- http://10.80.65.31:57988/r1rmGA/register/csbm\?includeFTP=true"
 
 def getCsbmList():
-    response = urllib2.urlopen("http://10.80.65.31:57988/r1rmGA/register/csbm?includeFTP=true")
+    response = urllib2.urlopen("http://10.80.65.31:57988/r1rmGA/register/csbm?includeFTP=false")
     content = response.read()
     return content
 
@@ -16,9 +16,9 @@ def main():
     csbms = []
     csbms.append(getCsbmList())
     systems = np.asarray(csbms)
-    #print csbms
     for i in systems:
         print i
+        print "\n"
 
     
 if __name__ == "__main__":
