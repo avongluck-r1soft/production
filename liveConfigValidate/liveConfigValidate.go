@@ -31,13 +31,11 @@ func getLiveConfig(csbm string) string {
 	res, err := http.Get("http://10.80.65.31:57988/r1rmGA/csbm/" + csbm + "/liveConfig")
 	if err != nil {
 		fmt.Printf("Unable to access proxy host: %s", err)
-		return ""
 	}
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Printf("Unable to read response body: %s", err)
-		return ""
 	}
 
 	res.Body.Close()
