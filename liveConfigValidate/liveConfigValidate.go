@@ -107,5 +107,7 @@ func main() {
 
 		numsbms++
 	}
+
 	fmt.Printf("Total sbms: %d\n", numsbms)
+
 }
