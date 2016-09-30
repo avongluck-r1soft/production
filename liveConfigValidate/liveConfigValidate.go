@@ -72,8 +72,9 @@ func main() {
 	// 	GEN2 Storage    = /storage01/replication ... /storage09/replication, 9 total volumes
 	// 	GEN3 Storage    = /storage01/replication ... /storage06/replication, 6 total volumes
 	//
-	gen2GOLD := getLiveConfig("d3a7fd9f-00af-4a19-a4cb-643871d7cca9") // wdcsbm10 GOLD LIVECONFIG
-	gen3GOLD := getLiveConfig("ca06d1dc-361d-4bca-b68f-f557670ddb27") // wdcsbm18 GOLD LIVECONFIG
+	//
+	GEN2GOLD := getLiveConfig("d3a7fd9f-00af-4a19-a4cb-643871d7cca9") // wdcsbm10 GOLD LIVECONFIG
+	GEN3GOLD := getLiveConfig("ca06d1dc-361d-4bca-b68f-f557670ddb27") // wdcsbm18 GOLD LIVECONFIG
 
 	numsbms := 0
 
@@ -82,7 +83,7 @@ func main() {
 	for i := range gen2Csbms {
 
 		s1 := getLiveConfig(gen2Csbms[i])
-		s2 := gen2GOLD
+		s2 := GEN2GOLD
 
 		areEqual, err := equalJSON(s1, s2)
 
@@ -99,7 +100,7 @@ func main() {
 	for i := range gen3Csbms {
 
 		s1 := getLiveConfig(gen3Csbms[i])
-		s2 := gen3GOLD
+		s2 := GEN3GOLD
 
 		areEqual, err := equalJSON(s1, s2)
 
