@@ -1,0 +1,13 @@
+
+
+
+    We pay for servers at Softlayer
+    These servers need to have perl monitoring script running
+    These servers need to be configured in GreyLog
+    These servers need to be monitored by StatusCake
+    These servers need to be visible in CloudSkiff
+
+    Until someone figures out how to automate this, we will take turns manually 
+    updating a spreadsheet that is to be turned in on the 2nd 1st of every month 
+    (gives us time to kill un-needed machines)
+
