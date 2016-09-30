@@ -69,6 +69,9 @@ func main() {
 	//	DeltaCalcFreq	= 432000
 	//	MaxVMs		= 20
 	//
+	// 	GEN2 Storage    = /storage01/replication ... /storage09/replication, 9 total volumes
+	// 	GEN3 Storage    = /storage01/replication ... /storage06/replication, 6 total volumes
+	//
 	gen2GOLD := getLiveConfig("d3a7fd9f-00af-4a19-a4cb-643871d7cca9") // wdcsbm10 GOLD LIVECONFIG
 	gen3GOLD := getLiveConfig("ca06d1dc-361d-4bca-b68f-f557670ddb27") // wdcsbm18 GOLD LIVECONFIG
 
