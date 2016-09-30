@@ -17,15 +17,25 @@ var gen2Csbms = []string{
 	"f1af3987-1573-47a3-bb90-6bd3dbadab55", "9cf104d6-3eb8-43e7-99ce-aee7de598c2c", "f75ec466-4219-412c-9983-1897e0c72b0a",
 	"c55087c6-d74d-4cb3-bcad-6840cf4fc0d3", "cd49e1a4-c234-493c-a1ee-59e9335035fe", "27309d3e-0b7a-4244-9c82-796bf2f0378d",
 	"05ab3885-ac7b-410d-a5e2-cf5eb40a19b7", "1df498d2-dca9-4653-9411-b07a59414d60", "b6a75033-f95b-49ed-a25f-22f6ea7a9fc8",
-	"7a9c63ad-90ff-44f2-bb70-36b79834e9bc",
+	"7a9c63ad-90ff-44f2-bb70-36b79834e9bc", 
 }
 
 var gen3Csbms = []string{
 	"a554f3b3-e0b6-4b06-88cb-51ad686aef61", "ff324bf5-0ca9-4be9-9753-fcdf06476b10", "308df16d-46c1-437b-8ede-28412900c61a",
 	"0372c590-22d1-4aeb-ac5a-ea6dfe385e39", "ca06d1dc-361d-4bca-b68f-f557670ddb27", "83a4ce52-6b2d-47c3-a6ff-35864e3d30ce",
 	"499ee4ee-3e9f-4375-bbd8-dde3d8ea0e3f", "697f07b1-dd98-457d-a8d9-ae9f83430c1a", "5498c81a-e792-4328-8339-4635ad274e1b",
-	"10a5fb4e-e1eb-4e2f-bd90-105e7c64a644",
+	"10a5fb4e-e1eb-4e2f-bd90-105e7c64a644", "152e5be8-315d-4ffe-9355-8fdef0a5c8f3", "4cfb3a60-7318-4dd2-8278-2d435f709351",
+	"95c9efb5-7b8c-4f99-956e-e712067a4736",
 }
+
+/*func getCsbmList() {
+	res, err := http.Get("http://10.80.65.31:57988/r1rmGA/register/csbm?includeFTP=false")
+	if err != nil {
+		fmt.Printf("Unable to access proxy host: %s", err)
+	}
+
+	body, err := 
+*/
 
 func getLiveConfig(csbm string) string {
 	res, err := http.Get("http://10.80.65.31:57988/r1rmGA/csbm/" + csbm + "/liveConfig")
