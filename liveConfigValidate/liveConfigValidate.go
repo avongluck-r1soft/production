@@ -28,16 +28,11 @@ var gen3Csbms = []string{
 	"95c9efb5-7b8c-4f99-956e-e712067a4736",
 }
 
-/*func getCsbmList() {
-	res, err := http.Get("http://10.80.65.31:57988/r1rmGA/register/csbm?includeFTP=false")
-	if err != nil {
-		fmt.Printf("Unable to access proxy host: %s", err)
-	}
+var stageCsbms = []string{"add these from r1rm ui",}
 
-	body, err := 
-*/
+var alphaCsbms = []string{"add these from r1rm ui",}
 
-func getLiveConfig(csbm string) string {
+func getProdLiveConfig(csbm string) string {
 	res, err := http.Get("http://10.80.65.31:57988/r1rmGA/csbm/" + csbm + "/liveConfig")
 	if err != nil {
 		fmt.Printf("Unable to access proxy host: %s", err)
@@ -51,6 +46,39 @@ func getLiveConfig(csbm string) string {
 	res.Body.Close()
 	return fmt.Sprintf("%s", body)
 }
+
+
+func getStagLiveConfig(csbm string) string {
+	res, err := http.Get("http://10.80.65.31:57988/r1rmHouston/csbm/" + csbm + "/liveConfig")
+	if err != nil {
+		fmt.Printf("Unable to access proxy host: %s", err)
+	}
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Printf("Unable to read response body: %s", err)
+	}
+
+	res.Body.Close()
+	return fmt.Sprintf("%s", body)
+}
+
+
+func getAlphLiveConfig(csbm string) string {
+	res, err := http.Get("http://10.80.65.31:57988/r1rmQA2/csbm/" + csbm + "/liveConfig")
+	if err != nil {
+		fmt.Printf("Unable to access proxy host: %s", err)
+	}
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Printf("Unable to read response body: %s", err)
+	}
+
+	res.Body.Close()
+	return fmt.Sprintf("%s", body)
+}
+
 
 func equalJSON(s1, s2 string) (bool, error) {
 	var o1 interface{}
@@ -83,8 +111,10 @@ func main() {
 	// 	GEN2 Storage    = /storage01/replication ... /storage09/replication, 9 total volumes
 	// 	GEN3 Storage    = /storage01/replication ... /storage06/replication, 6 total volumes
 	//
-	GEN2GOLD := getLiveConfig("d3a7fd9f-00af-4a19-a4cb-643871d7cca9") // wdcsbm10 GOLD LIVECONFIG
-	GEN3GOLD := getLiveConfig("ca06d1dc-361d-4bca-b68f-f557670ddb27") // wdcsbm18 GOLD LIVECONFIG
+	GEN2GOLD := getProdLiveConfig("d3a7fd9f-00af-4a19-a4cb-643871d7cca9") // wdcsbm10 GOLD LIVECONFIG
+	GEN3GOLD := getProdLiveConfig("ca06d1dc-361d-4bca-b68f-f557670ddb27") // wdcsbm18 GOLD LIVECONFIG
+	STAGGOLD := getStagLiveConfig("")
+	ALPHGOLD := getAlphLiveConfig("")
 
 	numsbms := 0
 
@@ -92,7 +122,7 @@ func main() {
 
 	for i := range gen2Csbms {
 
-		s1 := getLiveConfig(gen2Csbms[i])
+		s1 := getProdLiveConfig(gen2Csbms[i])
 		s2 := GEN2GOLD
 
 		areEqual, err := equalJSON(s1, s2)
@@ -109,7 +139,7 @@ func main() {
 
 	for i := range gen3Csbms {
 
-		s1 := getLiveConfig(gen3Csbms[i])
+		s1 := getProdLiveConfig(gen3Csbms[i])
 		s2 := GEN3GOLD
 
 		areEqual, err := equalJSON(s1, s2)
@@ -122,6 +152,41 @@ func main() {
 		numsbms++
 	}
 
-	fmt.Printf("Total sbms: %d\n", numsbms)
+	fmt.Printf("Staging csbms:\n")
+
+	for i := range stageCsbms {
+
+		s1 := getStagLiveConfig(stageCsbms[i])
+		s2 := STAGGOLD
+
+		areEqual, err := equalJSON(s1, s2)
+
+		if err != nil {
+			fmt.Println("Error marshalling strings", err.Error())
+		}
+		fmt.Println(stageCsbms[i]+" Valid JSON?  :: ", areEqual)
+
+		numsbms++
+	}
+
+	fmt.Printf("Alpha csbms:\n")
+
+	for i := range alphaCsbms {
+
+		s1 := getAlphLiveConfig(alphaCsbms[i])
+		s2 := ALPHGOLD
+
+		areEqual, err := equalJSON(s1, s2)
+
+		if err != nil {
+			fmt.Println("Error marshalling strings", err.Error())
+		}
+		fmt.Println(alphaCsbms[i]+" Valid JSON?  :: ", areEqual)
+
+		numsbms++
+	}
+
+
+	fmt.Printf("Total number of sbms in prod, staging, and alpha: %d\n", numsbms)
 
 }
