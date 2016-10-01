@@ -144,7 +144,7 @@ func main() {
 
 	numsbms := 0
 
-	fmt.Printf("\nGen2 csbms:\n")
+	fmt.Printf("\nGen2 csbms:\n\n")
 
 	for i := range gen2Csbms {
 
@@ -161,7 +161,7 @@ func main() {
 		numsbms++
 	}
 
-	fmt.Printf("\nGen3 csbms:\n")
+	fmt.Printf("\nGen3 csbms:\n\n")
 
 	for i := range gen3Csbms {
 
@@ -178,7 +178,7 @@ func main() {
 		numsbms++
 	}
 
-	fmt.Printf("\nStaging csbms:\n")
+	fmt.Printf("\nStaging csbms:\n\n")
 
 	for i := range stageCsbms {
 
@@ -195,7 +195,7 @@ func main() {
 		numsbms++
 	}
 
-	fmt.Printf("\nAlpha csbms:\n")
+	fmt.Printf("\nAlpha csbms:\n\n")
 
 	for i := range alphaCsbms {
 
@@ -213,6 +213,6 @@ func main() {
 	}
 
 
-	fmt.Printf("\nTotal number of sbms in prod, staging, and alpha: %d\n", numsbms)
+	fmt.Printf("\nTotal number of sbms in prod, staging, and alpha: %d\n\n", numsbms)
 
 }
