@@ -28,9 +28,17 @@ var gen3Csbms = []string{
 	"95c9efb5-7b8c-4f99-956e-e712067a4736",
 }
 
-var stageCsbms = []string{"add these from r1rm ui",}
+var stageCsbms = []string{
+	"92743f4a-a194-4fc9-ab65-eece09128bfe", "678986ba-02c6-4eb7-9928-7d657714f84c", "cf955142-42c7-4c75-936e-c41af8085e3c",
+	"b1af613f-35a7-49b4-88bc-b5c0f22c120b", "8b7ba07c-4f73-45dd-847e-553839096446", 
+}
 
-var alphaCsbms = []string{"add these from r1rm ui",}
+
+var alphaCsbms = []string{
+	"10b11363-5d68-40a9-931a-974c1afc8623", "3bf55a34-c137-4a4d-b7c1-ebf13a3f8d4f", "92a7d776-0e75-4847-8302-021e1ddd2f9b",
+	"8e289f04-c5a8-47a6-a10c-ab12eb1a8fa1",
+}
+
 
 func getProdLiveConfig(csbm string) string {
 	res, err := http.Get("http://10.80.65.31:57988/r1rmGA/csbm/" + csbm + "/liveConfig")
@@ -131,8 +139,8 @@ func main() {
 	//
 	GEN2GOLD := getProdLiveConfig("d3a7fd9f-00af-4a19-a4cb-643871d7cca9") // wdcsbm10 GOLD LIVECONFIG
 	GEN3GOLD := getProdLiveConfig("ca06d1dc-361d-4bca-b68f-f557670ddb27") // wdcsbm18 GOLD LIVECONFIG
-	STAGGOLD := getStagLiveConfig("")
-	ALPHGOLD := getAlphLiveConfig("")
+	STAGGOLD := getStagLiveConfig("92743f4a-a194-4fc9-ab65-eece09128bfe") // housbm03 GOLD LIVECONFIG
+	ALPHGOLD := getAlphLiveConfig("10b11363-5d68-40a9-931a-974c1afc8623") // noname   GOLD LIVECONFIG
 
 	numsbms := 0
 
@@ -170,7 +178,7 @@ func main() {
 		numsbms++
 	}
 
-	fmt.Printf("Staging csbms:\n")
+	fmt.Printf("\nStaging csbms:\n")
 
 	for i := range stageCsbms {
 
@@ -187,7 +195,7 @@ func main() {
 		numsbms++
 	}
 
-	fmt.Printf("Alpha csbms:\n")
+	fmt.Printf("\nAlpha csbms:\n")
 
 	for i := range alphaCsbms {
 
@@ -205,6 +213,6 @@ func main() {
 	}
 
 
-	fmt.Printf("Total number of sbms in prod, staging, and alpha: %d\n", numsbms)
+	fmt.Printf("\nTotal number of sbms in prod, staging, and alpha: %d\n", numsbms)
 
 }
