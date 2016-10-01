@@ -101,8 +101,10 @@ func equalJSON(s1, s2 string) (bool, error) {
 
 func main() {
 	//
-	// GOLD liveconfig. These two GOLD examples (gen2 and gen3) are configured as:
+	// GOLD liveconfigs for production, staging, and alpha.
 	//
+	// 	Production
+	//	----------
 	// 	MaxSpools 	= 30
 	//	SOAP timeout 	= 3600
 	//	DeltaCalcFreq	= 432000
@@ -110,6 +112,22 @@ func main() {
 	//
 	// 	GEN2 Storage    = /storage01/replication ... /storage09/replication, 9 total volumes
 	// 	GEN3 Storage    = /storage01/replication ... /storage06/replication, 6 total volumes
+	//
+	//	Staging
+	//	-------
+	//	MaxSpools	= 30
+	//	SOAP timeout	= 3600
+	//	MaxVMs		= 20
+	//
+	//	STAGING Storage	= /storage01/replication, and or /storage02/replication 
+	//
+	//	Alpha
+	//	-----
+	//	MaxSpools	= 10
+	//	SOAP timeout	= 300
+	//	MaxVMs		= 10
+	//	
+	//	ALPHA Storage	= /storage01/replication, and or /storage02/replication
 	//
 	GEN2GOLD := getProdLiveConfig("d3a7fd9f-00af-4a19-a4cb-643871d7cca9") // wdcsbm10 GOLD LIVECONFIG
 	GEN3GOLD := getProdLiveConfig("ca06d1dc-361d-4bca-b68f-f557670ddb27") // wdcsbm18 GOLD LIVECONFIG
