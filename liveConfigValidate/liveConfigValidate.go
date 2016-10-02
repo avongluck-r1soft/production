@@ -17,7 +17,7 @@ var gen2Csbms = []string{
 	"f1af3987-1573-47a3-bb90-6bd3dbadab55", "9cf104d6-3eb8-43e7-99ce-aee7de598c2c", "f75ec466-4219-412c-9983-1897e0c72b0a",
 	"c55087c6-d74d-4cb3-bcad-6840cf4fc0d3", "cd49e1a4-c234-493c-a1ee-59e9335035fe", "27309d3e-0b7a-4244-9c82-796bf2f0378d",
 	"05ab3885-ac7b-410d-a5e2-cf5eb40a19b7", "1df498d2-dca9-4653-9411-b07a59414d60", "b6a75033-f95b-49ed-a25f-22f6ea7a9fc8",
-	"7a9c63ad-90ff-44f2-bb70-36b79834e9bc", 
+	"7a9c63ad-90ff-44f2-bb70-36b79834e9bc",
 }
 
 var gen3Csbms = []string{
@@ -30,15 +30,13 @@ var gen3Csbms = []string{
 
 var stageCsbms = []string{
 	"92743f4a-a194-4fc9-ab65-eece09128bfe", "678986ba-02c6-4eb7-9928-7d657714f84c", "cf955142-42c7-4c75-936e-c41af8085e3c",
-	"b1af613f-35a7-49b4-88bc-b5c0f22c120b", "8b7ba07c-4f73-45dd-847e-553839096446", 
+	"b1af613f-35a7-49b4-88bc-b5c0f22c120b", "8b7ba07c-4f73-45dd-847e-553839096446",
 }
-
 
 var alphaCsbms = []string{
 	"10b11363-5d68-40a9-931a-974c1afc8623", "3bf55a34-c137-4a4d-b7c1-ebf13a3f8d4f", "92a7d776-0e75-4847-8302-021e1ddd2f9b",
 	"8e289f04-c5a8-47a6-a10c-ab12eb1a8fa1",
 }
-
 
 func getProdLiveConfig(csbm string) string {
 	res, err := http.Get("http://10.80.65.31:57988/r1rmGA/csbm/" + csbm + "/liveConfig")
@@ -55,7 +53,6 @@ func getProdLiveConfig(csbm string) string {
 	return fmt.Sprintf("%s", body)
 }
 
-
 func getStagLiveConfig(csbm string) string {
 	res, err := http.Get("http://10.80.65.31:57988/r1rmHouston/csbm/" + csbm + "/liveConfig")
 	if err != nil {
@@ -71,7 +68,6 @@ func getStagLiveConfig(csbm string) string {
 	return fmt.Sprintf("%s", body)
 }
 
-
 func getAlphLiveConfig(csbm string) string {
 	res, err := http.Get("http://10.80.65.31:57988/r1rmQA2/csbm/" + csbm + "/liveConfig")
 	if err != nil {
@@ -86,7 +82,6 @@ func getAlphLiveConfig(csbm string) string {
 	res.Body.Close()
 	return fmt.Sprintf("%s", body)
 }
-
 
 func equalJSON(s1, s2 string) (bool, error) {
 	var o1 interface{}
@@ -127,14 +122,14 @@ func main() {
 	//	SOAP timeout	= 3600
 	//	MaxVMs		= 20
 	//
-	//	STAGING Storage	= /storage01/replication, and or /storage02/replication 
+	//	STAGING Storage	= /storage01/replication, and or /storage02/replication
 	//
 	//	Alpha
 	//	-----
 	//	MaxSpools	= 10
 	//	SOAP timeout	= 300
 	//	MaxVMs		= 10
-	//	
+	//
 	//	ALPHA Storage	= /storage01/replication, and or /storage02/replication
 	//
 	GEN2GOLD := getProdLiveConfig("d3a7fd9f-00af-4a19-a4cb-643871d7cca9") // wdcsbm10 GOLD LIVECONFIG
@@ -211,7 +206,6 @@ func main() {
 
 		numsbms++
 	}
-
 
 	fmt.Printf("\nTotal number of sbms in prod, staging, and alpha: %d\n\n", numsbms)
 
