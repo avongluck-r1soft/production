@@ -7,14 +7,14 @@ import urllib2
 
 #"wget -qO- http://10.80.65.31:57988/r1rmGA/register/csbm\?includeFTP=true"
 
-def getCsbmList():
+def getProdCsbmList():
     response = urllib2.urlopen("http://10.80.65.31:57988/r1rmGA/register/csbm?includeFTP=false")
     content = response.read()
     return content
 
 def main():
     csbms = []
-    csbms.append(getCsbmList())
+    csbms.append(getProdCsbmList())
     systems = np.asarray(csbms)
     for i in systems:
         print i
