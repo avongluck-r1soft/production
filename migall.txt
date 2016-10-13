@@ -66,8 +66,8 @@ sjcsbm13.itsupport247.net,"68d06441-cbbf-4a68-9936-23947b8bcc8c" -> (wd17, sj13)
 sjcsbm13.itsupport247.net,"83101b37-5116-414a-a5a1-c139b7025a24" -> (wd20, sj14) - stopMigration -a -d successful on sj13.
 sjcsbm13.itsupport247.net,"99440179-102c-4f49-b633-f45248b1cf56" -> (wd09, sj14) - RPs awailable captain! -Checkov. 
 sjcsbm13.itsupport247.net,"a566b40e-a8b8-41f6-af2c-56776535813e" -> (sj10, wd16) - stopMigration -a successful 
-sjcsbm13.itsupport247.net,"b7704be4-a29d-40a2-8262-3968a1132468" -> 
-sjcsbm14.itsupport247.net,"0a1b0095-7e70-40d1-b29f-c0d4e7c6c027"
+sjcsbm13.itsupport247.net,"b7704be4-a29d-40a2-8262-3968a1132468" -> (sj13, wd13) - stopMigration -a successful
+sjcsbm14.itsupport247.net,"0a1b0095-7e70-40d1-b29f-c0d4e7c6c027" ->
 sjcsbm14.itsupport247.net,"57883a76-bcbc-422a-bcb0-d1be5b18d81b"
 sjcsbm14.itsupport247.net,"dcbe5c0f-fd17-43a4-b5fc-aa438743a457"
 sjcsbm15.itsupport247.net,"d9c8821c-8130-4a3f-baf2-c5c8d022014a"
