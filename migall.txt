@@ -1,0 +1,120 @@
+host			  DiskSafe				    (P, S)		comments
+loasbm03.itsupport247.net,"5359bf2c-b42e-4073-ab7e-d4e44f10ad38" -> (loa05, loa04) loasbm03 decommissioned. New primary CSBM.
+loasbm03.itsupport247.net,"863d2035-7994-4166-837c-faaf7cfa6571" -> (loa05, loa04) loasbm03 decommissioned. New primary CSBM.
+lobsbm02.itsupport247.net,"1f5ffdce-a692-4a87-bce2-e61550d61a37" -> (loa04, lob06) loasbm02 decommissioned. New primary CSBM.
+lobsbm02.itsupport247.net,"8130afae-fc1d-4a15-b7c8-99629c64a93e" -> (loa05, lob05) lobsbm02 decommissioned. New primary CSBM.
+sjcsbm06.itsupport247.net,"01ce3a4b-45a4-424e-a566-6a40659f98de" -> (sj06, wd09) stopMigration successful.
+sjcsbm06.itsupport247.net,"067f88f4-ec33-4899-b5fb-6413a2341140" -> (sj10, wd04) agent migrated to new primary.
+sjcsbm06.itsupport247.net,"1c886f21-70b9-472b-bb9a-6f986416eaab" -> (sj06, wd12) stopMigration successful.
+sjcsbm06.itsupport247.net,"78b27a6f-bd65-434f-9819-db0144f24985" -> (sj06, wd11) stopMigration successful.
+sjcsbm06.itsupport247.net,"8a9178c9-3dd0-493b-886d-ec2faa4c5a9e" -> (sj06, wd11) stopMigration successful.
+sjcsbm06.itsupport247.net,"8d7398aa-0083-4a1a-becf-c15cb8e3ecea" -> (sj06, wd11) stopMigration successful.
+sjcsbm06.itsupport247.net,"a6409683-c822-41da-ac26-692d97a319fe" -> (wd09, sj12) agent migrated to new primary.
+sjcsbm06.itsupport247.net,"aa90bf67-dbec-4efc-b096-fd4d2b4bf77e" -> (sj10, wd14) agent migrated to new primary.
+sjcsbm06.itsupport247.net,"bbc131c1-d29b-475a-85c9-70599a73556c" -> (sj15, wd19) stopMigration -a -d successful on sj06. 
+sjcsbm06.itsupport247.net,"c054f3c0-1342-4e31-a5ea-22575e13ed87" -> (wd09, sj06) stopMigration successful on sj06.
+sjcsbm06.itsupport247.net,"eb7d7a33-4c83-4681-893c-71c0e6a23a68" -> (sj06, wd14) stopMigration successful on sj06.
+sjcsbm06.itsupport247.net,"ef5d114a-dcbc-4dba-9bc2-abd03c796ed3" -> (wd09, sj06) stopMigration successful on sj06. Waiting on recovery points. 
+sjcsbm07.itsupport247.net,"2902e01f-7d70-4ec3-971c-d87e2b8f8af1" -> (?, ?) not found. 
+sjcsbm07.itsupport247.net,"660e3a73-57d1-43d8-b6b2-d81da5b254e6" -> (wd10, sj16) agent migrated to new primary. 
+sjcsbm07.itsupport247.net,"6bfc5845-79fb-45b7-bdb6-9042a09726fa" -> (wd10, sj12) agent migrated to new primary.
+sjcsbm07.itsupport247.net,"764ab607-5680-4831-9fc8-d6d95422409e" -> (sj18, wd09) agent migrated to new primary.
+sjcsbm07.itsupport247.net,"9d47cf73-5f4b-4765-8939-bc3759ba57c1" -> (wd09, sj12) stopMigration -a -d successful on sj07. 
+sjcsbm07.itsupport247.net,"d633ea0e-6057-4a86-b5cb-bee3ed1ec39f" -> (wd09, sj07) stopMigration -a successful. 
+sjcsbm09.itsupport247.net,"54be728d-30f9-4e6a-9c68-fa26d67b4a83" -> (?, ?) not found.
+sjcsbm09.itsupport247.net,"d7adf807-bc08-4928-9276-3dee96bfbebf" -> (?, ?) not found.
+sjcsbm11.itsupport247.net,"60426408-63fe-4742-b000-7cd6ea2c2627" -> (?, ?) not found.
+sjcsbm11.itsupport247.net,"9405a111-94d6-4322-ae85-b1eda61e5b2a" -> (sj11, wd14) stopMigration -a successful on sj11.
+sjcsbm11.itsupport247.net,"ce2d9336-6a39-4bf3-a482-6ace0f3fea0b" -> (sj17, wd17) AgentID deleted.
+sjcsbm12.itsupport247.net,"44c05429-47b5-40b8-a386-00ffa4d1f256" -> (?, ?) not found.
+sjcsbm12.itsupport247.net,"5b0242a7-c7ea-48ab-92e9-e9fb84cc8ad3" -> (wd14, sj18) not found on sj12 - migration complete. 
+sjcsbm12.itsupport247.net,"62f9681f-9f66-410d-89b9-43f2b439b3c3" -> (wd04, sj12) stopMigration -a successful.
+sjcsbm12.itsupport247.net,"6beb2063-f74a-4fae-9b70-1a4a56bf170a" -> (sj07, wd14) not found on sj12 - migration complete.
+
+*** unique snowflake ***
+
+sjcsbm12.itsupport247.net,"71afce93-168d-4ef0-b473-ad4107d7b102" -> "see README on wd14 - These disk safes belonged to a previous agent ID and then the customer rebuilt their site which changed the agent ID.  The source disk safe remained the same however.  I renamed the cloud disk safe to the original agent ID and reattached it to the CSBM UI then fixed the nextcsbm values in cassandra to hook up their new agent's with the old data.  This should not cause any problems with replication but I'm going to leave this note here on the offchance something goes wrong with DR on newer recovery points.
+
+This change was made on 5/11/2016.
+
+-Tim"
+
+*** unique snowflake ***
+
+sjcsbm12.itsupport247.net,"820098dc-51a3-4c43-821f-5cd13f4e80bc" -> (sj18, no secondary!)
+sjcsbm12.itsupport247.net,"a4d88d37-d49f-4bce-a452-cac8c65150ea" -> (sj12, wd13) - stopMigration -a successful. 
+sjcsbm12.itsupport247.net,"bbc131c1-d29b-475a-85c9-70599a73556c" -> (sj15, wd19) - stopMigration -a -d successful on sj12. 
+
+
+sjcsbm12.itsupport247.net,"e374dd01-009a-483c-a01f-9be27f58165e" -> (wd04, sj14) - DS has a different name on wd04:
+
+root@wdcsbm04:~# getDiskSafe e374dd01-009a-483c-a01f-9be27f58165e
+## Disk Safe information for e374dd01-009a-483c-a01f-9be27f58165e ##
+Agent Name:       APPSERV1 
+Disk Safe Status: true
+Disk Safe ID:     faa9b75b-d95a-4f92-9dac-538a9943ed89
+Disk Safe Path:   /storage05/replication/faa9b75b-d95a-4f92-9dac-538a9943ed89 (name change)
+Disk Safe Size:   7018113026700
+Disk Safe Deltas: 5880231757847
+root@wdcsbm04:~#      
+
+moving along...
+
+sjcsbm12.itsupport247.net,"e703b417-416a-425e-b66c-62b22a48c59b" -> (sj12, wd13) - stopMigration -a successful on sj12.
+sjcsbm13.itsupport247.net,"2ba35cbb-edd6-4275-92f5-6c18cb2a076a" -> (sj15, wd13) Keith's test machine - stopMigration -a successful on sj13
+sjcsbm13.itsupport247.net,"68d06441-cbbf-4a68-9936-23947b8bcc8c" -> (wd17, sj13) - stopMigration -a successful on sj13. 
+sjcsbm13.itsupport247.net,"83101b37-5116-414a-a5a1-c139b7025a24" -> (wd20, sj14) - stopMigration -a -d successful on sj13.
+sjcsbm13.itsupport247.net,"99440179-102c-4f49-b633-f45248b1cf56" -> (wd09, sj14) - RPs awailable captain! -Checkov. 
+sjcsbm13.itsupport247.net,"a566b40e-a8b8-41f6-af2c-56776535813e" -> 
+sjcsbm13.itsupport247.net,"b7704be4-a29d-40a2-8262-3968a1132468"
+sjcsbm14.itsupport247.net,"0a1b0095-7e70-40d1-b29f-c0d4e7c6c027"
+sjcsbm14.itsupport247.net,"57883a76-bcbc-422a-bcb0-d1be5b18d81b"
+sjcsbm14.itsupport247.net,"dcbe5c0f-fd17-43a4-b5fc-aa438743a457"
+sjcsbm15.itsupport247.net,"d9c8821c-8130-4a3f-baf2-c5c8d022014a"
+sjcsbm15.itsupport247.net,"fa902ed6-5bdc-4afd-9b45-8782be85c861"
+sjcsbm16.itsupport247.net,"ce2d9336-6a39-4bf3-a482-6ace0f3fea0b"
+sjcsbm16.itsupport247.net,"d54877a3-3ef5-45da-88fb-a2c2a8a2b516"
+wdcsbm04.itsupport247.net,"42dae6c2-537c-4afd-9540-5150f19b984a"
+wdcsbm04.itsupport247.net,"a17e631b-e86d-43fb-9822-c1dd0fcc9e93"
+wdcsbm04.itsupport247.net,"a9bc0b94-c62f-4a24-89b2-fe356f2f3182"
+wdcsbm04.itsupport247.net,"bdecc78a-1771-451d-854d-0b7e35e8dae9"
+wdcsbm09.itsupport247.net,"11543535-3b78-4c1d-abdf-8e28ad5a69f1"
+wdcsbm09.itsupport247.net,"1fa38813-bf2c-47c9-9839-bb5721fbba10"
+wdcsbm09.itsupport247.net,"222e4cba-916e-4828-851c-81d270f3036c"
+wdcsbm09.itsupport247.net,"26d70e11-23bf-47e9-b4d3-ecabb0edd406"
+wdcsbm09.itsupport247.net,"42fd644a-23fc-4594-8c36-3773312d6beb"
+wdcsbm09.itsupport247.net,"48041654-168a-49b3-846b-06ac550f901d"
+wdcsbm09.itsupport247.net,"4a627397-f87b-4729-903a-226d26fe94e3"
+wdcsbm09.itsupport247.net,"71db5cc3-27ce-4a6f-a2f7-595b5e2e7c29"
+wdcsbm09.itsupport247.net,"7a56c7f4-f26d-4cac-9813-d0ad18787c92"
+wdcsbm09.itsupport247.net,"7fb82585-1b0b-4ca0-8c89-b19aaab2e48f"
+wdcsbm09.itsupport247.net,"9d1fdc82-808a-40d5-bcb1-24a3edd79049"
+wdcsbm09.itsupport247.net,"a1bb30bd-f3ea-415d-831d-cf04f6ee3d50"
+wdcsbm09.itsupport247.net,"a9409c80-36b9-44ba-8668-7431f733f461"
+wdcsbm09.itsupport247.net,"aef686b0-cc36-4692-bdec-754923e17f3d"
+wdcsbm09.itsupport247.net,"c432db8c-f5c6-4d64-956b-f87c21233164"
+wdcsbm09.itsupport247.net,"c78c4642-e991-467d-8c23-321a00668245"
+wdcsbm09.itsupport247.net,"ccb4935b-46f2-475d-b227-ba55b61754f7"
+wdcsbm09.itsupport247.net,"d3b10611-bb98-494b-b419-36ea5ad46041"
+wdcsbm09.itsupport247.net,"dfb4832f-3214-4266-aa70-e71538514c0d"
+wdcsbm09.itsupport247.net,"f18e5ee6-a05e-4ac7-8ed2-0f5821cd1fea"
+wdcsbm10.itsupport247.net,"5006f85a-a92f-4b29-84db-98f43e2c0f89"
+wdcsbm10.itsupport247.net,"63abd2a1-d0f8-4f86-aa7b-178960fc7f5c"
+wdcsbm10.itsupport247.net,"7c563ba0-810f-4fd9-94af-ab03ffda9470"
+wdcsbm10.itsupport247.net,"c023fde2-a854-4263-85c3-d8f422a2eeea"
+wdcsbm10.itsupport247.net,"ce08d912-8f6a-46d2-b3e7-ccdcdca5575a"
+wdcsbm10.itsupport247.net,"d611b2ad-ddf2-450c-943b-390b8b8a8373"
+wdcsbm13.itsupport247.net,"2ba35cbb-edd6-4275-92f5-6c18cb2a076a"
+wdcsbm13.itsupport247.net,"36717e92-410a-40c5-9469-c95eba96e896"
+wdcsbm13.itsupport247.net,"ce2d9336-6a39-4bf3-a482-6ace0f3fea0b"
+wdcsbm13.itsupport247.net,"ea2ea677-2ee5-4da0-a441-07b0534caf7f"
+wdcsbm14.itsupport247.net,"36717e92-410a-40c5-9469-c95eba96e896"
+wdcsbm14.itsupport247.net,"83101b37-5116-414a-a5a1-c139b7025a24"
+wdcsbm15.itsupport247.net,"0a1b0095-7e70-40d1-b29f-c0d4e7c6c027"
+wdcsbm15.itsupport247.net,"0daec21a-4a79-412f-9f6c-307f914eefc9"
+wdcsbm15.itsupport247.net,"6b567cf9-896b-48ab-8b5f-1d48928f61c0"
+wdcsbm15.itsupport247.net,"affdc69b-1575-43dd-ae0d-bd120afdef89"
+wdcsbm15.itsupport247.net,"ce2d9336-6a39-4bf3-a482-6ace0f3fea0b"
+wdcsbm17.itsupport247.net,"1147a8d2-d742-4dad-baa5-b988c595b179"
+wdcsbm19.itsupport247.net,"7c563ba0-810f-4fd9-94af-ab03ffda9470"
+wdcsbm20.itsupport247.net,"7c563ba0-810f-4fd9-94af-ab03ffda9470"
