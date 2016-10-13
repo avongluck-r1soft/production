@@ -69,11 +69,11 @@ sjcsbm13.itsupport247.net,"a566b40e-a8b8-41f6-af2c-56776535813e" -> (sj10, wd16)
 sjcsbm13.itsupport247.net,"b7704be4-a29d-40a2-8262-3968a1132468" -> (sj13, wd13) - stopMigration -a successful. 
 sjcsbm14.itsupport247.net,"0a1b0095-7e70-40d1-b29f-c0d4e7c6c027" -> (sj15, wd16) - stopMigration -a -d successful on sj14.
 sjcsbm14.itsupport247.net,"57883a76-bcbc-422a-bcb0-d1be5b18d81b" -> (wd12, sj15) - stopMigration -a successful on wd12. 
-sjcsbm14.itsupport247.net,"dcbe5c0f-fd17-43a4-b5fc-aa438743a457" -> (
-sjcsbm15.itsupport247.net,"d9c8821c-8130-4a3f-baf2-c5c8d022014a"
-sjcsbm15.itsupport247.net,"fa902ed6-5bdc-4afd-9b45-8782be85c861"
-sjcsbm16.itsupport247.net,"ce2d9336-6a39-4bf3-a482-6ace0f3fea0b"
-sjcsbm16.itsupport247.net,"d54877a3-3ef5-45da-88fb-a2c2a8a2b516"
+sjcsbm14.itsupport247.net,"dcbe5c0f-fd17-43a4-b5fc-aa438743a457" -> (wd09, sj14) - stopMigration -a successful on sj14.
+sjcsbm15.itsupport247.net,"d9c8821c-8130-4a3f-baf2-c5c8d022014a" -> (wd13, sj15) - stopMigration -a successful on sj15. 
+sjcsbm15.itsupport247.net,"fa902ed6-5bdc-4afd-9b45-8782be85c861" -> (sj15, wd12) - stopMigration -a successful on sj15. 
+sjcsbm16.itsupport247.net,"ce2d9336-6a39-4bf3-a482-6ace0f3fea0b" -> (sj17, wd17) - stopMigration -a -d successful on wdcsbm13 and wdcsbm15. 
+sjcsbm16.itsupport247.net,"d54877a3-3ef5-45da-88fb-a2c2a8a2b516" ->
 wdcsbm04.itsupport247.net,"42dae6c2-537c-4afd-9540-5150f19b984a"
 wdcsbm04.itsupport247.net,"a17e631b-e86d-43fb-9822-c1dd0fcc9e93"
 wdcsbm04.itsupport247.net,"a9bc0b94-c62f-4a24-89b2-fe356f2f3182"
