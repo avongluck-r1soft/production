@@ -74,10 +74,10 @@ sjcsbm15.itsupport247.net,"d9c8821c-8130-4a3f-baf2-c5c8d022014a" -> (wd13, sj15)
 sjcsbm15.itsupport247.net,"fa902ed6-5bdc-4afd-9b45-8782be85c861" -> (sj15, wd12) - stopMigration -a successful on sj15. 
 sjcsbm16.itsupport247.net,"ce2d9336-6a39-4bf3-a482-6ace0f3fea0b" -> (sj17, wd17) - stopMigration -a -d successful on wdcsbm13 and wdcsbm15. 
 sjcsbm16.itsupport247.net,"d54877a3-3ef5-45da-88fb-a2c2a8a2b516" -> (sj18, wd20) - stopMigration -a successful on sj18. 
-wdcsbm04.itsupport247.net,"42dae6c2-537c-4afd-9540-5150f19b984a" ->
-wdcsbm04.itsupport247.net,"a17e631b-e86d-43fb-9822-c1dd0fcc9e93"
-wdcsbm04.itsupport247.net,"a9bc0b94-c62f-4a24-89b2-fe356f2f3182"
-wdcsbm04.itsupport247.net,"bdecc78a-1771-451d-854d-0b7e35e8dae9"
+wdcsbm04.itsupport247.net,"42dae6c2-537c-4afd-9540-5150f19b984a" -> (wd04, sj06) - stopMigration -a successful on wd04. 
+wdcsbm04.itsupport247.net,"a17e631b-e86d-43fb-9822-c1dd0fcc9e93" -> (sj08, wd04) - stopMigration -a successful on wd04.
+wdcsbm04.itsupport247.net,"a9bc0b94-c62f-4a24-89b2-fe356f2f3182" -> (sj09, wd04) - stopMigration -a successful on wd04.
+wdcsbm04.itsupport247.net,"bdecc78a-1771-451d-854d-0b7e35e8dae9" ->
 wdcsbm09.itsupport247.net,"11543535-3b78-4c1d-abdf-8e28ad5a69f1"
 wdcsbm09.itsupport247.net,"1fa38813-bf2c-47c9-9839-bb5721fbba10"
 wdcsbm09.itsupport247.net,"222e4cba-916e-4828-851c-81d270f3036c"
