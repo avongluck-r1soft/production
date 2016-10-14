@@ -151,7 +151,29 @@ wdcsbm09.itsupport247.net,"f18e5ee6-a05e-4ac7-8ed2-0f5821cd1fea" -> (wd11, sj06)
 wdcsbm10.itsupport247.net,"5006f85a-a92f-4b29-84db-98f43e2c0f89" -> (sj08, wd13) - stopMigration.
 wdcsbm10.itsupport247.net,"63abd2a1-d0f8-4f86-aa7b-178960fc7f5c" -> (sj10, wd17) - stopMigration. locked / missing RPs. 
 wdcsbm10.itsupport247.net,"7c563ba0-810f-4fd9-94af-ab03ffda9470" -> (wd18, sj10) - stopMigration.
-wdcsbm10.itsupport247.net,"c023fde2-a854-4263-85c3-d8f422a2eeea" ->
+wdcsbm10.itsupport247.net,"c023fde2-a854-4263-85c3-d8f422a2eeea" -> (wd10, sj07) - stopMigration.
+
+
+	root@wdcsbm10:~# getDiskSafe c023fde2-a854-4263-85c3-d8f422a2eeea
+	## Disk Safe information for c023fde2-a854-4263-85c3-d8f422a2eeea ##
+	Agent Name:       SN-FP01 
+	Disk Safe Status: false
+	Disk Safe ID:     0e5041e1-5395-475a-9f11-64aad64f3b2c
+	Disk Safe Path:   /storage09/replication/0e5041e1-5395-475a-9f11-64aad64f3b2c
+	Disk Safe Size:   0
+	Disk Safe Deltas: 0
+	root@wdcsbm10:~# stopMigration -a c023fde2-a854-4263-85c3-d8f422a2eeea
+	CSBM ID:  d3a7fd9f-00af-4a19-a4cb-643871d7cca9
+	[2016-10-14 14:15:55] Stopping migration for agent c023fde2-a854-4263-85c3-d8f422a2eeea
+	[2016-10-14 14:15:55] Task ID:  b295f8e1-4a42-4487-9005-cea91ad08270
+	[2016-10-14 14:15:55] Watching "Stop Migration" task
+	....SUCCESS
+	[2016-10-14 14:16:03] {"TaskID":"b295f8e1-4a42-4487-9005-cea91ad08270","Command":"STOP_MIGRATE","Status":"Migration has been disabled for the agent and the disk safe will resume normal operation","State":"SUCCESS","Progress":100,"Result":"","CreatedOn":1476472555495000,"PreviousTasks":[],"NextTask":"00000000-0000-0000-0000-000000000000"}
+	[2016-10-14 14:16:03] Finished stopping migration
+	root@wdcsbm10:~# du -sh /storage09/replication/0e5041e1-5395-475a-9f11-64aad64f3b2c
+	2.4T	/storage09/replication/0e5041e1-5395-475a-9f11-64aad64f3b2c
+
+
 wdcsbm10.itsupport247.net,"ce08d912-8f6a-46d2-b3e7-ccdcdca5575a" ->
 wdcsbm10.itsupport247.net,"d611b2ad-ddf2-450c-943b-390b8b8a8373" ->
 wdcsbm13.itsupport247.net,"2ba35cbb-edd6-4275-92f5-6c18cb2a076a" ->
