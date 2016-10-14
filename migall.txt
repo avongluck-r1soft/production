@@ -128,13 +128,13 @@ wdcsbm09.itsupport247.net,"7fb82585-1b0b-4ca0-8c89-b19aaab2e48f" -> (sj07, wd09)
 
 wdcsbm09.itsupport247.net,"9d1fdc82-808a-40d5-bcb1-24a3edd79049" -> (sj13, wd09) - stopMigration
 wdcsbm09.itsupport247.net,"a1bb30bd-f3ea-415d-831d-cf04f6ee3d50" -> (wd13, sj12) - recovery points, looks fine. 
-wdcsbm09.itsupport247.net,"a9409c80-36b9-44ba-8668-7431f733f461"
-wdcsbm09.itsupport247.net,"aef686b0-cc36-4692-bdec-754923e17f3d"
-wdcsbm09.itsupport247.net,"c432db8c-f5c6-4d64-956b-f87c21233164"
-wdcsbm09.itsupport247.net,"c78c4642-e991-467d-8c23-321a00668245"
-wdcsbm09.itsupport247.net,"ccb4935b-46f2-475d-b227-ba55b61754f7"
-wdcsbm09.itsupport247.net,"d3b10611-bb98-494b-b419-36ea5ad46041"
-wdcsbm09.itsupport247.net,"dfb4832f-3214-4266-aa70-e71538514c0d"
+wdcsbm09.itsupport247.net,"a9409c80-36b9-44ba-8668-7431f733f461" -> (wd12, sj11) - missing / locked RPs... stopMigration
+wdcsbm09.itsupport247.net,"aef686b0-cc36-4692-bdec-754923e17f3d" -> (?, ?) - can't find this one on any cloud SBM.
+wdcsbm09.itsupport247.net,"c432db8c-f5c6-4d64-956b-f87c21233164" -> (sj06, wd09) - stopMigration.
+wdcsbm09.itsupport247.net,"c78c4642-e991-467d-8c23-321a00668245" -> (wd12, sj12) - stopMigration.
+wdcsbm09.itsupport247.net,"ccb4935b-46f2-475d-b227-ba55b61754f7" -> (wd11, ?) - can't find secondary. stopMigration.
+wdcsbm09.itsupport247.net,"d3b10611-bb98-494b-b419-36ea5ad46041" -> (wd16, sj07) - stopMigration.
+wdcsbm09.itsupport247.net,"dfb4832f-3214-4266-aa70-e71538514c0d" -> (
 wdcsbm09.itsupport247.net,"f18e5ee6-a05e-4ac7-8ed2-0f5821cd1fea"
 wdcsbm10.itsupport247.net,"5006f85a-a92f-4b29-84db-98f43e2c0f89"
 wdcsbm10.itsupport247.net,"63abd2a1-d0f8-4f86-aa7b-178960fc7f5c"
