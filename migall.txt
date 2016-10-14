@@ -31,15 +31,11 @@ sjcsbm12.itsupport247.net,"5b0242a7-c7ea-48ab-92e9-e9fb84cc8ad3" -> (wd14, sj18)
 sjcsbm12.itsupport247.net,"62f9681f-9f66-410d-89b9-43f2b439b3c3" -> (wd04, sj12) stopMigration -a successful.
 sjcsbm12.itsupport247.net,"6beb2063-f74a-4fae-9b70-1a4a56bf170a" -> (sj07, wd14) not found on sj12 - migration complete.
 
-*** unique snowflake ***
+	sjcsbm12.itsupport247.net,"71afce93-168d-4ef0-b473-ad4107d7b102" -> "see README on wd14 - These disk safes belonged to a previous agent ID and then the customer rebuilt their site which changed the agent ID.  The source disk safe remained the same however.  I renamed the cloud disk safe to the original agent ID and reattached it to the CSBM UI then fixed the nextcsbm values in cassandra to hook up their new agent's with the old data.  This should not cause any problems with replication but I'm going to leave this note here on the offchance something goes wrong with DR on newer recovery points.
 
-sjcsbm12.itsupport247.net,"71afce93-168d-4ef0-b473-ad4107d7b102" -> "see README on wd14 - These disk safes belonged to a previous agent ID and then the customer rebuilt their site which changed the agent ID.  The source disk safe remained the same however.  I renamed the cloud disk safe to the original agent ID and reattached it to the CSBM UI then fixed the nextcsbm values in cassandra to hook up their new agent's with the old data.  This should not cause any problems with replication but I'm going to leave this note here on the offchance something goes wrong with DR on newer recovery points.
+	This change was made on 5/11/2016.
 
-This change was made on 5/11/2016.
-
--Tim"
-
-*** unique snowflake ***
+	-Tim"
 
 sjcsbm12.itsupport247.net,"820098dc-51a3-4c43-821f-5cd13f4e80bc" -> (sj18, no secondary!)
 sjcsbm12.itsupport247.net,"a4d88d37-d49f-4bce-a452-cac8c65150ea" -> (sj12, wd13) - stopMigration -a successful. 
@@ -48,17 +44,16 @@ sjcsbm12.itsupport247.net,"bbc131c1-d29b-475a-85c9-70599a73556c" -> (sj15, wd19)
 
 sjcsbm12.itsupport247.net,"e374dd01-009a-483c-a01f-9be27f58165e" -> (wd04, sj14) - DS has a different name on wd04:
 
-root@wdcsbm04:~# getDiskSafe e374dd01-009a-483c-a01f-9be27f58165e
-## Disk Safe information for e374dd01-009a-483c-a01f-9be27f58165e ##
-Agent Name:       APPSERV1 
-Disk Safe Status: true
-Disk Safe ID:     faa9b75b-d95a-4f92-9dac-538a9943ed89
-Disk Safe Path:   /storage05/replication/faa9b75b-d95a-4f92-9dac-538a9943ed89 (name change)
-Disk Safe Size:   7018113026700
-Disk Safe Deltas: 5880231757847
-root@wdcsbm04:~#      
+	root@wdcsbm04:~# getDiskSafe e374dd01-009a-483c-a01f-9be27f58165e
+	## Disk Safe information for e374dd01-009a-483c-a01f-9be27f58165e ##
+	Agent Name:       APPSERV1 
+	Disk Safe Status: true
+	Disk Safe ID:     faa9b75b-d95a-4f92-9dac-538a9943ed89
+	Disk Safe Path:   /storage05/replication/faa9b75b-d95a-4f92-9dac-538a9943ed89 (name change)
+	Disk Safe Size:   7018113026700
+	Disk Safe Deltas: 5880231757847
+	root@wdcsbm04:~#      
 
-moving along...
 
 sjcsbm12.itsupport247.net,"e703b417-416a-425e-b66c-62b22a48c59b" -> (sj12, wd13) - stopMigration -a successful on sj12.
 sjcsbm13.itsupport247.net,"2ba35cbb-edd6-4275-92f5-6c18cb2a076a" -> (sj15, wd13) - Keith's test machine - stopMigration -a successful on sj13
@@ -77,13 +72,39 @@ sjcsbm16.itsupport247.net,"d54877a3-3ef5-45da-88fb-a2c2a8a2b516" -> (sj18, wd20)
 wdcsbm04.itsupport247.net,"42dae6c2-537c-4afd-9540-5150f19b984a" -> (wd04, sj06) - stopMigration -a successful on wd04. 
 wdcsbm04.itsupport247.net,"a17e631b-e86d-43fb-9822-c1dd0fcc9e93" -> (sj08, wd04) - stopMigration -a successful on wd04.
 wdcsbm04.itsupport247.net,"a9bc0b94-c62f-4a24-89b2-fe356f2f3182" -> (sj09, wd04) - stopMigration -a successful on wd04.
-wdcsbm04.itsupport247.net,"bdecc78a-1771-451d-854d-0b7e35e8dae9" ->
-wdcsbm09.itsupport247.net,"11543535-3b78-4c1d-abdf-8e28ad5a69f1"
-wdcsbm09.itsupport247.net,"1fa38813-bf2c-47c9-9839-bb5721fbba10"
-wdcsbm09.itsupport247.net,"222e4cba-916e-4828-851c-81d270f3036c"
-wdcsbm09.itsupport247.net,"26d70e11-23bf-47e9-b4d3-ecabb0edd406"
-wdcsbm09.itsupport247.net,"42fd644a-23fc-4594-8c36-3773312d6beb"
-wdcsbm09.itsupport247.net,"48041654-168a-49b3-846b-06ac550f901d"
+wdcsbm04.itsupport247.net,"bdecc78a-1771-451d-854d-0b7e35e8dae9" -> (?, ?) - can't find this one. 
+wdcsbm09.itsupport247.net,"11543535-3b78-4c1d-abdf-8e28ad5a69f1" -> (?, ?) - can't find this one.
+wdcsbm09.itsupport247.net,"1fa38813-bf2c-47c9-9839-bb5721fbba10" -> (?, ?) - can't find this one.
+wdcsbm09.itsupport247.net,"222e4cba-916e-4828-851c-81d270f3036c" -> (wd16, sj06) - stopMigration -a successful on wd16.
+wdcsbm09.itsupport247.net,"26d70e11-23bf-47e9-b4d3-ecabb0edd406" -> (wd09, sj06) - stopMigration -a successful on sj06. 
+
+wdcsbm09.itsupport247.net,"42fd644a-23fc-4594-8c36-3773312d6beb" -> (sj09, wd17) - stopMigration -a successful on sj09 - DS has different name on sj09:
+
+	root@sjcsbm09:~# getDiskSafe 42fd644a-23fc-4594-8c36-3773312d6beb
+	## Disk Safe information for 42fd644a-23fc-4594-8c36-3773312d6beb ##
+	Agent Name:       10.10.56.4 
+	Disk Safe Status: true
+	Disk Safe ID:     4643ddae-11f6-40fe-a61e-c9311b63664d
+	Disk Safe Path:   /storage08/replication/4643ddae-11f6-40fe-a61e-c9311b63664d
+	Disk Safe Size:   1465461280764
+	Disk Safe Deltas: 649862427692
+
+
+
+wdcsbm09.itsupport247.net,"48041654-168a-49b3-846b-06ac550f901d" -> (wd12, sj10) -  stopMigration -a on sj12.
+
+	wat.
+
+	root@wdcsbm12:~# find /storage* -name 48041654-168a-49b3-846b-06ac550f901d -exec du -sh {} \;
+	413G	/storage01/replication/48041654-168a-49b3-846b-06ac550f901d
+	4.0K	/storage04/replication/48041654-168a-49b3-846b-06ac550f901d
+	130G	/storage06/replication/48041654-168a-49b3-846b-06ac550f901d
+	18G	/storage07/replication/48041654-168a-49b3-846b-06ac550f901d
+	39G	/storage08/replication/48041654-168a-49b3-846b-06ac550f901d
+	108G	/storage09/replication/48041654-168a-49b3-846b-06ac550f901d
+
+	cleaned up - removed all folders that weren't the 413G one in /storage01.
+
 wdcsbm09.itsupport247.net,"4a627397-f87b-4729-903a-226d26fe94e3"
 wdcsbm09.itsupport247.net,"71db5cc3-27ce-4a6f-a2f7-595b5e2e7c29"
 wdcsbm09.itsupport247.net,"7a56c7f4-f26d-4cac-9813-d0ad18787c92"
