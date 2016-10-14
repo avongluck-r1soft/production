@@ -1,0 +1,17 @@
+#!/bin/bash
+
+PASS=$1
+GREP=$2
+LOGS=$3
+
+if [[ -z $3 ]]; then
+	echo "usage: $0 <passwd> <grepme> <logfile>"
+	exit -1
+fi
+
+for host in $(awk '/csbm/ {print $2}' /etc/hosts); do
+	data=$(sshpass -p$PASS ssh -o StrictHostKeyChecking=no continuum@$host "echo $PASS | sudo -S grep '$GREP' $LOGS" 2>/dev/null) 
+	if [[ ! -z $data ]]; then
+		echo "$host $data"
+	fi
+done
