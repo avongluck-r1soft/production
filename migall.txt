@@ -107,7 +107,7 @@ wdcsbm09.itsupport247.net,"48041654-168a-49b3-846b-06ac550f901d" -> (wd12, sj10)
 
 wdcsbm09.itsupport247.net,"4a627397-f87b-4729-903a-226d26fe94e3" -> (wd14, sj12)
 
-	Not sure why these are different sizes:
+	different sized disksafes:
 
 	sjcsbm12 488G	/storage03/replication/4a627397-f87b-4729-903a-226d26fe94e3
 	wdcsbm14 1.6T	/storage05/replication/4a627397-f87b-4729-903a-226d26fe94e3
@@ -126,8 +126,8 @@ wdcsbm09.itsupport247.net,"7fb82585-1b0b-4ca0-8c89-b19aaab2e48f" -> (sj07, wd09)
 	Disk Safe Deltas: 205465348457
 
 
-wdcsbm09.itsupport247.net,"9d1fdc82-808a-40d5-bcb1-24a3edd79049"
-wdcsbm09.itsupport247.net,"a1bb30bd-f3ea-415d-831d-cf04f6ee3d50"
+wdcsbm09.itsupport247.net,"9d1fdc82-808a-40d5-bcb1-24a3edd79049" -> (sj13, wd09) - stopMigration
+wdcsbm09.itsupport247.net,"a1bb30bd-f3ea-415d-831d-cf04f6ee3d50" -> (wd13, sj12) - recovery points, looks fine. 
 wdcsbm09.itsupport247.net,"a9409c80-36b9-44ba-8668-7431f733f461"
 wdcsbm09.itsupport247.net,"aef686b0-cc36-4692-bdec-754923e17f3d"
 wdcsbm09.itsupport247.net,"c432db8c-f5c6-4d64-956b-f87c21233164"
