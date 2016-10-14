@@ -42,14 +42,14 @@ sjcsbm12.itsupport247.net,"a4d88d37-d49f-4bce-a452-cac8c65150ea" -> (sj12, wd13)
 sjcsbm12.itsupport247.net,"bbc131c1-d29b-475a-85c9-70599a73556c" -> (sj15, wd19) - stopMigration -a -d successful on sj12. 
 
 
-sjcsbm12.itsupport247.net,"e374dd01-009a-483c-a01f-9be27f58165e" -> (wd04, sj14) - DS has a different name on wd04:
+sjcsbm12.itsupport247.net,"e374dd01-009a-483c-a01f-9be27f58165e" -> (wd04, sj14) - DS has a different GUID on wd04:
 
 	root@wdcsbm04:~# getDiskSafe e374dd01-009a-483c-a01f-9be27f58165e
 	## Disk Safe information for e374dd01-009a-483c-a01f-9be27f58165e ##
 	Agent Name:       APPSERV1 
 	Disk Safe Status: true
 	Disk Safe ID:     faa9b75b-d95a-4f92-9dac-538a9943ed89
-	Disk Safe Path:   /storage05/replication/faa9b75b-d95a-4f92-9dac-538a9943ed89 (name change)
+	Disk Safe Path:   /storage05/replication/faa9b75b-d95a-4f92-9dac-538a9943ed89 
 	Disk Safe Size:   7018113026700
 	Disk Safe Deltas: 5880231757847
 	root@wdcsbm04:~#      
@@ -78,7 +78,7 @@ wdcsbm09.itsupport247.net,"1fa38813-bf2c-47c9-9839-bb5721fbba10" -> (?, ?) - can
 wdcsbm09.itsupport247.net,"222e4cba-916e-4828-851c-81d270f3036c" -> (wd16, sj06) - stopMigration -a successful on wd16.
 wdcsbm09.itsupport247.net,"26d70e11-23bf-47e9-b4d3-ecabb0edd406" -> (wd09, sj06) - stopMigration -a successful on sj06. 
 
-wdcsbm09.itsupport247.net,"42fd644a-23fc-4594-8c36-3773312d6beb" -> (sj09, wd17) - stopMigration -a successful on sj09 - DS has different name on sj09:
+wdcsbm09.itsupport247.net,"42fd644a-23fc-4594-8c36-3773312d6beb" -> (sj09, wd17) - stopMigration -a successful on sj09 - DS has different GUID on sj09:
 
 	root@sjcsbm09:~# getDiskSafe 42fd644a-23fc-4594-8c36-3773312d6beb
 	## Disk Safe information for 42fd644a-23fc-4594-8c36-3773312d6beb ##
@@ -105,10 +105,27 @@ wdcsbm09.itsupport247.net,"48041654-168a-49b3-846b-06ac550f901d" -> (wd12, sj10)
 
 	cleaned up - removed all folders that weren't the 413G one in /storage01.
 
-wdcsbm09.itsupport247.net,"4a627397-f87b-4729-903a-226d26fe94e3"
-wdcsbm09.itsupport247.net,"71db5cc3-27ce-4a6f-a2f7-595b5e2e7c29"
-wdcsbm09.itsupport247.net,"7a56c7f4-f26d-4cac-9813-d0ad18787c92"
-wdcsbm09.itsupport247.net,"7fb82585-1b0b-4ca0-8c89-b19aaab2e48f"
+wdcsbm09.itsupport247.net,"4a627397-f87b-4729-903a-226d26fe94e3" -> (wd14, sj12)
+
+	Not sure why these are different sizes:
+
+	sjcsbm12 488G	/storage03/replication/4a627397-f87b-4729-903a-226d26fe94e3
+	wdcsbm14 1.6T	/storage05/replication/4a627397-f87b-4729-903a-226d26fe94e3
+
+wdcsbm09.itsupport247.net,"71db5cc3-27ce-4a6f-a2f7-595b5e2e7c29" -> (wd12, sj07) - stopMigration -a on wd12.
+wdcsbm09.itsupport247.net,"7a56c7f4-f26d-4cac-9813-d0ad18787c92" -> (sj06, wd16) - stopMigration
+wdcsbm09.itsupport247.net,"7fb82585-1b0b-4ca0-8c89-b19aaab2e48f" -> (sj07, wd09) - has recovery points, looks fine, DS has different GUID on sj07:
+
+	root@sjcsbm07:~# getDiskSafe 7fb82585-1b0b-4ca0-8c89-b19aaab2e48f
+	## Disk Safe information for 7fb82585-1b0b-4ca0-8c89-b19aaab2e48f ##
+	Agent Name:       FFCSBS 
+	Disk Safe Status: true
+	Disk Safe ID:     743b0dc3-9932-4f3c-9523-a1d154469ee7
+	Disk Safe Path:   /storage07/replication/743b0dc3-9932-4f3c-9523-a1d154469ee7
+	Disk Safe Size:   255903766385
+	Disk Safe Deltas: 205465348457
+
+
 wdcsbm09.itsupport247.net,"9d1fdc82-808a-40d5-bcb1-24a3edd79049"
 wdcsbm09.itsupport247.net,"a1bb30bd-f3ea-415d-831d-cf04f6ee3d50"
 wdcsbm09.itsupport247.net,"a9409c80-36b9-44ba-8668-7431f733f461"
