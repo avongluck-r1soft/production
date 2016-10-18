@@ -1,4 +1,4 @@
-sjcsbm06 migrations":["a6409683-c822-41da-ac26-692d97a319fe","aa90bf67-dbec-4efc-b096-fd4d2b4bf77e","067f88f4-ec33-4899-b5fb-6413a2341140"]
+sjcsbm06 migrations":["067f88f4-ec33-4899-b5fb-6413a2341140","a6409683-c822-41da-ac26-692d97a319fe","aa90bf67-dbec-4efc-b096-fd4d2b4bf77e"]
 sjcsbm07 migrations":[]
 sjcsbm08 migrations":[]
 sjcsbm09 migrations":[]
