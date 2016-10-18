@@ -1,192 +1,26 @@
-host			  DiskSafe				    (P, S)		comments
-loasbm03.itsupport247.net,"5359bf2c-b42e-4073-ab7e-d4e44f10ad38" -> (loa05, loa04) loasbm03 decommissioned. New primary CSBM.
-loasbm03.itsupport247.net,"863d2035-7994-4166-837c-faaf7cfa6571" -> (loa05, loa04) loasbm03 decommissioned. New primary CSBM.
-lobsbm02.itsupport247.net,"1f5ffdce-a692-4a87-bce2-e61550d61a37" -> (loa04, lob06) loasbm02 decommissioned. New primary CSBM.
-lobsbm02.itsupport247.net,"8130afae-fc1d-4a15-b7c8-99629c64a93e" -> (loa05, lob05) lobsbm02 decommissioned. New primary CSBM.
-sjcsbm06.itsupport247.net,"01ce3a4b-45a4-424e-a566-6a40659f98de" -> (sj06, wd09) stopMigration successful.
-sjcsbm06.itsupport247.net,"067f88f4-ec33-4899-b5fb-6413a2341140" -> (sj10, wd04) agent migrated to new primary.
-sjcsbm06.itsupport247.net,"1c886f21-70b9-472b-bb9a-6f986416eaab" -> (sj06, wd12) stopMigration successful.
-sjcsbm06.itsupport247.net,"78b27a6f-bd65-434f-9819-db0144f24985" -> (sj06, wd11) stopMigration successful.
-sjcsbm06.itsupport247.net,"8a9178c9-3dd0-493b-886d-ec2faa4c5a9e" -> (sj06, wd11) stopMigration successful.
-sjcsbm06.itsupport247.net,"8d7398aa-0083-4a1a-becf-c15cb8e3ecea" -> (sj06, wd11) stopMigration successful.
-sjcsbm06.itsupport247.net,"a6409683-c822-41da-ac26-692d97a319fe" -> (wd09, sj12) agent migrated to new primary.
-sjcsbm06.itsupport247.net,"aa90bf67-dbec-4efc-b096-fd4d2b4bf77e" -> (sj10, wd14) agent migrated to new primary.
-sjcsbm06.itsupport247.net,"bbc131c1-d29b-475a-85c9-70599a73556c" -> (sj15, wd19) stopMigration -a -d successful on sj06. 
-sjcsbm06.itsupport247.net,"c054f3c0-1342-4e31-a5ea-22575e13ed87" -> (wd09, sj06) stopMigration successful on sj06.
-sjcsbm06.itsupport247.net,"eb7d7a33-4c83-4681-893c-71c0e6a23a68" -> (sj06, wd14) stopMigration successful on sj06.
-sjcsbm06.itsupport247.net,"ef5d114a-dcbc-4dba-9bc2-abd03c796ed3" -> (wd09, sj06) stopMigration successful on sj06. Waiting on recovery points. 
-sjcsbm07.itsupport247.net,"2902e01f-7d70-4ec3-971c-d87e2b8f8af1" -> (?, ?) not found. 
-sjcsbm07.itsupport247.net,"660e3a73-57d1-43d8-b6b2-d81da5b254e6" -> (wd10, sj16) agent migrated to new primary. 
-sjcsbm07.itsupport247.net,"6bfc5845-79fb-45b7-bdb6-9042a09726fa" -> (wd10, sj12) agent migrated to new primary.
-sjcsbm07.itsupport247.net,"764ab607-5680-4831-9fc8-d6d95422409e" -> (sj18, wd09) agent migrated to new primary.
-sjcsbm07.itsupport247.net,"9d47cf73-5f4b-4765-8939-bc3759ba57c1" -> (wd09, sj12) stopMigration -a -d successful on sj07. 
-sjcsbm07.itsupport247.net,"d633ea0e-6057-4a86-b5cb-bee3ed1ec39f" -> (wd09, sj07) stopMigration -a successful. 
-sjcsbm09.itsupport247.net,"54be728d-30f9-4e6a-9c68-fa26d67b4a83" -> (?, ?) not found.
-sjcsbm09.itsupport247.net,"d7adf807-bc08-4928-9276-3dee96bfbebf" -> (?, ?) not found.
-sjcsbm11.itsupport247.net,"60426408-63fe-4742-b000-7cd6ea2c2627" -> (?, ?) not found.
-sjcsbm11.itsupport247.net,"9405a111-94d6-4322-ae85-b1eda61e5b2a" -> (sj11, wd14) stopMigration -a successful on sj11.
-sjcsbm11.itsupport247.net,"ce2d9336-6a39-4bf3-a482-6ace0f3fea0b" -> (sj17, wd17) AgentID deleted.
-sjcsbm12.itsupport247.net,"44c05429-47b5-40b8-a386-00ffa4d1f256" -> (?, ?) not found.
-sjcsbm12.itsupport247.net,"5b0242a7-c7ea-48ab-92e9-e9fb84cc8ad3" -> (wd14, sj18) not found on sj12 - migration complete. 
-sjcsbm12.itsupport247.net,"62f9681f-9f66-410d-89b9-43f2b439b3c3" -> (wd04, sj12) stopMigration -a successful.
-sjcsbm12.itsupport247.net,"6beb2063-f74a-4fae-9b70-1a4a56bf170a" -> (sj07, wd14) not found on sj12 - migration complete.
-
-	sjcsbm12.itsupport247.net,"71afce93-168d-4ef0-b473-ad4107d7b102" -> "see README on wd14 - These disk safes belonged to a previous agent ID and then the customer rebuilt their site which changed the agent ID.  The source disk safe remained the same however.  I renamed the cloud disk safe to the original agent ID and reattached it to the CSBM UI then fixed the nextcsbm values in cassandra to hook up their new agent's with the old data.  This should not cause any problems with replication but I'm going to leave this note here on the offchance something goes wrong with DR on newer recovery points.
-
-	This change was made on 5/11/2016.
-
-	-Tim"
-
-sjcsbm12.itsupport247.net,"820098dc-51a3-4c43-821f-5cd13f4e80bc" -> (sj18, no secondary!)
-sjcsbm12.itsupport247.net,"a4d88d37-d49f-4bce-a452-cac8c65150ea" -> (sj12, wd13) - stopMigration -a successful. 
-sjcsbm12.itsupport247.net,"bbc131c1-d29b-475a-85c9-70599a73556c" -> (sj15, wd19) - stopMigration -a -d successful on sj12. 
-
-
-sjcsbm12.itsupport247.net,"e374dd01-009a-483c-a01f-9be27f58165e" -> (wd04, sj14) - DS has a different GUID on wd04:
-
-	root@wdcsbm04:~# getDiskSafe e374dd01-009a-483c-a01f-9be27f58165e
-	## Disk Safe information for e374dd01-009a-483c-a01f-9be27f58165e ##
-	Agent Name:       APPSERV1 
-	Disk Safe Status: true
-	Disk Safe ID:     faa9b75b-d95a-4f92-9dac-538a9943ed89
-	Disk Safe Path:   /storage05/replication/faa9b75b-d95a-4f92-9dac-538a9943ed89 
-	Disk Safe Size:   7018113026700
-	Disk Safe Deltas: 5880231757847
-	root@wdcsbm04:~#      
-
-
-sjcsbm12.itsupport247.net,"e703b417-416a-425e-b66c-62b22a48c59b" -> (sj12, wd13) - stopMigration -a successful on sj12.
-sjcsbm13.itsupport247.net,"2ba35cbb-edd6-4275-92f5-6c18cb2a076a" -> (sj15, wd13) - Keith's test machine - stopMigration -a successful on sj13
-sjcsbm13.itsupport247.net,"68d06441-cbbf-4a68-9936-23947b8bcc8c" -> (wd17, sj13) - stopMigration -a successful on sj13. 
-sjcsbm13.itsupport247.net,"83101b37-5116-414a-a5a1-c139b7025a24" -> (wd20, sj14) - stopMigration -a -d successful on sj13.
-sjcsbm13.itsupport247.net,"99440179-102c-4f49-b633-f45248b1cf56" -> (wd09, sj14) - RPs awailable captain! -Checkov. 
-sjcsbm13.itsupport247.net,"a566b40e-a8b8-41f6-af2c-56776535813e" -> (sj10, wd16) - stopMigration -a successful .
-sjcsbm13.itsupport247.net,"b7704be4-a29d-40a2-8262-3968a1132468" -> (sj13, wd13) - stopMigration -a successful. 
-sjcsbm14.itsupport247.net,"0a1b0095-7e70-40d1-b29f-c0d4e7c6c027" -> (sj15, wd16) - stopMigration -a -d successful on sj14.
-sjcsbm14.itsupport247.net,"57883a76-bcbc-422a-bcb0-d1be5b18d81b" -> (wd12, sj15) - stopMigration -a successful on wd12. 
-sjcsbm14.itsupport247.net,"dcbe5c0f-fd17-43a4-b5fc-aa438743a457" -> (wd09, sj14) - stopMigration -a successful on sj14.
-sjcsbm15.itsupport247.net,"d9c8821c-8130-4a3f-baf2-c5c8d022014a" -> (wd13, sj15) - stopMigration -a successful on sj15. 
-sjcsbm15.itsupport247.net,"fa902ed6-5bdc-4afd-9b45-8782be85c861" -> (sj15, wd12) - stopMigration -a successful on sj15. 
-sjcsbm16.itsupport247.net,"ce2d9336-6a39-4bf3-a482-6ace0f3fea0b" -> (sj17, wd17) - stopMigration -a -d successful on wdcsbm13 and wdcsbm15. 
-sjcsbm16.itsupport247.net,"d54877a3-3ef5-45da-88fb-a2c2a8a2b516" -> (sj18, wd20) - stopMigration -a successful on sj18. 
-wdcsbm04.itsupport247.net,"42dae6c2-537c-4afd-9540-5150f19b984a" -> (wd04, sj06) - stopMigration -a successful on wd04. 
-wdcsbm04.itsupport247.net,"a17e631b-e86d-43fb-9822-c1dd0fcc9e93" -> (sj08, wd04) - stopMigration -a successful on wd04.
-wdcsbm04.itsupport247.net,"a9bc0b94-c62f-4a24-89b2-fe356f2f3182" -> (sj09, wd04) - stopMigration -a successful on wd04.
-wdcsbm04.itsupport247.net,"bdecc78a-1771-451d-854d-0b7e35e8dae9" -> (?, ?) - can't find this one. 
-wdcsbm09.itsupport247.net,"11543535-3b78-4c1d-abdf-8e28ad5a69f1" -> (?, ?) - can't find this one.
-wdcsbm09.itsupport247.net,"1fa38813-bf2c-47c9-9839-bb5721fbba10" -> (?, ?) - can't find this one.
-wdcsbm09.itsupport247.net,"222e4cba-916e-4828-851c-81d270f3036c" -> (wd16, sj06) - stopMigration -a successful on wd16.
-wdcsbm09.itsupport247.net,"26d70e11-23bf-47e9-b4d3-ecabb0edd406" -> (wd09, sj06) - stopMigration -a successful on sj06. 
-
-wdcsbm09.itsupport247.net,"42fd644a-23fc-4594-8c36-3773312d6beb" -> (sj09, wd17) - stopMigration -a successful on sj09 - DS has different GUID on sj09:
-
-	root@sjcsbm09:~# getDiskSafe 42fd644a-23fc-4594-8c36-3773312d6beb
-	## Disk Safe information for 42fd644a-23fc-4594-8c36-3773312d6beb ##
-	Agent Name:       10.10.56.4 
-	Disk Safe Status: true
-	Disk Safe ID:     4643ddae-11f6-40fe-a61e-c9311b63664d
-	Disk Safe Path:   /storage08/replication/4643ddae-11f6-40fe-a61e-c9311b63664d
-	Disk Safe Size:   1465461280764
-	Disk Safe Deltas: 649862427692
-
-
-
-wdcsbm09.itsupport247.net,"48041654-168a-49b3-846b-06ac550f901d" -> (wd12, sj10) -  stopMigration -a on sj12.
-
-	wat.
-
-	root@wdcsbm12:~# find /storage* -name 48041654-168a-49b3-846b-06ac550f901d -exec du -sh {} \;
-	413G	/storage01/replication/48041654-168a-49b3-846b-06ac550f901d
-	4.0K	/storage04/replication/48041654-168a-49b3-846b-06ac550f901d
-	130G	/storage06/replication/48041654-168a-49b3-846b-06ac550f901d
-	18G	/storage07/replication/48041654-168a-49b3-846b-06ac550f901d
-	39G	/storage08/replication/48041654-168a-49b3-846b-06ac550f901d
-	108G	/storage09/replication/48041654-168a-49b3-846b-06ac550f901d
-
-	cleaned up - removed all folders that weren't the 413G one in /storage01.
-
-wdcsbm09.itsupport247.net,"4a627397-f87b-4729-903a-226d26fe94e3" -> (wd14, sj12)
-
-	different sized disksafes:
-
-	sjcsbm12 488G	/storage03/replication/4a627397-f87b-4729-903a-226d26fe94e3
-	wdcsbm14 1.6T	/storage05/replication/4a627397-f87b-4729-903a-226d26fe94e3
-
-wdcsbm09.itsupport247.net,"71db5cc3-27ce-4a6f-a2f7-595b5e2e7c29" -> (wd12, sj07) - stopMigration -a on wd12.
-wdcsbm09.itsupport247.net,"7a56c7f4-f26d-4cac-9813-d0ad18787c92" -> (sj06, wd16) - stopMigration
-wdcsbm09.itsupport247.net,"7fb82585-1b0b-4ca0-8c89-b19aaab2e48f" -> (sj07, wd09) - has recovery points, looks fine, DS has different GUID on sj07:
-
-	root@sjcsbm07:~# getDiskSafe 7fb82585-1b0b-4ca0-8c89-b19aaab2e48f
-	## Disk Safe information for 7fb82585-1b0b-4ca0-8c89-b19aaab2e48f ##
-	Agent Name:       FFCSBS 
-	Disk Safe Status: true
-	Disk Safe ID:     743b0dc3-9932-4f3c-9523-a1d154469ee7
-	Disk Safe Path:   /storage07/replication/743b0dc3-9932-4f3c-9523-a1d154469ee7
-	Disk Safe Size:   255903766385
-	Disk Safe Deltas: 205465348457
-
-
-wdcsbm09.itsupport247.net,"9d1fdc82-808a-40d5-bcb1-24a3edd79049" -> (sj13, wd09) - stopMigration
-wdcsbm09.itsupport247.net,"a1bb30bd-f3ea-415d-831d-cf04f6ee3d50" -> (wd13, sj12) - recovery points, looks fine. 
-wdcsbm09.itsupport247.net,"a9409c80-36b9-44ba-8668-7431f733f461" -> (wd12, sj11) - missing / locked RPs... stopMigration
-wdcsbm09.itsupport247.net,"aef686b0-cc36-4692-bdec-754923e17f3d" -> (?, ?) - can't find this one on any cloud SBM.
-wdcsbm09.itsupport247.net,"c432db8c-f5c6-4d64-956b-f87c21233164" -> (sj06, wd09) - stopMigration.
-wdcsbm09.itsupport247.net,"c78c4642-e991-467d-8c23-321a00668245" -> (wd12, sj12) - stopMigration.
-wdcsbm09.itsupport247.net,"ccb4935b-46f2-475d-b227-ba55b61754f7" -> (wd11, ?) - can't find secondary. stopMigration.
-wdcsbm09.itsupport247.net,"d3b10611-bb98-494b-b419-36ea5ad46041" -> (wd16, sj07) - stopMigration.
-wdcsbm09.itsupport247.net,"dfb4832f-3214-4266-aa70-e71538514c0d" -> (wd16, sj08) - stopMigration.
-wdcsbm09.itsupport247.net,"f18e5ee6-a05e-4ac7-8ed2-0f5821cd1fea" -> (wd11, sj06) - stopMigration:
-
-
-	root@wdcsbm11:~# getDiskSafe f18e5ee6-a05e-4ac7-8ed2-0f5821cd1fea
-	## Disk Safe information for f18e5ee6-a05e-4ac7-8ed2-0f5821cd1fea ##
-	Agent Name:       192.168.1.3
-	Disk Safe Status: true
-	Disk Safe ID:     e40dbfbf-448b-4803-8f11-63afebd8b7bb
-	Disk Safe Path:   /storage08/replication/e40dbfbf-448b-4803-8f11-63afebd8b7bb
-	Disk Safe Size:   196903917611
-	Disk Safe Deltas: 95518524979
-
-
-wdcsbm10.itsupport247.net,"5006f85a-a92f-4b29-84db-98f43e2c0f89" -> (sj08, wd13) - stopMigration.
-wdcsbm10.itsupport247.net,"63abd2a1-d0f8-4f86-aa7b-178960fc7f5c" -> (sj10, wd17) - stopMigration. locked / missing RPs. 
-wdcsbm10.itsupport247.net,"7c563ba0-810f-4fd9-94af-ab03ffda9470" -> (wd18, sj10) - stopMigration.
-wdcsbm10.itsupport247.net,"c023fde2-a854-4263-85c3-d8f422a2eeea" -> (wd10, sj07) - stopMigration.
-
-
-	root@wdcsbm10:~# getDiskSafe c023fde2-a854-4263-85c3-d8f422a2eeea
-	## Disk Safe information for c023fde2-a854-4263-85c3-d8f422a2eeea ##
-	Agent Name:       SN-FP01 
-	Disk Safe Status: false
-	Disk Safe ID:     0e5041e1-5395-475a-9f11-64aad64f3b2c
-	Disk Safe Path:   /storage09/replication/0e5041e1-5395-475a-9f11-64aad64f3b2c
-	Disk Safe Size:   0
-	Disk Safe Deltas: 0
-	root@wdcsbm10:~# stopMigration -a c023fde2-a854-4263-85c3-d8f422a2eeea
-	CSBM ID:  d3a7fd9f-00af-4a19-a4cb-643871d7cca9
-	[2016-10-14 14:15:55] Stopping migration for agent c023fde2-a854-4263-85c3-d8f422a2eeea
-	[2016-10-14 14:15:55] Task ID:  b295f8e1-4a42-4487-9005-cea91ad08270
-	[2016-10-14 14:15:55] Watching "Stop Migration" task
-	....SUCCESS
-	[2016-10-14 14:16:03] {"TaskID":"b295f8e1-4a42-4487-9005-cea91ad08270","Command":"STOP_MIGRATE","Status":"Migration has been disabled for the agent and the disk safe will resume normal operation","State":"SUCCESS","Progress":100,"Result":"","CreatedOn":1476472555495000,"PreviousTasks":[],"NextTask":"00000000-0000-0000-0000-000000000000"}
-	[2016-10-14 14:16:03] Finished stopping migration
-	root@wdcsbm10:~# du -sh /storage09/replication/0e5041e1-5395-475a-9f11-64aad64f3b2c
-	2.4T	/storage09/replication/0e5041e1-5395-475a-9f11-64aad64f3b2c
-
-
-wdcsbm10.itsupport247.net,"ce08d912-8f6a-46d2-b3e7-ccdcdca5575a" -> (
-wdcsbm10.itsupport247.net,"d611b2ad-ddf2-450c-943b-390b8b8a8373" ->
-wdcsbm13.itsupport247.net,"2ba35cbb-edd6-4275-92f5-6c18cb2a076a" ->
-wdcsbm13.itsupport247.net,"36717e92-410a-40c5-9469-c95eba96e896" ->
-wdcsbm13.itsupport247.net,"ce2d9336-6a39-4bf3-a482-6ace0f3fea0b" ->
-wdcsbm13.itsupport247.net,"ea2ea677-2ee5-4da0-a441-07b0534caf7f" ->
-wdcsbm14.itsupport247.net,"36717e92-410a-40c5-9469-c95eba96e896" ->
-wdcsbm14.itsupport247.net,"83101b37-5116-414a-a5a1-c139b7025a24" ->
-wdcsbm15.itsupport247.net,"0a1b0095-7e70-40d1-b29f-c0d4e7c6c027" ->
-wdcsbm15.itsupport247.net,"0daec21a-4a79-412f-9f6c-307f914eefc9" ->
-wdcsbm15.itsupport247.net,"6b567cf9-896b-48ab-8b5f-1d48928f61c0" ->
-wdcsbm15.itsupport247.net,"affdc69b-1575-43dd-ae0d-bd120afdef89" ->
-wdcsbm15.itsupport247.net,"ce2d9336-6a39-4bf3-a482-6ace0f3fea0b" ->
-wdcsbm17.itsupport247.net,"1147a8d2-d742-4dad-baa5-b988c595b179" ->
-wdcsbm19.itsupport247.net,"7c563ba0-810f-4fd9-94af-ab03ffda9470" ->
-wdcsbm20.itsupport247.net,"7c563ba0-810f-4fd9-94af-ab03ffda9470" ->
+sjcsbm06 migrations":["a6409683-c822-41da-ac26-692d97a319fe","aa90bf67-dbec-4efc-b096-fd4d2b4bf77e","067f88f4-ec33-4899-b5fb-6413a2341140"]
+sjcsbm07 migrations":["764ab607-5680-4831-9fc8-d6d95422409e","660e3a73-57d1-43d8-b6b2-d81da5b254e6","6bfc5845-79fb-45b7-bdb6-9042a09726fa","2902e01f-7d70-4ec3-971c-d87e2b8f8af1"]
+sjcsbm08 migrations":[]
+sjcsbm09 migrations":["54be728d-30f9-4e6a-9c68-fa26d67b4a83"]
+sjcsbm10 migrations":[]
+sjcsbm11 migrations":["ce2d9336-6a39-4bf3-a482-6ace0f3fea0b"]
+sjcsbm12 migrations":["5b0242a7-c7ea-48ab-92e9-e9fb84cc8ad3","e374dd01-009a-483c-a01f-9be27f58165e","6beb2063-f74a-4fae-9b70-1a4a56bf170a"]
+sjcsbm13 migrations":["a566b40e-a8b8-41f6-af2c-56776535813e"]
+sjcsbm14 migrations":["57883a76-bcbc-422a-bcb0-d1be5b18d81b"]
+sjcsbm15 migrations":[]
+sjcsbm16 migrations":["ce2d9336-6a39-4bf3-a482-6ace0f3fea0b","d54877a3-3ef5-45da-88fb-a2c2a8a2b516"]
+sjcsbm17 migrations":["ce2d9336-6a39-4bf3-a482-6ace0f3fea0b"]
+sjcsbm18 migrations":[]
+wdcsbm04 migrations":[]
+wdcsbm09 migrations":["a1bb30bd-f3ea-415d-831d-cf04f6ee3d50","f18e5ee6-a05e-4ac7-8ed2-0f5821cd1fea","c78c4642-e991-467d-8c23-321a00668245","a9409c80-36b9-44ba-8668-7431f733f461","48041654-168a-49b3-846b-06ac550f901d","dfb4832f-3214-4266-aa70-e71538514c0d","ccb4935b-46f2-475d-b227-ba55b61754f7","11543535-3b78-4c1d-abdf-8e28ad5a69f1","42fd644a-23fc-4594-8c36-3773312d6beb","d3b10611-bb98-494b-b419-36ea5ad46041","71db5cc3-27ce-4a6f-a2f7-595b5e2e7c29","aef686b0-cc36-4692-bdec-754923e17f3d","222e4cba-916e-4828-851c-81d270f3036c","7a56c7f4-f26d-4cac-9813-d0ad18787c92","1fa38813-bf2c-47c9-9839-bb5721fbba10","4a627397-f87b-4729-903a-226d26fe94e3"]
+wdcsbm10 migrations":["63abd2a1-d0f8-4f86-aa7b-178960fc7f5c","7c563ba0-810f-4fd9-94af-ab03ffda9470","ce08d912-8f6a-46d2-b3e7-ccdcdca5575a","5006f85a-a92f-4b29-84db-98f43e2c0f89"]
+wdcsbm11 migrations":[]
+wdcsbm12 migrations":[]
+wdcsbm13 migrations":["ea2ea677-2ee5-4da0-a441-07b0534caf7f","36717e92-410a-40c5-9469-c95eba96e896","2ba35cbb-edd6-4275-92f5-6c18cb2a076a"]
+wdcsbm14 migrations":["36717e92-410a-40c5-9469-c95eba96e896","83101b37-5116-414a-a5a1-c139b7025a24"]
+wdcsbm15 migrations":["6b567cf9-896b-48ab-8b5f-1d48928f61c0","0daec21a-4a79-412f-9f6c-307f914eefc9","0a1b0095-7e70-40d1-b29f-c0d4e7c6c027"]
+wdcsbm16 migrations":[]
+wdcsbm17 migrations":[]
+wdcsbm18 migrations":[]
+wdcsbm19 migrations":["7c563ba0-810f-4fd9-94af-ab03ffda9470"]
+wdcsbm20 migrations":["7c563ba0-810f-4fd9-94af-ab03ffda9470"]
