@@ -1,11 +1,11 @@
 #!/bin/bash
 
-PASS=$1
-GREP=$2
-LOGS=$3
+PASS=$(cat .pw)
+GREP=$1
+LOGS=$2
 
-if [[ -z $3 ]]; then
-	echo "usage: $0 <passwd> <what to grep for> <logfile>"
+if [[ -z $2 ]]; then
+	echo "usage: $0 <what to grep for> <logfile>"
 	exit -1
 fi
 
