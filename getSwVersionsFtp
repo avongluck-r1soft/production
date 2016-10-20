@@ -1,0 +1,17 @@
+#!/bin/bash
+
+PCKG=$1
+PASS=$(cat .pw)
+
+if [[ -z $1 ]]; then
+	echo "usage: $0 <package>"
+	exit -1
+fi
+
+for host in $(awk '/ftp/ {print $2}' /etc/hosts); do
+	#data=$(sshpass -p$PASS ssh -o StrictHostKeyChecking=no continuum@$host "dpkg -s $PCKG | grep Version" -p 2222 2>/dev/null) 
+	data=$(sshpass -p$PASS ssh -p 2222 -o StrictHostKeyChecking=no continuum@$host "dpkg -s $PCKG | grep Version" 2>/dev/null)
+	if [[ ! -z $data ]]; then
+		echo "$host $data"
+	fi
+done
