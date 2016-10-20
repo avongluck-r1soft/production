@@ -32,7 +32,7 @@ sub get_frag_levels {
 }
 
 sub check_mounted_volumes {
-        my $type = shift; # production, staging, alpha
+        my $type = shift;
         my $count = 0;
         open my $cmd, "mount|" or die "cannot issue mount command: $!";
         while (<$cmd>) {
@@ -42,16 +42,18 @@ sub check_mounted_volumes {
         close $cmd;
 
         # check production gen2 & gen3 mounted filesystems.
-        if ($type == "production") {
+        if ($type eq "production") {
                 if (($count == 6) or ($count == 9)) {
+                        print "OK\n";
                         return "OK";
+                } else {
+                        #print_warning("check_mounted_volumes", "incorrect number of mounted filesystems");
+                        print "check_mounted_volumes :: incorrect number of mounted filesystems\n";
+                        print "FAIL\n";
+                        return "FAIL";
                 }
-                #print_warning("check_mounted_volumes", "incorrect number of mounted filesystems");
-                print "check_mounted_volumes :: incorrect number of mounted filesystems";
-                return "FAIL";
         }
 }
-
 
 get_frag_levels();
 check_mounted_volumes("production"); 
