@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use Socket;
 
 sub get_fsname {
 	my $device = shift;
@@ -21,6 +22,9 @@ sub check_frag_levels {
         my @device;
         my @fraglevel;
 
+	my $hostname = `hostname`; 
+	chomp($hostname);
+
         open my $cmd, "mount|", or die "cannot issue command: $!";
         while (<$cmd>) {
                 my @line = split;
@@ -35,9 +39,9 @@ sub check_frag_levels {
 
         for (my $i = 0; $i < @device; $i++) {
                 if ($fraglevel[$i] > $threshhold) {
-			print "\033[91mFAIL - ".get_fsname($device[$i])." ".$fraglevel[$i]."\n"; 
+			print "\033[91mFAIL - $hostname -> ".get_fsname($device[$i])." ".$fraglevel[$i]."\n"; 
                 } else {
-			print "\033[92mOK   - ".get_fsname($device[$i])." ".$fraglevel[$i]."\n"; 
+			print "\033[92mOK   - $hostname -> ".get_fsname($device[$i])." ".$fraglevel[$i]."\n"; 
 		}
         }
 }
