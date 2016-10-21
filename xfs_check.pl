@@ -33,21 +33,14 @@ sub check_frag_levels {
         }
         close $cmd;
 
-        my $failcount = 0;
         for (my $i = 0; $i < @device; $i++) {
                 if ($fraglevel[$i] > $threshhold) {
-			print get_fsname($device)." ".$fraglevel[$i]."\n"; 
-                        $failcount++;
-                }
-        }
-        if ($failcount != 0) {
-                print "FAIL";
-        } else {
-                print "OK";
+			print "\033[91mFAIL - ".get_fsname($device[$i])." ".$fraglevel[$i]."\n"; 
+                } else {
+			print "\033[92mOK   - ".get_fsname($device[$i])." ".$fraglevel[$i]."\n"; 
+		}
         }
 }
 
-check_frag_levels(0.0);
-
-
+check_frag_levels(75.0); 
 
