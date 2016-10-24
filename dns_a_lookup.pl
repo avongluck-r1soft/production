@@ -28,6 +28,8 @@ sub lookup {
 		}
 	}
 	close $cmd;
+	
+	return "not found";
 }
 
 for (my $i = 0; $i < @hosts; $i++) {
