@@ -28,13 +28,13 @@ sub lookup {
 		}
 	}
 	close $cmd;
-	
+
 	return "not found";
 }
 
 for (my $i = 0; $i < @hosts; $i++) {
 	my $s = lookup($hosts[$i]); 
-	print "softlayer: $hosts[$i] $addresses[$i] -> dns: $s\n"; 
+	print "softlayer: $hosts[$i] $addresses[$i] \t\t dns: $s\n"; 
 }
 
 
