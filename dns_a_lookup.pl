@@ -11,9 +11,6 @@ while (<$cmd>) {
 }
 close $cmd;
 
-my @dighosts;
-my @digaddresses;
-
 sub lookup {
 	my $host = shift;
 	open my $cmd, "dig $host.itsupport247.net|", or die "cannot run command\n"; 
