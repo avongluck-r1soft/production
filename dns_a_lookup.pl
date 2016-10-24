@@ -11,9 +11,6 @@ while (<$cmd>) {
 }
 close $cmd;
 
-my %hosts_addresses;
-@hosts_addresses{@hosts} = @addresses;
-
 my @dighosts;
 my @digaddresses;
 
@@ -26,32 +23,16 @@ sub lookup {
 			my @data = split("."); 
 		 	$line[0] =~ s/itsupport247\.net\.//g; 
 			$line[0] =~ s/\.$//; 
-			print "$line[0] $line[4]\n"; 
+			my $s = "$line[0] $line[4]"; 
+			return $s;
 		}
 	}
 	close $cmd;
 }
 
-my %dighosts_addresses;
-@dighosts_addresses{@dighosts} = @digaddresses;
-
-for (keys %hosts_addresses) {
-	unless (exists $dighosts_addresses{$_}) {
-		print "$_: not found in second hash\n"; 
-		next;
-	}
-	if ($hosts_addresses{$_} eq $dighosts_addresses{$_}) {
-		print "$_: values are equal\n";
-	} else {
-		print "$_: values are not equal\n";
-	}
-}
-
 for (my $i = 0; $i < @hosts; $i++) {
-	print "$hosts[$i] $addresses[$i]\n"; 
-	lookup($hosts[$i]); 
+	my $s = lookup($hosts[$i]); 
+	print "softlayer: $hosts[$i] $addresses[$i] -> dns: $s\n"; 
 }
-
-
 
 
