@@ -17,7 +17,6 @@ sub lookup {
 	while (<$cmd>) {
 		my @line = split;
 		if ($_ =~ /^$host.itsupport247.net/) {
-			my @data = split("."); 
 		 	$line[0] =~ s/itsupport247\.net\.//g; 
 			$line[0] =~ s/\.$//; 
 			my $s = "$line[0] $line[4]"; 
