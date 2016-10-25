@@ -25,7 +25,7 @@ sub lookup {
 	}
 	close $cmd;
 
-	return "not found";
+	return "WARN: public dns A record not found for $host";
 }
 
 for (my $i = 0; $i < @hosts; $i++) {
