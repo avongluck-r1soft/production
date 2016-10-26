@@ -28,14 +28,18 @@ sub lookup {
 	return "WARN: public dns A record not found for $host";
 }
 
+my $warnings; 
+my @warning_hosts;
 for (my $i = 0; $i < @hosts; $i++) {
 	my $s = lookup($hosts[$i]); 
 	my @data = split / /, $s;
+
 	if ($addresses[$i] == $data[1]) {
 		printf "\033[92mOK   - softlayer: %-20s %-20s\tdns: %-40s\n", $hosts[$i], $addresses[$i], $s; 
-	
 	} else {
 		printf "\033[91mWARN - softlayer: %-20s %-20s\tdns: %-40s\n", $hosts[$i], $addresses[$i], $s; 
+		$warnings++;
 	}
 	print "\033[0m";
 }
+print "$warnings warnings. See above or run with grep WARN for list.\n"; 
