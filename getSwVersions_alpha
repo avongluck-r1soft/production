@@ -1,0 +1,16 @@
+#!/bin/bash
+
+PKG=$1
+PASS=$2
+
+if [[ -z $2 ]]; then
+	echo "usage: $0 <package> <password>"
+	exit -1
+fi
+
+for host in 10.230.6.14 10.230.6.12 10.230.6.23 10.230.6.21 10.230.216.50; do
+	data=$(sshpass -p$PASS ssh -o StrictHostKeyChecking=no continuum@$host "dpkg -s $PKG | grep Version" 2>/dev/null) 
+	if [[ ! -z $data ]]; then
+		echo "$host	$PKG		$data"
+	fi
+done
