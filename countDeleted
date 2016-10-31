@@ -1,0 +1,13 @@
+#!/bin/bash
+
+PASS=$(cat .pw); 
+total=0
+
+get_deleted_count() {
+	for host in $(awk '/sbm/ {print $2}' /etc/hosts); do  
+		count=$(sshpass -p$PASS ssh -o StrictHostKeyChecking=no continuum@$host "echo $PASS | sudo -S find /storage* -name *.deleted | wc -l" 2>/dev/null) 
+		echo "$host -> $count" 
+	done
+}
+
+get_deleted_count | awk '{ print $1" "$2" "$3 } { sum += $3 } END { print "Grand Total: " sum }'
