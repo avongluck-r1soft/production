@@ -9,4 +9,4 @@ get_deleted_count() {
 	done
 }
 
-get_deleted_count | awk '{ print $1" "$2" "$3 } { sum += $3 } END { print "Grand Total: " sum }'
+get_deleted_count | awk '{print $1" "$2" "$3} {sum += $3} END {print "Grand Total: " sum}'
