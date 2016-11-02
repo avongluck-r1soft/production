@@ -1,0 +1,8 @@
+#!/bin/bash
+
+PASS=$(cat .pw)
+
+for host in $(awk '/sbm/ {print $2}' /etc/hosts); do  
+	data=$(sshpass -p$PASS ssh -o StrictHostKeyChecking=no continuum@$host uptime 2>/dev/null) 
+	echo "$host -> $data" 
+done
