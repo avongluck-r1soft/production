@@ -1,0 +1,8 @@
+#!/bin/bash
+
+PASS=$1
+
+for host in housbm03.stage.r1soft.com lobsbm01.stage.r1soft.com housbm01.stage.r1soft.com housbm02.stage.r1soft.com housbm04.stage.r1soft.com loasbm01.stage.r1soft.com; do
+	data=$(sshpass -p$PASS ssh -o StrictHostKeyChecking=no continuum@$host "echo $PASS | sudo -S grep VMDiskFolder /opt/r1soft/r1ctl/config/dr.conf" 2>/dev/null) 
+	echo "$host -> $data"
+done
