@@ -8,7 +8,7 @@ get_deleted() {
 }
 
 for host in $(awk '/sbm/ {print $2}' /etc/hosts); do
-	echo "********* $host ***********"
 	n=$(get_deleted $host  | awk '{total += $1 * 1024} END {printf "%.f\n", total}')
-	numfmt --to=iec-i --suffix=B --padding=7 $n
+	data=$(numfmt --to=iec-i --suffix=B --padding=7 $n)
+	echo "$host -> $data"
 done
