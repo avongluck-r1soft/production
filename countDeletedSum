@@ -1,0 +1,14 @@
+#!/bin/bash
+
+PASS=$(cat .pw)
+
+get_deleted() {
+	host=$1
+	sshpass -p$PASS ssh -o StrictHostKeyChecking=no continuum@$host "echo $PASS | sudo -S find /storage* -name *.deleted -mtime +90 -exec du -sk {} \;" 2>/dev/null
+}
+
+for host in $(awk '/sbm/ {print $2}' /etc/hosts); do
+	echo "********* $host ***********"
+	n=$(get_deleted $host  | awk '{total += $1 * 1024} END {printf "%.f\n", total}')
+	numfmt --to=iec-i --suffix=B --padding=7 $n
+done
