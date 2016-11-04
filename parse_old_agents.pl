@@ -37,5 +37,5 @@ sub gb_to_tb {
 }
 
 my $grand_total = gb_to_tb($gtotal) + $ttotal; 
-print "$grand_total\n"; 
+printf "%.f TiB\n", $grand_total;
 
