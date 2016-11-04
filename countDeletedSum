@@ -4,7 +4,7 @@ PASS=$(cat .pw)
 
 getDeleted() {
 	host=$1
-	sshpass -p$PASS ssh -o StrictHostKeyChecking=no continuum@$host "echo $PASS | sudo -S find /storage* -name *.deleted -mtime +90 -exec du -sk {} \;" 2>/dev/null
+	sshpass -p$PASS ssh -o StrictHostKeyChecking=no continuum@$host "echo $PASS | sudo -S find /storage* -name *.deleted -mtime +76 -exec du -sk {} \;" 2>/dev/null
 }
 
 getSums() {
