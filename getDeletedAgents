@@ -9,6 +9,6 @@ getDeletedAgents() {
 }
 
 getDeletedAgents  > old_agents_deleted.txt
-sed 's/	/,/g' old_agents_deleted.txt > old_agents.txt
-cat old_agents.txt
+sed 's/	/,/g' old_agents_deleted.txt > old_agents.csv
+cat old_agents.csv
 ./parse_old_agents.pl

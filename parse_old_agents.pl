@@ -6,7 +6,7 @@ use warnings;
 my @g;
 my @t;
 
-my $file = 'old_agents.txt';
+my $file = 'old_agents.csv';
 open my $f, "<",  $file, or die "cannot open: $!"; 
 while (<$f>) {
 	my @line = split ','; 
