@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use List::Util qw(reduce); 
 
 my @g;
 my @t;
@@ -15,12 +16,14 @@ while (<$f>) {
 }
 
 sub gtotal {
-	my $gtotal = 0;
-	for (@g) {
-		s/G//;
-		$gtotal += $_;
-	}
-	return $gtotal;
+
+	return reduce { ($a+0.0) + ($b+0.0) } @g; 
+	
+	#for (@g) {
+	#	s/G//;
+	#	$gtotal += $_;
+	#}
+	#return $gtotal;
 }
 
 sub ttotal {
