@@ -10,13 +10,8 @@ my $file = 'old_agents.csv';
 open my $f, "<",  $file, or die "cannot open: $!"; 
 while (<$f>) {
 	my @line = split ','; 
-	if ($line[1] =~ /G/) {
-		push @g, $line[1];
-	}
-
-	if ($line[1] =~ /T/) {
-		push @t, $line[1];
-	}
+	push @g, $line[1], if $line[1] =~ /G/;
+	push @t, $line[1], if $line[1] =~ /T/; 
 }
 
 my $gtotal = 0; 
