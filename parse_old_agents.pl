@@ -16,23 +16,13 @@ while (<$f>) {
 }
 
 sub gtotal {
-
-	return reduce { ($a+0.0) + ($b+0.0) } @g; 
-	
-	#for (@g) {
-	#	s/G//;
-	#	$gtotal += $_;
-	#}
-	#return $gtotal;
+	my @digits = map { (my $x = $_) =~ tr/G//d; $x } @g;
+	return reduce { $a + $b } @digits; 
 }
 
 sub ttotal {
-	my $ttotal = 0;
-	for (@t) {
-		s/T//;
-		$ttotal += $_;
-	}
-	return $ttotal;
+	my @digits = map { (my $x = $_) =~ tr/T//d; $x } @t;
+	return reduce { $a + $b } @digits;
 }
 
 sub gb_to_tb {
