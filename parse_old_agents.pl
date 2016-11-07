@@ -6,16 +6,16 @@ use warnings;
 my @g;
 my @t;
 
-my $file = 'old_agents_deleted.txt';
+my $file = 'old_agents.txt';
 open my $f, "<",  $file, or die "cannot open: $!"; 
 while (<$f>) {
-	my @line = split;
-	if ($line[0] =~ /G/) {
-		push @g, $line[0];
+	my @line = split ','; 
+	if ($line[1] =~ /G/) {
+		push @g, $line[1];
 	}
 
-	if ($line[0] =~ /T/) {
-		push @t, $line[0];
+	if ($line[1] =~ /T/) {
+		push @t, $line[1];
 	}
 }
 
