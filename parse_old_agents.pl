@@ -14,16 +14,22 @@ while (<$f>) {
 	push @t, $line[1], if $line[1] =~ /T/; 
 }
 
-my $gtotal = 0; 
-for (@g) {
-	s/G//; 
-	$gtotal += $_; 
+sub gtotal {
+	my $gtotal = 0;
+	for (@g) {
+		s/G//;
+		$gtotal += $_;
+	}
+	return $gtotal;
 }
 
-my $ttotal = 0;
-for (@t) {
-	s/T//; 
-	$ttotal += $_; 
+sub ttotal {
+	my $ttotal = 0;
+	for (@t) {
+		s/T//;
+		$ttotal += $_;
+	}
+	return $ttotal;
 }
 
 sub gb_to_tb {
@@ -31,6 +37,6 @@ sub gb_to_tb {
 	return $g /= 1024;
 }
 
-my $grand_total = gb_to_tb($gtotal) + $ttotal; 
+my $grand_total = gb_to_tb(gtotal()) + ttotal(); 
 printf "%.f TiB\n", $grand_total;
 
