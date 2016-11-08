@@ -16,5 +16,5 @@ sub summation {
 }
 
 print factorial(5), "\n";
-print summation(5), "\n";
+print summation(5)*2, "\n";
 
