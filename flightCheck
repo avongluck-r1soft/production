@@ -305,10 +305,10 @@ def check_etchosts
 
 	hostname 	= `hostname`.strip
 	wanted_hostname	= `dig +noall +answer #{hostname}`.split(" ").first.chomp(".")
-	wanted_r1rm     = "r1rm_prod.itsupport247.net"
-	wanted_r1cm     = "r1cm_prod.itsupport247.net"
-	wanted_r1rmip   = ""
-	wanted_r1cmip   = ""
+	wanted_r1rm     = "" # fill these in
+	wanted_r1cm     = "" # fill these in
+	wanted_r1rmip   = "" # fill these in
+	wanted_r1cmip   = "" # fill these in
 
 	validate("#{wanted_hostname} present in /etc/hosts", f.include?(wanted_hostname), "#{wanted_hostname} missing from /etc/hosts")
 	validate("#{wanted_r1rm} present in /etc/hosts", f.include?(wanted_r1rm), "#{wanted_r1rm} missing from /etc/hosts")
