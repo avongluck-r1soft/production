@@ -1,6 +1,7 @@
 #!/bin/bash
 PASS=$(cat .pw)
 for host in $(awk '/sbm/ {print $2}' /etc/hosts); do 
-	sshpass -p$PASS scp -o StrictHostKeyChecking=no xfs_frag continuum@$host:/home/continuum/xfs_frag
+	echo "installing maxmtu.sh script on $host"
+	sshpass -p$PASS scp -o StrictHostKeyChecking=no maxmtu.sh continuum@$host:/home/continuum/maxmtu.sh 2>/dev/null
 done
 

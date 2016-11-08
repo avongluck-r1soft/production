@@ -1,0 +1,8 @@
+#!/bin/bash
+
+PASS=$(cat .pw)
+
+for host in $(awk '/sbm/ {print $2}' /etc/hosts); do  
+	data=$(sshpass -p$PASS ssh -o StrictHostKeyChecking=no continuum@$host "ip ad|grep UP|grep -v LOOPBACK" 2>/dev/null | awk '{print $5}' | sort -u)
+	echo "$host    mtu size: $data"
+done

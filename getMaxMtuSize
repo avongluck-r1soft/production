@@ -1,0 +1,10 @@
+#!/bin/bash
+
+PASS=$(cat .pw)
+
+PKT_SIZE=8972
+
+for host in $(awk '/sbm/ {print $2}' /etc/hosts); do  
+	data=$(sshpass -p$PASS ssh -o StrictHostKeyChecking=no continuum@$host "/home/continuum/maxmtu.sh" 2>/dev/null)
+	echo "$host    max mtu possible: $data"
+done
