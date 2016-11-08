@@ -1,5 +1,8 @@
 #!/usr/bin/ruby
 
+# Alex von Gluck IV, author
+# Scott Gillespie, minor updates
+
 require 'pp'
 require 'json'
 
