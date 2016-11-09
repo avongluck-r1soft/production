@@ -1,0 +1,16 @@
+housbm01.stage.r1soft.com       apt update      upgrade complete     cdp-server restarted	r1ctl restarted
+housbm02.stage.r1soft.com       apt update      upgrade complete     cdp-server restarted	r1ctl restarted
+housbm03.stage.r1soft.com       apt update      upgrade complete     cdp-server restarted	r1ctl restarted
+housbm04.stage.r1soft.com       apt update      upgrade complete     cdp-server restarted	r1ctl restarted
+loasbm01.stage.r1soft.com       apt update	upgrade complete     cdp-server restarted	r1ctl restarted
+lobsbm01.stage.r1soft.com  	apt update	upgrade complete     cdp-server restarted	r1ctl restarted
+
+#r1rms
+173.193.73.163 			apt update	upgrade complete	r1rm restarted
+173.193.73.165 			apt update	upgrade complete	r1rm restarted
+
+#r1cm
+173.193.73.164 			apt update	upgrade complete	r1cm restarted
+
+
+# if you get 503 errors installing, add IP to /etc/nginx config and bounce nginx on the PXE servers. 

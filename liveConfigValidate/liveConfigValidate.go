@@ -25,7 +25,7 @@ var gen3Csbms = []string{
 	"0372c590-22d1-4aeb-ac5a-ea6dfe385e39", "ca06d1dc-361d-4bca-b68f-f557670ddb27", "83a4ce52-6b2d-47c3-a6ff-35864e3d30ce",
 	"499ee4ee-3e9f-4375-bbd8-dde3d8ea0e3f", "697f07b1-dd98-457d-a8d9-ae9f83430c1a", "5498c81a-e792-4328-8339-4635ad274e1b",
 	"10a5fb4e-e1eb-4e2f-bd90-105e7c64a644", "152e5be8-315d-4ffe-9355-8fdef0a5c8f3", "4cfb3a60-7318-4dd2-8278-2d435f709351",
-	"95c9efb5-7b8c-4f99-956e-e712067a4736",
+	"95c9efb5-7b8c-4f99-956e-e712067a4736", "e33b35e1-b12d-4a46-9c55-62b11b996a6f",
 }
 
 var stageCsbms = []string{
