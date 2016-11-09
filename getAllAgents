@@ -9,4 +9,5 @@ getDeletedAgents() {
 }
 
 getDeletedAgents  > all_agents.txt
-cat all_agents.txt
+sed 's/	/,/g' all_agents.txt > all_agents.csv
+cat all_agents.csv
