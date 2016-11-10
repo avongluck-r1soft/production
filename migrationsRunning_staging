@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #PASS=$(cat .pw)
-PASS="continuum*88"
+PASS=$(cat .stpw)
 
 LOGFILE="/opt/r1soft/r1ctl/config/spooler.state"
 
