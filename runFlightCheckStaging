@@ -1,0 +1,9 @@
+#!/bin/bash
+
+PASS=$(cat .stpw)
+
+for host in lobsbm01.stage.r1soft.com housbm01.stage.r1soft.com housbm02.stage.r1soft.com housbm04.stage.r1soft.com loasbm01.stage.r1soft.com; do
+	echo "**********  $host  **********"
+	sshpass -p$PASS ssh -o StrictHostKeyChecking=no continuum@$host "echo $PASS | sudo -S /usr/bin/flightCheck|grep ERROR" 2>/dev/null
+done
+
