@@ -37,11 +37,17 @@ sub kb_to_mb {
 	return $k /= 1024;
 }
 
+sub mb_to_gb {
+	my $m = shift;
+	return $m /= 1024;
+}
+
 sub gb_to_tb {
 	my $g = shift;
 	return $g /= 1024;
 }
 
-my $grand_total = gb_to_tb(kb_to_mb(ktotal())) + gb_to_tb(gtotal()) + ttotal(); 
+my $grand_total = gb_to_tb(mb_to_gb(kb_to_mb(ktotal()))) + gb_to_tb(gtotal()) + ttotal(); 
+#my $grand_total = gb_to_tb(kb_to_mb(ktotal())) + gb_to_tb(gtotal()) + ttotal(); 
 printf "%.f TiB\n", $grand_total;
 
