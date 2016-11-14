@@ -1,6 +1,8 @@
 loasbm04,11G	/storage01/replication/a38eabfb-8842-44e7-ae53-86ab8c4fd083.deleted
 loasbm04,30G	/storage03/replication/06602ae7-2c47-4b13-8ec1-49922b7db818.deleted
+loasbm04,9.1G	/storage04/replication/c1dc755a-8969-4920-afaa-213234843746.deleted
 lobsbm04,102G	/storage03/replication/09abe4db-7cd4-4bcc-95a0-36d76a4f365f.deleted
+lobsbm04,512G	/storage04/replication/c2ad726e-43f4-4b77-9af9-f1f653b0ab1b.deleted
 sjcsbm06,36G	/storage01/replication/848383f9-e8e0-46ba-9f7f-596d8ef6228e.deleted
 sjcsbm06,393G	/storage01/replication/f8008913-e252-42f6-8ea4-3473693771bc.deleted
 sjcsbm06,64G	/storage01/replication/a0df374e-dd5f-4eea-8577-f7cb594becc2.deleted
@@ -8,6 +10,7 @@ sjcsbm06,67G	/storage01/replication/a86dd31e-fda8-4d39-8d74-cbcd77eb759a.deleted
 sjcsbm06,126G	/storage01/replication/e4af87a1-7094-47e3-86e7-953986899309.deleted
 sjcsbm06,446G	/storage02/replication/dc2a7fd6-eaee-4200-bf1c-51d52005f99e.deleted
 sjcsbm06,2.2T	/storage02/replication/ceac59d8-7ede-4d27-af4e-d92533ca3e39.deleted
+sjcsbm06,811G	/storage03/replication/05bd7273-04f2-484a-b0dd-e50bdb484017.deleted
 sjcsbm06,447G	/storage07/replication/846a68c2-fd67-42c2-aba7-bba24925493a.deleted
 sjcsbm06,633G	/storage08/replication/55fd0dc1-21ab-4a46-8c45-cc19c61ada3e.deleted
 sjcsbm06,211G	/storage09/replication/7d8912dc-2395-4a58-a1a9-ae46d40007d0.deleted
@@ -25,6 +28,7 @@ sjcsbm07,170G	/storage03/replication/4ef6c1d9-e94a-41fb-958f-191a3ca1de22.delete
 sjcsbm07,37G	/storage03/replication/4c33612c-058c-4da6-ab8d-73a831eb342a.deleted
 sjcsbm07,994G	/storage03/replication/8a9036b1-7292-4923-931d-adeabff5656c.deleted
 sjcsbm07,984G	/storage04/replication/3812339e-17bd-46f4-895a-051eaa144e9e.deleted
+sjcsbm07,535G	/storage04/replication/00541056-c35e-4ab8-8766-f125983cf52d.deleted
 sjcsbm07,604G	/storage05/replication/ed136213-52a1-4b53-80c1-1c915fbd29c0.deleted
 sjcsbm07,12G	/storage05/replication/8534d3ec-c71f-4af8-8652-20cf089ae729.deleted
 sjcsbm07,1.1T	/storage06/replication/bfdce4ce-eefb-43f4-b59c-4bb63c40a73c.deleted
@@ -43,6 +47,7 @@ sjcsbm07,1.3T	/storage08/replication/8202e8a0-74af-419a-b4b7-c61f1e08ef9e.delete
 sjcsbm07,43G	/storage09/replication/5513b65c-cded-4059-a31e-42fce5b64b8b.deleted
 sjcsbm08,185G	/storage01/replication/fe49e03f-8b6e-44e3-a79b-135a5f835d72.deleted
 sjcsbm08,691G	/storage01/replication/eb9f30bc-c001-420b-bf97-64d0ba2975b6.deleted
+sjcsbm08,1.2T	/storage01/replication/2b2df6e1-e2e8-4dee-800c-883734a99dd3.deleted
 sjcsbm08,40G	/storage03/replication/64fdc637-56f8-49dc-a014-e7559d7090a0.deleted
 sjcsbm08,168G	/storage04/replication/316609ad-220e-4c87-b52d-9b925e3efd79.deleted
 sjcsbm08,218G	/storage05/replication/b80d905e-c327-4021-9c6d-2c5c67630d38.deleted
@@ -52,6 +57,7 @@ sjcsbm08,503G	/storage06/replication/5b364e08-4066-4f85-9299-032b1b6b8696.delete
 sjcsbm09,558G	/storage01/replication/5062ba32-3dc6-4c3c-adb5-1670b1dc4af7.deleted
 sjcsbm09,213M	/storage01/replication/7ed88883-4e7d-49f0-a9b5-2aa33d198874.deleted
 sjcsbm09,1.3T	/storage01/replication/311b9dcd-40f4-4d71-892e-396babd5ac03.deleted
+sjcsbm09,500G	/storage01/replication/dd0cce30-03bf-4a91-940d-b948cd76af31.deleted
 sjcsbm09,582G	/storage03/replication/220d532b-52f0-4852-ae0b-e607748a0d8e.deleted
 sjcsbm09,4.9T	/storage03/replication/04dcb8c6-6d03-4ae1-9050-11c9739bab39.deleted
 sjcsbm09,285G	/storage03/replication/6312db2a-101c-407e-81eb-1613189d6d0b.deleted
@@ -73,6 +79,7 @@ sjcsbm10,759G	/storage02/replication/70eccefc-b248-47f0-9b9b-c870ba89ce1e.delete
 sjcsbm10,1.2T	/storage03/replication/338c8eb9-c7d3-4ee1-924a-8788c48e287f.deleted
 sjcsbm10,164G	/storage03/replication/d40e0e15-1249-40c4-90f5-0cf645be2d6b.deleted
 sjcsbm10,977G	/storage03/replication/54c9b359-335e-48c8-9c45-3d4131723a1a.deleted
+sjcsbm10,57G	/storage03/replication/0f2eafc8-4d3c-415e-9d9e-a281a2123480.deleted
 sjcsbm10,25G	/storage04/replication/cc74a7b2-bffe-477e-af49-0f8da9db8e0e.deleted
 sjcsbm10,35G	/storage04/replication/fc7e0304-24dd-461d-a261-2163c278de77.deleted
 sjcsbm10,20G	/storage05/replication/fb0b67be-6e58-40d0-a4be-8930f20a6c5f.deleted
@@ -109,6 +116,7 @@ sjcsbm11,792G	/storage08/replication/37a5a8f5-79ca-46b4-a719-247854b137fa.delete
 sjcsbm11,65G	/storage08/replication/87c53f1e-96ce-48a3-be49-859c6935e185.deleted
 sjcsbm11,45G	/storage08/replication/914faa79-2dca-4967-b4a5-a5c3e709a8c7.deleted
 sjcsbm11,36G	/storage09/replication/8d9a14ab-3a32-4a71-adf8-e2c3a524eb2d.deleted
+sjcsbm12,2.6T	/storage02/replication/cff4c7a4-affd-4ee3-824d-896510611ce8.deleted
 sjcsbm12,32G	/storage03/replication/2b40f56b-e723-4717-96e5-8fe343ebeae8.deleted
 sjcsbm12,29G	/storage05/replication/de9b31fa-ac44-438a-a27a-8b82d15c9ddf.deleted
 sjcsbm12,7.0T	/storage06/replication/e374dd01-009a-483c-a01f-9be27f58165e.deleted
@@ -142,9 +150,12 @@ sjcsbm14,940M	/storage04/replication/d4a4a7f7-b268-47f1-a04d-4f7a0f741a79.delete
 sjcsbm14,33G	/storage04/replication/f47cc63f-c36a-4f04-b285-19869882a0ff.deleted
 sjcsbm14,1.5T	/storage04/replication/7955a9a6-c837-416c-81b3-50e46f4ef60a.deleted
 sjcsbm14,381G	/storage04/replication/017748b0-5e9b-476a-b312-4b131ed0940f.deleted
+sjcsbm14,295G	/storage04/replication/ad715cd6-2672-47ea-9b2d-11f1ec8f26d5.deleted
 sjcsbm14,193G	/storage05/replication/b16a306d-ee03-41b5-8b04-4f15e6bd751e.deleted
 sjcsbm14,6.9G	/storage05/replication/6a0a8340-db5b-48b7-b215-4a4893a20579.deleted
 sjcsbm14,121G	/storage05/replication/dec1895d-b8d7-4856-9f8b-80e0a798c410.deleted
+sjcsbm14,132G	/storage05/replication/e456dac9-2ab5-4337-8fb9-7b340b3d0ec0.deleted
+sjcsbm14,653G	/storage05/replication/19836585-ccf4-4aa5-8269-e2e4ce6b59d8.deleted
 sjcsbm14,26G	/storage07/replication/3badc11a-8a73-4681-ab0b-3a386c25464c.deleted
 sjcsbm14,1.7T	/storage07/replication/ab56fce2-b05a-4c51-a773-94561dcf894e.deleted
 sjcsbm14,17G	/storage07/replication/2bbc6bd8-c657-45d0-b23c-c3441123bc15.deleted
@@ -223,8 +234,10 @@ wdcsbm11,1.8T	/storage09/replication/311b9dcd-40f4-4d71-892e-396babd5ac03.delete
 wdcsbm12,751G	/storage02/replication/4ce4e29e-acba-4a44-bff3-4d25728e8f08.deleted
 wdcsbm12,265G	/storage03/replication/b4ce4c86-a04d-4045-bc09-6fb112f322b5.deleted
 wdcsbm12,79G	/storage03/replication/64396b08-69b4-469c-ab28-bbf8df5ee5cb.deleted
+wdcsbm12,472G	/storage03/replication/dd0cce30-03bf-4a91-940d-b948cd76af31.deleted
 wdcsbm12,14G	/storage04/replication/7f957a0a-86c9-4bcf-98ed-98551146e468.deleted
 wdcsbm12,122G	/storage04/replication/dec1895d-b8d7-4856-9f8b-80e0a798c410.deleted
+wdcsbm12,653G	/storage04/replication/19836585-ccf4-4aa5-8269-e2e4ce6b59d8.deleted
 wdcsbm12,792G	/storage05/replication/37a5a8f5-79ca-46b4-a719-247854b137fa.deleted
 wdcsbm12,1.5T	/storage05/replication/7955a9a6-c837-416c-81b3-50e46f4ef60a.deleted
 wdcsbm12,36G	/storage05/replication/ba966a63-42d6-4a79-9774-48ceb4ff0af8.deleted
@@ -264,6 +277,7 @@ wdcsbm13,170G	/storage05/replication/4ef6c1d9-e94a-41fb-958f-191a3ca1de22.delete
 wdcsbm13,9.0G	/storage06/replication/311c5feb-5bad-408c-8c53-60b4939aafcc.deleted
 wdcsbm13,917G	/storage06/replication/0759b702-fd9b-4590-a2a2-cf64dfd07dae.deleted
 wdcsbm13,244G	/storage06/replication/3fb2fe49-b37e-4f75-89d6-88841bfb9794.deleted
+wdcsbm13,2.4T	/storage06/replication/749afe19-c545-4d00-a3dc-c731756c5583.deleted
 wdcsbm13,849G	/storage07/replication/b6365473-3bf4-4d81-8fbe-89bc26d17e40.deleted
 wdcsbm13,116G	/storage07/replication/487ff164-70f1-4a99-b41a-943aa454c53b.deleted
 wdcsbm13,2.0T	/storage07/replication/269e9816-59c9-43fd-ae28-a4413e60e807.deleted
@@ -295,8 +309,10 @@ wdcsbm14,38G	/storage06/replication/912ae484-9866-46b2-a8b4-9d8e7fa5eec1.deleted
 wdcsbm14,120G	/storage06/replication/4546d9c3-8414-4c7e-b020-c29e76b17372.deleted
 wdcsbm14,22G	/storage07/replication/0dc4619e-4652-4abf-bc42-30aae701ff7b.deleted
 wdcsbm14,44G	/storage07/replication/b296ca5b-aac6-4e4b-9d37-41443ac24424.deleted
+wdcsbm14,245G	/storage07/replication/9bd793bf-b954-418d-8c6f-4b13ad893487.deleted
 wdcsbm14,26G	/storage08/replication/6abe9b75-0275-4427-8a14-ba064468b2f0.deleted
 wdcsbm14,62G	/storage08/replication/847a087f-bcc0-4b02-80fd-f6448cdeb280.deleted
+wdcsbm14,2.8T	/storage08/replication/cff4c7a4-affd-4ee3-824d-896510611ce8.deleted
 wdcsbm15,2.1T	/storage01/replication/b7b396e2-4892-43e0-a070-313ab327a6bd.deleted
 wdcsbm15,72G	/storage02/replication/e871adef-5d7f-441c-a2bd-1e60e77f78ff.deleted
 wdcsbm15,311G	/storage02/replication/d977f3ab-0964-43c9-91c1-2ca1f5edca11.deleted
@@ -338,9 +354,11 @@ wdcsbm16,19G	/storage06/replication/fb0b67be-6e58-40d0-a4be-8930f20a6c5f.deleted
 wdcsbm16,8.9G	/storage07/replication/bfc868ef-015b-41c4-9523-9babe147391d.deleted
 wdcsbm16,33G	/storage07/replication/f47cc63f-c36a-4f04-b285-19869882a0ff.deleted
 wdcsbm16,18G	/storage07/replication/70e40e85-6d80-4d79-afcc-5dba8bc52f6f.deleted
+wdcsbm16,57G	/storage07/replication/0f2eafc8-4d3c-415e-9d9e-a281a2123480.deleted
 wdcsbm16,7.9G	/storage09/replication/63df3fca-ff78-42ad-9228-7297d91e96e0.deleted
 wdcsbm16,6.5G	/storage09/replication/c7272530-1b4d-4e3d-84fd-4fc764ff49e4.deleted
 wdcsbm16,282G	/storage09/replication/9748b4c5-fb38-4304-b5db-787e3934592e.deleted
+wdcsbm16,132G	/storage09/replication/e456dac9-2ab5-4337-8fb9-7b340b3d0ec0.deleted
 wdcsbm17,1.6G	/storage01/replication/cd6c0bd3-1110-4d3e-b27b-20fdda4e78a0.deleted
 wdcsbm17,82G	/storage01/replication/a0da9971-9071-4bc5-a778-89f451a2080d.deleted
 wdcsbm17,216G	/storage01/replication/48092c27-2ae3-42b8-9483-a1d1f80957cd.deleted
@@ -352,6 +370,7 @@ wdcsbm17,162G	/storage03/replication/52bf7b3f-9882-4ae6-ba46-8ada2d817e5b.delete
 wdcsbm17,31G	/storage03/replication/2b40f56b-e723-4717-96e5-8fe343ebeae8.deleted
 wdcsbm17,18G	/storage04/replication/f800ddda-5e16-4924-bd15-73b0d4edfb77.deleted
 wdcsbm17,261G	/storage04/replication/94ca01af-b2e4-4da4-9303-c2b46285b4c3.deleted
+wdcsbm17,295G	/storage04/replication/ad715cd6-2672-47ea-9b2d-11f1ec8f26d5.deleted
 wdcsbm17,20G	/storage05/replication/da34e899-cca5-4f50-93f7-abccc7be8bb7.deleted
 wdcsbm17,306G	/storage05/replication/0d503f62-74c9-4d4e-a30e-ddb35f02d1f8.deleted
 wdcsbm17,26G	/storage06/replication/3badc11a-8a73-4681-ab0b-3a386c25464c.deleted

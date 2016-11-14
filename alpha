@@ -4,3 +4,9 @@
 10.230.6.4
 
 r1rm - 10.230.6.8
+
+var alphaCsbms = []string{
+        "10b11363-5d68-40a9-931a-974c1afc8623", "3bf55a34-c137-4a4d-b7c1-ebf13a3f8d4f", "92a7d776-0e75-4847-8302-021e1ddd2f9b",
+        "8e289f04-c5a8-47a6-a10c-ab12eb1a8fa1",
+}
+
