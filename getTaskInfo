@@ -6,7 +6,7 @@ import sys
 def getTaskInfo(id):
     url = "http://10.80.65.31:57988/r1rmGA/task/"+id+"/info"
     print url
-    response = urllib2.urlopen(url)
+    response = urllib2.urlopen(url, timeout=40)
     content = response.read()
     return content
 
