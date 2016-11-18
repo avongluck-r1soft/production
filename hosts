@@ -1,34 +1,63 @@
-loasbm04
-loasbm05
-loasbm06
-lobsbm04
-lobsbm05
-lobsbm06
-sjcsbm06
-sjcsbm07
-sjcsbm08
-sjcsbm09
-sjcsbm10
-sjcsbm11
-sjcsbm12
-sjcsbm13
-sjcsbm14
-sjcsbm15
-sjcsbm16
-sjcsbm17
-sjcsbm18
-sjcsbm19
-wdcsbm04
-wdcsbm09
-wdcsbm10
-wdcsbm11
-wdcsbm12
-wdcsbm13
-wdcsbm14
-wdcsbm15
-wdcsbm16
-wdcsbm17
-wdcsbm18
-wdcsbm19
-wdcsbm20
-wdcsbm21
+127.0.0.1	localhost
+127.0.1.1	scott_PowerEdge_T110_II
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6_localhost ip6_loopback
+fe00::0 ip6_localnet
+ff00::0 ip6_mcastprefix
+ff02::1 ip6_allnodes
+ff02::2 ip6_allrouters
+# CM
+10.125.31.84 	wdccm01
+# PRODUCTION SBMS
+10.164.12.109	loasbm04
+10.164.12.88	loasbm05
+10.164.12.68	loasbm06
+10.164.12.75	lobsbm04
+10.164.12.119	lobsbm05
+10.164.12.121	lobsbm06
+10.122.169.173	sjcsbm06
+10.160.189.132	sjcsbm07
+10.160.189.137	sjcsbm08
+10.160.189.149	sjcsbm09
+10.160.189.161	sjcsbm10
+10.160.189.187	sjcsbm11
+10.160.189.154	sjcsbm12
+10.160.189.166	sjcsbm13
+10.160.189.143	sjcsbm14
+10.160.189.146	sjcsbm15
+10.160.189.170	sjcsbm16
+10.160.189.156	sjcsbm17
+10.160.189.179	sjcsbm18
+10.160.189.151	sjcsbm19
+10.125.31.116	wdcsbm04
+10.125.31.125	wdcsbm09
+10.125.31.77	wdcsbm10
+10.109.218.21	wdcsbm11
+10.148.215.82	wdcsbm12
+10.148.215.86	wdcsbm13
+10.100.160.236	wdcsbm14
+10.100.160.219	wdcsbm15
+10.100.160.196	wdcsbm16
+10.148.215.75	wdcsbm17
+10.148.215.121	wdcsbm18
+10.148.215.96	wdcsbm19
+10.170.70.25	wdcsbm20
+10.170.70.10	wdcsbm21
+# PRODUCTION FTP SERVERS
+10.164.12.101	loaftp01
+10.122.169.155	sjcftp02
+10.122.169.138	sjftp01
+10.125.31.88	wdcftp01
+10.170.70.18	wdcftp02
+# PRODUCTION PXE SERVERS
+10.112.168.189	lonpxe01
+10.122.169.132	sjpxe01
+10.125.31.86	wdcpxe01
+# TEST
+#198.64.248.212	forum.r1soft.com
+10.122.169.136	sjcm01
+10.122.169.140	sjrm01
+10.125.31.84	wdccm01
+10.125.31.93	wdcrm01
+10.125.31.95	wdcrm02
