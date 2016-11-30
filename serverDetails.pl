@@ -3,9 +3,10 @@
 use strict;
 use warnings;
 use Data::Dumper;
-use SoftLayer::API::SOAP;
 
-my ($apiUsername, $apiKey) = get_credentials(); 
+use lib '/usr/local/lib/x86_64-linux-gnu/perl/5.22.1/SoftLayer';
+
+use SoftLayer::API::SOAP;
 
 sub get_credentials {
 	my $u;
@@ -18,6 +19,10 @@ sub get_credentials {
 	}
 	return $u, $p;
 }
+
+my ($apiUsername, $apiKey) = get_credentials(); 
+
+print $apiUsername . " " . $apiKey . "\n"; 
 
 my $client = SoftLayer::API::SOAP->new('SoftLayer_Account', undef, $apiUsername, $apiKey);
 
