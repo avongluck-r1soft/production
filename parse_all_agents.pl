@@ -8,7 +8,7 @@ my @g;
 my @t;
 my @k;
 
-my $file = 'all_agents.csv';
+my $file = 'ds1.csv';
 open my $f, "<",  $file, or die "cannot open: $!"; 
 while (<$f>) {
 	my @line = split ','; 
@@ -34,17 +34,26 @@ sub ttotal {
 
 sub kb_to_mb {
 	my $k = shift;
-	return $k /= 1024;
+	if ($k) {
+		return $k /= 1024;
+	}
+	return 0;
 }
 
 sub mb_to_gb {
 	my $m = shift;
-	return $m /= 1024;
+	if ($m) {
+		return $m /= 1024;
+	}
+	return 0;
 }
 
 sub gb_to_tb {
 	my $g = shift;
-	return $g /= 1024;
+	if ($g) {
+		return $g /= 1024;
+	}
+	return 0;
 }
 
 my $grand_total = gb_to_tb(mb_to_gb(kb_to_mb(ktotal()))) + gb_to_tb(gtotal()) + ttotal(); 
