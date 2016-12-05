@@ -257,7 +257,7 @@ def check_sbm
 		server_properties = parse_config("#{@SBMDIR}/conf/server.properties")
 		validate_config_gte(server_properties, "max-running-tasks", 200)
 		validate_config_gte(server_properties, "max-running-restore-tasks", 200)
-		validate_config_gte(server_properties, "max-running-policy-tasks", 50)
+		validate_config_gte(server_properties, "max-running-policy-tasks", 40)
 		validate_config_gte(server_properties, "max-running-verification-tasks", 200)
 		validate_config_gte(server_properties, "max-running-replication-tasks", 200)
 		validate_config_lte(server_properties, "task-history-limit", 3)
