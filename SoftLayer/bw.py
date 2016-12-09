@@ -26,3 +26,4 @@ def getPublicBandwidth():
 	
 getPublicBandwidth()
 print "total: " + str(sum(total_out))
+print "price: $" + str(sum(total_out)*0.09)
