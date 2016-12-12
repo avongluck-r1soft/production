@@ -40,10 +40,11 @@ def getPublicBandwidth():
     f.close()
 
 
-def getTotal():
-    print "total: " + str(sum(total_out))
-    print "price: $" + str(round(sum(total_out)*0.09,2))
-
+def getCost():
+    price_per_gb_overage = 0.09
+    s = "total: " + str(sum(total_out)) + "GB ...  price: $" + str(round(sum(total_out)*price_per_gb_overage,2))
+    print s
+    return s
 
 def sortCsv():
     data = csv.reader(open('public_outbound.csv'), delimiter=',')
@@ -62,9 +63,6 @@ def getSMTPPassword():
 
     return pw
 
-print "DEBUG:"
-print getSMTPPassword()
-        
 
 def emailSortedCsv():
 
@@ -82,6 +80,14 @@ def emailSortedCsv():
     msg.attach(MIMEText(body, 'plain'))
 
     filename = 'public_outbound_sorted.csv'
+
+    # add cost to csv file... mmm, spaghetti
+    cost = getCost()
+
+    # append to csv
+    with open(filename, 'ab') as f:
+        f.write(cost)
+
     attachment = open(filename, 'rb')
 
     part = MIMEBase('application', 'octet-stream')
@@ -99,11 +105,12 @@ def emailSortedCsv():
     server.sendmail(fromaddr, toaddr, text)
     server.quit()
     
+    f.close()
+    attachment.close()
 
 
 def main():
     getPublicBandwidth()
-    getTotal()
     sortCsv()
     emailSortedCsv() 
 
