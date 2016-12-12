@@ -2,12 +2,15 @@
 
 import csv
 import operator
-import pprint
+import os
 import smtplib
 import sys
 import SoftLayer
 
-from email.mime.text import MIMEText 
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+from email.MIMEBase import MIMEBase
+from email import encoders
 
 total_out = []
 
@@ -51,24 +54,58 @@ def sortCsv():
         for row in sortedlist:
             fileWriter.writerow(row)
 
+def getSMTPPassword():
+    credentials = {}
+    with open('.noreplypw','r') as f:
+        for line in f:
+            user, pw = line.strip().split(':')
+
+    return pw
+
+print "DEBUG:"
+print getSMTPPassword()
+        
+
 def emailSortedCsv():
-    with open('public_outbound_sorted.csv') as fp:
-        msg = MIMEText(fp.read())
 
-    msg['Subject'] = 'softlayer public outbound bandwidth usage'
-    msg['From'] = 'scott.gillespie@r1soft.com'
-    msg['To'] = 'scott.gillespie@r1soft.com'
+    fromaddr = 'noreply@r1soft.com'
+    toaddr = 'scott.gillespie@r1soft.com'
 
-    s = smtplib.SMTP('smtp.office365.com')
-    s.send_message(msg)
-    s.quit()
+    msg = MIMEMultipart()
+
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = 'Outbound Public Interface Bandwidth Usage'
+
+    body = 'Current outbound public interface bandwidth usage report (see attached).'
+
+    msg.attach(MIMEText(body, 'plain'))
+
+    filename = 'public_outbound_sorted.csv'
+    attachment = open(filename, 'rb')
+
+    part = MIMEBase('application', 'octet-stream')
+    part.set_payload((attachment).read())
+    encoders.encode_base64(part)
+    part.add_header('Content-Disposition', 'attachment; filename= %s' % filename)
+    msg.attach(part)
+
+    pw = getSMTPPassword()
+
+    server = smtplib.SMTP('smtp.office365.com', 587)
+    server.starttls()
+    server.login(fromaddr, pw) 
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
+    server.quit()
+    
 
 
 def main():
     getPublicBandwidth()
     getTotal()
     sortCsv()
-    #emailSortedCsv() 
+    emailSortedCsv() 
 
 if __name__ == "__main__":
     try:
