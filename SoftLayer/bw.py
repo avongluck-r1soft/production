@@ -3,18 +3,20 @@
 import csv
 import operator
 import pprint
+import smtplib
 import sys
 import SoftLayer
+
+from email.mime.text import MIMEText 
 
 total_out = []
 
 def getPublicBandwidth():
 
-    #threshhold = 1000.0 
-    threshhold = 500.0 
+    #threshhold = 500.0
+    threshhold = 0.0
 
     client = SoftLayer.Client()
-    pp = pprint.PrettyPrinter(indent=2)
     theMask = "mask[outboundPublicBandwidthUsage]"
     result = client['SoftLayer_Account'].getHardware()
 
@@ -42,13 +44,27 @@ def getTotal():
 
 def sortCsv():
     data = csv.reader(open('public_outbound.csv'), delimiter=',')
-    sortedlist = sorted(data, key=lambda x: float(x[1]))
+    sortedlist = sorted(data, key=lambda x: float(x[1]), reverse=True)
 
     with open('public_outbound_sorted.csv','wb') as f:
         fileWriter = csv.writer(f, delimiter=',')
         for row in sortedlist:
             fileWriter.writerow(row)
 
+def emailSortedCsv():
+    with open('public_outbound_sorted.csv') as fp:
+        msg = MIMEText(fp.read())
+
+    msg['Subject'] = 'softlayer public outbound bandwidth usage'
+    msg['From'] = 'scott.gillespie@r1soft.com'
+    msg['To'] = 'scott.gillespie@r1soft.com'
+
+    s = smtplib.SMTP('smtp.office365.com')
+    s.send_message(msg)
+    s.quit()
+
+
 getPublicBandwidth()
 getTotal()
 sortCsv()
+#emailSortedCsv() 
