@@ -61,17 +61,16 @@ def getSMTPPassword():
     return pw
 
 
-def emailSortedCsv():
+def emailSortedCsv(RECIPIENTS):
 
     fromaddr = 'noreply@r1soft.com'
-    toaddr = 'scott.gillespie@r1soft.com,stan.love@r1soft.com,alex.vongluck@r1soft.com'
-    #toaddr = 'scott.gillespie@r1soft.com,alex.vongluck@r1soft.com'
+    toaddr = RECIPIENTS
 
     msg = MIMEMultipart()
 
     msg['From'] = fromaddr
     msg['To'] = toaddr
-    msg['Subject'] = 'Outbound Public Interface Bandwidth Usage'
+    msg['Subject'] = 'SoftLayer - Daily Outbound Public Interface Bandwidth Usage Report'
 
     body = 'Current outbound public interface bandwidth usage report (see attached).'
 
@@ -79,7 +78,7 @@ def emailSortedCsv():
 
     filename = 'public_outbound_sorted.csv'
 
-    # add cost to csv file... mmm, spaghetti
+    # add cost to csv file
     cost = getCost()
 
     # append to csv
@@ -110,10 +109,11 @@ def emailSortedCsv():
 def main():
     #THRESHHOLD = 500.0
     THRESHHOLD = 0.0
+    RECIPIENTS = 'scott.gillespie@r1soft.com,alex.vongluck@r1soft.com,stan.love@r1soft.com'
 
     getPublicBandwidth(THRESHHOLD)
     sortCsv()
-    emailSortedCsv() 
+    emailSortedCsv(RECIPIENTS) 
 
 if __name__ == "__main__":
     try:
