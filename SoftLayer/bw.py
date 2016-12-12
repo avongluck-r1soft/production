@@ -14,10 +14,7 @@ from email import encoders
 
 total_out = []
 
-def getPublicBandwidth():
-
-    #threshhold = 500.0
-    threshhold = 0.0
+def getPublicBandwidth(THRESHHOLD):
 
     client = SoftLayer.Client()
     theMask = "mask[outboundPublicBandwidthUsage]"
@@ -30,10 +27,10 @@ def getPublicBandwidth():
         pubout = float(serverInfo.get('outboundPublicBandwidthUsage',0.0))
         name = serverInfo['fullyQualifiedDomainName']
 
-	if pubout > threshhold:
+	if pubout > THRESHHOLD:
 
             total_out.append(pubout)
-            print(name + "," + str(pubout))
+            #print(name + "," + str(pubout))
             s = name + "," + str(pubout) + "\n"
             f.write(s)
 
@@ -43,7 +40,7 @@ def getPublicBandwidth():
 def getCost():
     price_per_gb_overage = 0.09
     s = "total: " + str(sum(total_out)) + "GB ...  price: $" + str(round(sum(total_out)*price_per_gb_overage,2))
-    print s
+    #print s
     return s
 
 def sortCsv():
@@ -67,7 +64,8 @@ def getSMTPPassword():
 def emailSortedCsv():
 
     fromaddr = 'noreply@r1soft.com'
-    toaddr = 'scott.gillespie@r1soft.com'
+    toaddr = 'scott.gillespie@r1soft.com,stan.love@r1soft.com,alex.vongluck@r1soft.com'
+    #toaddr = 'scott.gillespie@r1soft.com,alex.vongluck@r1soft.com'
 
     msg = MIMEMultipart()
 
@@ -110,7 +108,10 @@ def emailSortedCsv():
 
 
 def main():
-    getPublicBandwidth()
+    #THRESHHOLD = 500.0
+    THRESHHOLD = 0.0
+
+    getPublicBandwidth(THRESHHOLD)
     sortCsv()
     emailSortedCsv() 
 
