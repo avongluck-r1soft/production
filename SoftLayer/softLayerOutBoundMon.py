@@ -109,14 +109,12 @@ def main():
     THRESHHOLD = 0.0
     RECIPIENTS = 'scott.gillespie@r1soft.com,alex.vongluck@r1soft.com,stan.love@r1soft.com'
     #RECIPIENTS = 'scott.gillespie@r1soft.com'
-    PRINTOPTION = True
 
     getPublicBandwidth(THRESHHOLD)
     sortCsv()
     emailSortedCsv(RECIPIENTS) 
 
 if __name__ == "__main__":
-
     try:
         main()
     except KeyboardInterrupt:
