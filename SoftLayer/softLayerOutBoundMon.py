@@ -22,7 +22,6 @@ def getPublicBandwidth(THRESHHOLD):
 
     f = open('public_outbound.csv','w')
     for server in result:
-
         serverInfo = client['SoftLayer_Hardware_Server'].getObject(id=server['id'],mask=theMask)
         pubout = float(serverInfo.get('outboundPublicBandwidthUsage',0.0))
         name = serverInfo['fullyQualifiedDomainName']
@@ -62,7 +61,6 @@ def getSMTPPassword():
 
 
 def emailSortedCsv(RECIPIENTS):
-
     fromaddr = 'noreply@r1soft.com'
     toaddr = RECIPIENTS
 
@@ -118,6 +116,7 @@ def main():
     emailSortedCsv(RECIPIENTS) 
 
 if __name__ == "__main__":
+
     try:
         main()
     except KeyboardInterrupt:
