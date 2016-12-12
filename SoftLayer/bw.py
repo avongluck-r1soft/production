@@ -64,7 +64,16 @@ def emailSortedCsv():
     s.quit()
 
 
-getPublicBandwidth()
-getTotal()
-sortCsv()
-#emailSortedCsv() 
+def main():
+    getPublicBandwidth()
+    getTotal()
+    sortCsv()
+    #emailSortedCsv() 
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        sys.exit()
+
+
