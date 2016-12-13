@@ -68,9 +68,9 @@ def emailSortedCsv(RECIPIENTS):
 
     msg['From'] = fromaddr
     msg['To'] = toaddr
-    msg['Subject'] = 'SoftLayer - Daily Production Outbound Public Interface Bandwidth Usage Report'
+    msg['Subject'] = 'SoftLayer - Daily Staging Outbound Public Interface Bandwidth Usage Report'
 
-    body = 'Current outbound public interface bandwidth usage report for prod env (see attached).'
+    body = 'Current outbound public interface bandwidth usage report for staging env (see attached).'
 
     msg.attach(MIMEText(body, 'plain'))
 
