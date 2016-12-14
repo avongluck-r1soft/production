@@ -66,7 +66,7 @@ def emailReport(RECIPIENTS):
 
 def main():
     runXfsFragCheck()
-    RECIPIENTS = 'scott.gillespie@r1soft.com,alex.vongluck@r1soft.com,stan.love@r1soft.com'
+    RECIPIENTS = 'scott.gillespie@r1soft.com,alex.vongluck@r1soft.com,stan.love@r1soft.com,tariq.siddiqui@r1soft.com'
     #RECIPIENTS = 'scott.gillespie@r1soft.com'
     emailReport(RECIPIENTS)
 

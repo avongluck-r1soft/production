@@ -20,7 +20,7 @@ def getPublicBandwidth(THRESHHOLD):
     theMask = "mask[outboundPublicBandwidthUsage]"
     result = client['SoftLayer_Account'].getHardware()
 
-    f = open('public_outbound.csv','w')
+    f = open('public_outbound_staging.csv','w')
     for server in result:
         serverInfo = client['SoftLayer_Hardware_Server'].getObject(id=server['id'],mask=theMask)
         pubout = float(serverInfo.get('outboundPublicBandwidthUsage',0.0))
@@ -43,10 +43,10 @@ def getCost():
     return s
 
 def sortCsv():
-    data = csv.reader(open('public_outbound.csv'), delimiter=',')
+    data = csv.reader(open('public_outbound_staging.csv'), delimiter=',')
     sortedlist = sorted(data, key=lambda x: float(x[1]), reverse=True)
 
-    with open('public_outbound_sorted.csv','wb') as f:
+    with open('public_outbound_sorted_staging.csv','wb') as f:
         fileWriter = csv.writer(f, delimiter=',')
         for row in sortedlist:
             fileWriter.writerow(row)
@@ -74,7 +74,7 @@ def emailSortedCsv(RECIPIENTS):
 
     msg.attach(MIMEText(body, 'plain'))
 
-    filename = 'public_outbound_sorted.csv'
+    filename = 'public_outbound_sorted_staging.csv'
 
     # add cost to csv file
     cost = getCost()
@@ -107,7 +107,7 @@ def emailSortedCsv(RECIPIENTS):
 def main():
     #THRESHHOLD = 500.0
     THRESHHOLD = 0.0
-    RECIPIENTS = 'scott.gillespie@r1soft.com,alex.vongluck@r1soft.com,stan.love@r1soft.com'
+    RECIPIENTS = 'scott.gillespie@r1soft.com,alex.vongluck@r1soft.com,stan.love@r1soft.com,tariq.siddiqui@r1soft.com'
     #RECIPIENTS = 'scott.gillespie@r1soft.com'
 
     #environments = [ 'production', 'staging' ]

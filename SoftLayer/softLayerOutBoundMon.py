@@ -107,7 +107,7 @@ def emailSortedCsv(RECIPIENTS):
 def main():
     #THRESHHOLD = 500.0
     THRESHHOLD = 0.0
-    RECIPIENTS = 'scott.gillespie@r1soft.com,alex.vongluck@r1soft.com,stan.love@r1soft.com'
+    RECIPIENTS = 'scott.gillespie@r1soft.com,alex.vongluck@r1soft.com,stan.love@r1soft.com,tariq.siddiqui@r1soft.com'
     #RECIPIENTS = 'scott.gillespie@r1soft.com,tim.parker@r1soft.com'
     #RECIPIENTS = 'scott.gillespie@r1soft.com'
 
