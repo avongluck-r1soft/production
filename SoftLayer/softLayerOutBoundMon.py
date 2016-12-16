@@ -26,10 +26,10 @@ def getPublicBandwidth(THRESHHOLD):
         pubout = float(serverInfo.get('outboundPublicBandwidthUsage',0.0))
         name = serverInfo['fullyQualifiedDomainName']
 
-    if pubout > THRESHHOLD:
+        if pubout > THRESHHOLD:
 
             total_out.append(pubout)
-            #print(name + "," + str(pubout))
+            print(name + "," + str(pubout))
             s = name + "," + str(pubout) + "\n"
             f.write(s)
 
@@ -39,7 +39,7 @@ def getPublicBandwidth(THRESHHOLD):
 def getCost():
     price_per_gb_overage = 0.09
     s = "total: " + str(sum(total_out)) + "GB ...  price: $" + str(round(sum(total_out)*price_per_gb_overage,2))
-    #print s
+    print s
     return s
 
 def sortCsv():
@@ -107,9 +107,9 @@ def emailSortedCsv(RECIPIENTS):
 def main():
     #THRESHHOLD = 500.0
     THRESHHOLD = 0.0
-    RECIPIENTS = 'scott.gillespie@r1soft.com,alex.vongluck@r1soft.com,stan.love@r1soft.com,tariq.siddiqui@r1soft.com'
+    #RECIPIENTS = 'scott.gillespie@r1soft.com,alex.vongluck@r1soft.com,stan.love@r1soft.com,tariq.siddiqui@r1soft.com'
     #RECIPIENTS = 'scott.gillespie@r1soft.com,tim.parker@r1soft.com'
-    #RECIPIENTS = 'scott.gillespie@r1soft.com'
+    RECIPIENTS = 'scott.gillespie@r1soft.com'
 
     getPublicBandwidth(THRESHHOLD)
     sortCsv()
