@@ -27,7 +27,6 @@ def getPublicBandwidth(THRESHHOLD):
         name = serverInfo['fullyQualifiedDomainName']
 
         if pubout > THRESHHOLD:
-
             total_out.append(pubout)
             print(name + "," + str(pubout))
             s = name + "," + str(pubout) + "\n"
@@ -37,12 +36,15 @@ def getPublicBandwidth(THRESHHOLD):
 
 
 def getCost():
+
     price_per_gb_overage = 0.09
     s = "total: " + str(sum(total_out)) + "GB ...  price: $" + str(round(sum(total_out)*price_per_gb_overage,2))
     print s
     return s
 
+
 def sortCsv():
+
     data = csv.reader(open('public_outbound.csv'), delimiter=',')
     sortedlist = sorted(data, key=lambda x: float(x[1]), reverse=True)
 
@@ -51,7 +53,9 @@ def sortCsv():
         for row in sortedlist:
             fileWriter.writerow(row)
 
+
 def getSMTPPassword():
+
     credentials = {}
     with open('.noreplypw','r') as f:
         for line in f:
@@ -61,6 +65,7 @@ def getSMTPPassword():
 
 
 def emailSortedCsv(RECIPIENTS):
+
     fromaddr = 'noreply@r1soft.com'
     toaddr = RECIPIENTS
 
@@ -105,6 +110,7 @@ def emailSortedCsv(RECIPIENTS):
 
 
 def main():
+
     #THRESHHOLD = 500.0
     THRESHHOLD = 0.0
     RECIPIENTS = 'scott.gillespie@r1soft.com,alex.vongluck@r1soft.com,stan.love@r1soft.com,tariq.siddiqui@r1soft.com'
@@ -116,6 +122,7 @@ def main():
     
 
 if __name__ == "__main__":
+
     try:
         main()
     except KeyboardInterrupt:
