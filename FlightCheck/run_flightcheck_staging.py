@@ -21,7 +21,7 @@ def runXfsFragCheck():
     
 def getSMTPPassword():
     credentials = {}
-    with open('../.noreplypw','r') as f:
+    with open('../../.noreplypw','r') as f:
         for line in f:
             user, pw = line.strip().split(':')
 
