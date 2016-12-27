@@ -1,8 +1,5 @@
 #!/usr/bin/ruby
 
-# Alex von Gluck IV, author
-# Scott Gillespie, minor updates
-
 require 'pp'
 require 'json'
 
@@ -71,7 +68,6 @@ end
 def validate_config_gte(hash, item, expected)
 	validate("#{item} >= #{expected}", hash.fetch(item, nil).to_i >= expected, "#{item} != #{expected}!")
 end
-
 
 def validate_config_gt(hash, item, expected)
 	validate("#{item} > #{expected}", hash.fetch(item, nil).to_i > expected, "#{item} != #{expected}!")
@@ -244,11 +240,25 @@ def check_ftp
 	validate_config_eq(ftp_conf, "SCSIRoot", "/opt/r1soft/ftp/scsi")
 
 	puts ""
+end
 
+def check_stateconf
+        configfile = "/opt/r1soft/r1ctl/config/state.conf"
+        if !File.exist?(configfile)
+                print "state.conf does not exist on this server."
+                return
+        end
+
+        puts "------------".light_blue
+        puts "Checking /opt/r1soft/r1ctl/config/state.conf file...".light_blue
+
+        state_conf = parse_json(configfile)
+
+        validate_config_eq(state_conf, "StoragePath", "/storage01")
+
+        puts ""
 end
 	
-
-
 def check_sbm
 	puts "----------".light_blue
 	puts "SBM Checks".light_blue
@@ -305,10 +315,10 @@ def check_etchosts
 
 	hostname 	= `hostname`.strip
 	wanted_hostname	= `dig +noall +answer #{hostname}`.split(" ").first.chomp(".")
-	wanted_r1rm     = "" # fill these in
-	wanted_r1cm     = "" # fill these in
-	wanted_r1rmip   = "" # fill these in
-	wanted_r1cmip   = "" # fill these in
+	wanted_r1rm     = "r1rm_prod.itsupport247.net"
+	wanted_r1cm     = "r1cm_prod.itsupport247.net"
+	wanted_r1rmip   = "173.193.238.197"
+	wanted_r1cmip   = "173.193.238.199"
 
 	validate("#{wanted_hostname} present in /etc/hosts", f.include?(wanted_hostname), "#{wanted_hostname} missing from /etc/hosts")
 	validate("#{wanted_r1rm} present in /etc/hosts", f.include?(wanted_r1rm), "#{wanted_r1rm} missing from /etc/hosts")
@@ -344,6 +354,25 @@ def check_tendot_gw
 	
 	validate("#{tendot_gw_present} tendot gateway line exists.", tendot_gw_present.include?("10.0.0.0"), "#{tendot_gw_present} tendot gw not present in routing table.")
 end
+
+def check_media_errors
+        puts "----------".light_blue
+        puts "Check for media errors - these indicate imminent drive failure.".light_blue
+	
+	media_errors = `storcli /c0/eall/sall show all | grep 'Media Error' | grep -v 'Count = 0'`
+
+	validate("#{media_errors} Drive media error check.", media_errors.empty?, "#{media_errors} drive media issues present.")
+end
+
+def check_swap
+	puts "----------".light_blue
+	puts "Check swap - make sure we have enough swap configured.".light_blue
+
+	swap = `free -m | awk '/Swap/ {print $2}'`.to_i
+	wanted_swap = 10143.to_i
+
+	validate("#{wanted_swap} - adequate swap configured.", swap >= wanted_swap, "#{swap} - inadequate swap... should be #{wanted_swap}")
+end
 	
 
 def check_performance
@@ -370,12 +399,15 @@ def main
 		check_monitoring
 		check_sbm
 		check_ftp
+		check_stateconf
 		check_r1ctl
 		check_kernel_version
 		check_etchosts
 		check_dns
 		check_default_gw
 		check_tendot_gw
+		check_media_errors
+                check_swap
 		check_performance
 	end
 
@@ -385,12 +417,15 @@ def main
 			when '-m'   then check_monitoring
 			when '-sbm' then check_sbm
 			when '-f'   then check_ftp
+			when '-sc'  then check_stateconf
 			when '-r'   then check_r1ctl
 			when '-k'   then check_kernel_version
 			when '-h'   then check_etchosts
 			when '-d'   then check_dns
 			when '-g'   then check_default_gw
 			when '-t'   then check_tendot_gw
+			when '-e'   then check_media_errors
+			when '-sw'  then check_swap
 			when '-p'   then check_performance
 		end
 	end
