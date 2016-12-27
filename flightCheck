@@ -10,382 +10,373 @@ require 'json'
 @problems = 0
 
 class String
-	# colorization
-	def colorize(color_code)
-		"\e[#{color_code}m#{self}\e[0m"
-	end
-	def red
-		colorize(31)
-	end
-	def green
-		colorize(32)
-	end
-	def yellow
-		colorize(33)
-	end
-	def blue
-		colorize(34)
-	end
-	def pink
-		colorize(35)
-	end
-	def light_blue
-		colorize(36)
-	end
+  # colorization
+  def colorize(color_code)
+    "\e[#{color_code}m#{self}\e[0m"
+  end
+  def red
+    colorize(31)
+  end
+  def green
+    colorize(32)
+  end
+  def yellow
+    colorize(33)
+  end
+  def blue
+    colorize(34)
+  end
+  def pink
+    colorize(35)
+  end
+  def light_blue
+    colorize(36)
+  end
 end
 
 
 def parse_config(config_file)
-	Hash[File.read(config_file).split("\n").map{|i|i.strip.split('=')}]
+  Hash[File.read(config_file).split("\n").map{|i|i.strip.split('=')}]
 end
 
 def parse_json(json_file)
-	JSON.parse(File.read(json_file))
+  JSON.parse(File.read(json_file))
 end
 
 
 # Some simple validations
 def validate(check, validation, solution)
-	print "* #{check}... ["
-	if validation
-		print "OK".green
-		print "]\n"
-		return true
-	else
-		print "ERROR".red
-		print "]\n"
-		puts "	#{solution.to_s.red}"
-		@problems += 1
-		return false
-	end
+  print "* #{check}... ["
+  if validation
+    print "OK".green
+    print "]\n"
+    return true
+  else
+    print "ERROR".red
+    print "]\n"
+    puts "  #{solution.to_s.red}"
+    @problems += 1
+    return false
+  end
 end
 
 def validate_config_eq(hash, item, expected)
-	validate("#{item} == #{expected}", hash.fetch(item, nil) == expected, "#{item} != #{expected}!")
+  validate("#{item} == #{expected}", hash.fetch(item, nil) == expected, "#{item} != #{expected}!")
 end
 
 
 def validate_config_gte(hash, item, expected)
-	validate("#{item} >= #{expected}", hash.fetch(item, nil).to_i >= expected, "#{item} != #{expected}!")
+  validate("#{item} >= #{expected}", hash.fetch(item, nil).to_i >= expected, "#{item} != #{expected}!")
 end
 
 def validate_config_gt(hash, item, expected)
-	validate("#{item} > #{expected}", hash.fetch(item, nil).to_i > expected, "#{item} != #{expected}!")
+  validate("#{item} > #{expected}", hash.fetch(item, nil).to_i > expected, "#{item} != #{expected}!")
 end
 
 
 def validate_config_lte(hash, item, expected)
-	validate("#{item} <= #{expected}", hash.fetch(item, nil).to_i <= expected, "#{item} != #{expected}!")
+  validate("#{item} <= #{expected}", hash.fetch(item, nil).to_i <= expected, "#{item} != #{expected}!")
 end
 
 
 def validate_config_lt(hash, item, expected)
-	validate("#{item} < #{expected}", hash.fetch(item, nil).to_i < expected, "#{item} != #{expected}!")
+  validate("#{item} < #{expected}", hash.fetch(item, nil).to_i < expected, "#{item} != #{expected}!")
 end
 
 
 def filecheck(file)
-	validate("#{file} exists", File.exist?(file), "#{file} is missing!")
+  validate("#{file} exists", File.exist?(file), "#{file} is missing!")
 end
 
 
 def performance(device)
-	size = 512
-	seek_max = 25000
-	block = File.new(device, "r")
-	print " * #{device}... "
+  size = 512
+  seek_max = 25000
+  block = File.new(device, "r")
+  print " * #{device}... "
 
-	# Make sure device is awake (they get sleepy)
-	block.read(1024)
-	seek = rand(seek_max * 1048576)
+  # Make sure device is awake (they get sleepy)
+  block.read(1024)
+  seek = rand(seek_max * 1048576)
 
-	# Random seek to keep os from caching our reads
-	block.seek(seek)
-	start = Time.now
-	block.read(size * 1048576)
-	finish = Time.now
-	consumed = finish - start
-	speed = size / consumed
-	print "read #{size} MiB in #{consumed} seconds (#{speed} MiB/s) "
-	print "["
-	if speed >= 500.0
-		print "OK".green
-	else
-		print "WARNING".yellow
-	end
-	puts "]"
+  # Random seek to keep os from caching our reads
+  block.seek(seek)
+  start = Time.now
+  block.read(size * 1048576)
+  finish = Time.now
+  consumed = finish - start
+  speed = size / consumed
+  print "read #{size} MiB in #{consumed} seconds (#{speed} MiB/s) "
+  print "["
+  if speed >= 500.0
+    print "OK".green
+  else
+    print "WARNING".yellow
+  end
+  puts "]"
 end
 
 
 def check_server
-	puts "---------".light_blue
-	puts "OS Checks".light_blue
-	# Hostname
-	shortname = `hostname -s`.to_s
-	longname = `hostname -f`.to_s
-	validate("Hostname is FQDN", shortname != longname, "/etc/hostname should contain the FQDN!")
+  puts "---------".light_blue
+  puts "OS Checks".light_blue
+  # Hostname
+  shortname = `hostname -s`.to_s
+  longname = `hostname -f`.to_s
+  validate("Hostname is FQDN", shortname != longname, "/etc/hostname should contain the FQDN!")
 
-	# Kernel tuneables
-	kern_dirty = File.read("/proc/sys/vm/dirty_bytes").to_i
-	validate("Kernel vm dirty configured", kern_dirty != 0, "/etc/sysctl.d/60-continuity247.conf missing!")
-	kern_dirty_bg = File.read("/proc/sys/vm/dirty_background_bytes").to_i
-	validate("Kernel vm dirty background configured", kern_dirty_bg != 0, "/etc/sysctl.d/60-continuity247.conf missing!")
+  # Kernel tuneables
+  kern_dirty = File.read("/proc/sys/vm/dirty_bytes").to_i
+  validate("Kernel vm dirty configured", kern_dirty != 0, "/etc/sysctl.d/60-continuity247.conf missing!")
+  kern_dirty_bg = File.read("/proc/sys/vm/dirty_background_bytes").to_i
+  validate("Kernel vm dirty background configured", kern_dirty_bg != 0, "/etc/sysctl.d/60-continuity247.conf missing!")
 
-	# Dirty LRO causes bridge issues
-	pubif = `route -n | grep UG | grep -v "10." | awk '{print $8}'`.split("\n").first
-	if !pubif
-		puts("No public ethernet interface?".red)
-	else
-		lro = `ethtool -k #{pubif.strip()} | grep large-receive-offload | cut -d':' -f2`.strip()
-		validate("LRO disabled on public interface", lro != "on", "check /etc/network/interface sets lro off on public interface")
-	end
+  # Dirty LRO causes bridge issues
+  pubif = `route -n | grep UG | grep -v "10." | awk '{print $8}'`.split("\n").first
+  if !pubif
+    puts("No public ethernet interface?".red)
+  else
+    lro = `ethtool -k #{pubif.strip()} | grep large-receive-offload | cut -d':' -f2`.strip()
+    validate("LRO disabled on public interface", lro != "on", "check /etc/network/interface sets lro off on public interface")
+  end
 
-	puts ""
+  puts ""
 end
 
 def check_monitoring
-	puts "---------".light_blue
-	puts "Monitoring Checks".light_blue
+  puts "---------".light_blue
+  puts "Monitoring Checks".light_blue
 
-	# Check to see if c247mon / perl monitoring script is installed 
-	filecheck("/usr/bin/c247mon")
+  # Check to see if c247mon / perl monitoring script is installed 
+  filecheck("/usr/bin/c247mon")
 
-	# See if graylog is configured
-	filecheck("/etc/rsyslog.d/10-graylog.conf")
+  # See if graylog is configured
+  filecheck("/etc/rsyslog.d/10-graylog.conf")
 
-	# Ensure c247skiff is installed 
-	filecheck("/usr/bin/c247skiff")
+  # Ensure c247skiff is installed 
+  filecheck("/usr/bin/c247skiff")
 end
 
 
 def check_packages
-	puts "------------".light_blue
-	puts "Software Checks".light_blue
+  puts "------------".light_blue
+  puts "Software Checks".light_blue
 
-	requirements = [
-		"serverbackup-manager","serverbackup-enterprise","serverbackup-setup",
-		"r1scsi","c247cis","r1ctl-cloud","r1soft-docstore","dr-tools","c247skiff",
-		"ethtool","ruby","virtualbox","virtualbox-dkms","c247mon","c247netdev",
-		"c247mon", "c247skiff", "c247tools", "linux-headers-3.16.0-57-generic", 
-		"linux-headers-3.16.0-57", "linux-image-3.16.0-57-generic", 
-		"linux-image-extra-3.16.0-57-generic", "ufw-cloud", "irqbalance"
-	]
+  requirements = [
+    "serverbackup-manager","serverbackup-enterprise","serverbackup-setup",
+    "r1scsi","c247cis","r1ctl-cloud","r1soft-docstore","dr-tools","c247skiff",
+    "ethtool","ruby","virtualbox","virtualbox-dkms","c247mon","c247netdev",
+    "c247mon", "c247skiff", "c247tools", "linux-headers-3.16.0-57-generic", 
+    "linux-headers-3.16.0-57", "linux-image-3.16.0-57-generic", 
+    "linux-image-extra-3.16.0-57-generic", "ufw-cloud", "irqbalance"
+  ]
 
-	packages = `dpkg -l | awk '{print $2}' | cut -d':' -f1`.split("\n")
+  packages = `dpkg -l | awk '{print $2}' | cut -d':' -f1`.split("\n")
 
-	requirements.each do |package|
-		validate("#{package} installed", packages.include?(package), "#{package} is not installed")
-	end
+  requirements.each do |package|
+    validate("#{package} installed", packages.include?(package), "#{package} is not installed")
+  end
 end
 
 
 def check_kernel_version
-	puts "------------".light_blue
-	puts "Kernel Version Check (uname -r)".light_blue
+  puts "------------".light_blue
+  puts "Kernel Version Check (uname -r)".light_blue
 
-	wanted_version = "3.16.0-57-generic"
-	actual_version = `uname -r`
+  wanted_version = "3.16.0-57-generic"
+  actual_version = `uname -r`
 
-	validate("#{wanted_version} installed", actual_version.include?(wanted_version), "#{wanted_version} is not installed")
+  validate("#{wanted_version} installed", actual_version.include?(wanted_version), "#{wanted_version} is not installed")
 end
 
 
 def check_r1ctl
-	puts "------------".light_blue
-	puts "r1ctl Checks".light_blue
+  puts "------------".light_blue
+  puts "r1ctl Checks".light_blue
 
-	needed_files = ["#{@CTLDIR}/bin/sftpGet.expect", "#{@CTLDIR}/bin/sftp.expect", "#{@CTLDIR}/config/ISOCatalog.json", "#{@SBMDIR}/conf/cloudbuild.txt"]
-	needed_files.each do |file|
-		filecheck(file)
-	end
+  needed_files = ["#{@CTLDIR}/bin/sftpGet.expect", "#{@CTLDIR}/bin/sftp.expect", "#{@CTLDIR}/config/ISOCatalog.json", "#{@SBMDIR}/conf/cloudbuild.txt"]
+  needed_files.each do |file|
+    filecheck(file)
+  end
 
-	pubif = `route -n | grep UG | grep -v "10." | awk '{print $8}'`.split("\n").first
-	if !pubif
-		puts "No public network interface?".red
-	else
-		filecheck("#{@CTLDIR}/config/state.conf")
-		state_properties = parse_json("#{@CTLDIR}/config/state.conf")
-		filecheck(state_properties["StoragePath"])
-		validate_config_eq(state_properties, "BridgedInterface", pubif.strip)
-	end
+  pubif = `route -n | grep UG | grep -v "10." | awk '{print $8}'`.split("\n").first
+  if !pubif
+    puts "No public network interface?".red
+  else
+    filecheck("#{@CTLDIR}/config/state.conf")
+    state_properties = parse_json("#{@CTLDIR}/config/state.conf")
+    filecheck(state_properties["StoragePath"])
+    validate_config_eq(state_properties, "BridgedInterface", pubif.strip)
+  end
 
-	filecheck("#{@CTLDIR}/config/dr.conf")
-	dr_properties = parse_json("#{@CTLDIR}/config/dr.conf")
-	filecheck(dr_properties["RecoveryDiskISO"])
-	filecheck(dr_properties["NetDeviceOVA"])
-	filecheck(dr_properties["SBMInstallPath"])
-	filecheck(dr_properties["VMDiskFolder"])
+  filecheck("#{@CTLDIR}/config/dr.conf")
+  dr_properties = parse_json("#{@CTLDIR}/config/dr.conf")
+  filecheck(dr_properties["RecoveryDiskISO"])
+  filecheck(dr_properties["NetDeviceOVA"])
+  filecheck(dr_properties["SBMInstallPath"])
+  filecheck(dr_properties["VMDiskFolder"])
 
-	puts ""
+  puts ""
 end
 
 def check_ftp
-	configfile = "/opt/r1soft/r1ctl/config/ftp.conf"
-	if !File.exist?(configfile)
-		print "ftp.conf does not exist on this server."
-		return
-	end
-	puts "------------".light_blue
-	puts "Checking ftp.conf file...".light_blue
+  configfile = "/opt/r1soft/r1ctl/config/ftp.conf"
+  if !File.exist?(configfile)
+    print "ftp.conf does not exist on this server."
+    return
+  end
+  puts "------------".light_blue
+  puts "Checking ftp.conf file...".light_blue
 
-	ftp_conf = parse_json(configfile)
-	
-	validate_config_eq(ftp_conf, "UserAuthFile", "/opt/r1soft/ftp/users")
-	validate_config_eq(ftp_conf, "DefaultUID", 500)
-	validate_config_eq(ftp_conf, "DefaultGID", 65534)
-	validate_config_eq(ftp_conf, "UsernamePrefix", "user")
-	validate_config_eq(ftp_conf, "DefaultTimeoutSeconds", 345600)
-	validate_config_eq(ftp_conf, "JailRoot", "/opt/r1soft/ftp/home")
-	validate_config_eq(ftp_conf, "SCSIConf", "/opt/r1soft/ftp/conf")
-	validate_config_eq(ftp_conf, "SCSIRoot", "/opt/r1soft/ftp/scsi")
+  ftp_conf = parse_json(configfile)
+  
+  validate_config_eq(ftp_conf, "UserAuthFile", "/opt/r1soft/ftp/users")
+  validate_config_eq(ftp_conf, "DefaultUID", 500)
+  validate_config_eq(ftp_conf, "DefaultGID", 65534)
+  validate_config_eq(ftp_conf, "UsernamePrefix", "user")
+  validate_config_eq(ftp_conf, "DefaultTimeoutSeconds", 345600)
+  validate_config_eq(ftp_conf, "JailRoot", "/opt/r1soft/ftp/home")
+  validate_config_eq(ftp_conf, "SCSIConf", "/opt/r1soft/ftp/conf")
+  validate_config_eq(ftp_conf, "SCSIRoot", "/opt/r1soft/ftp/scsi")
 
-	puts ""
+  puts ""
 end
 
 def check_stateconf
-        configfile = "/opt/r1soft/r1ctl/config/state.conf"
-        if !File.exist?(configfile)
-                print "state.conf does not exist on this server."
-                return
-        end
+  configfile = "/opt/r1soft/r1ctl/config/state.conf"
+  if !File.exist?(configfile)
+    print "state.conf does not exist on this server."
+    return
+  end
 
-        puts "------------".light_blue
-        puts "Checking /opt/r1soft/r1ctl/config/state.conf file...".light_blue
-
-        state_conf = parse_json(configfile)
-
-        validate_config_eq(state_conf, "StoragePath", "/storage01")
-
-        puts ""
+  puts "------------".light_blue
+  puts "Checking /opt/r1soft/r1ctl/config/state.conf file...".light_blue
+  state_conf = parse_json(configfile)
+  validate_config_eq(state_conf, "StoragePath", "/storage01")
+  puts ""
 end
-	
+  
 def check_sbm
-	puts "----------".light_blue
-	puts "SBM Checks".light_blue
+  puts "----------".light_blue
+  puts "SBM Checks".light_blue
 
-	if (filecheck("#{@SBMDIR}/conf/server.properties"))
-		server_properties = parse_config("#{@SBMDIR}/conf/server.properties")
-		validate_config_gte(server_properties, "max-running-tasks", 200)
-		validate_config_gte(server_properties, "max-running-restore-tasks", 200)
-		validate_config_gte(server_properties, "max-running-policy-tasks", 40)
-		validate_config_gte(server_properties, "max-running-verification-tasks", 200)
-		validate_config_gte(server_properties, "max-running-replication-tasks", 200)
-		validate_config_lte(server_properties, "task-history-limit", 3)
-	end
+  if (filecheck("#{@SBMDIR}/conf/server.properties"))
+    server_properties = parse_config("#{@SBMDIR}/conf/server.properties")
+    validate_config_gte(server_properties, "max-running-tasks", 200)
+    validate_config_gte(server_properties, "max-running-restore-tasks", 200)
+    validate_config_gte(server_properties, "max-running-policy-tasks", 40)
+    validate_config_gte(server_properties, "max-running-verification-tasks", 200)
+    validate_config_gte(server_properties, "max-running-replication-tasks", 200)
+    validate_config_lte(server_properties, "task-history-limit", 3)
+  end
 
-	if (filecheck("#{@SBMDIR}/conf/api.properties"))
-		api_properties = parse_config("#{@SBMDIR}/conf/api.properties")
-		validate_config_eq(api_properties, "ssl-enabled", "true")
-		validate_config_eq(api_properties, "ssl-port", "9443")
-		validate_config_gte(api_properties, "ssl-max-connections", 1000)
-		validate_config_eq(api_properties, "http-enabled", "false")
-	end
+  if (filecheck("#{@SBMDIR}/conf/api.properties"))
+    api_properties = parse_config("#{@SBMDIR}/conf/api.properties")
+    validate_config_eq(api_properties, "ssl-enabled", "true")
+    validate_config_eq(api_properties, "ssl-port", "9443")
+    validate_config_gte(api_properties, "ssl-max-connections", 1000)
+    validate_config_eq(api_properties, "http-enabled", "false")
+  end
 
-	if (filecheck("#{@SBMDIR}/conf/web.properties"))
-		filecheck("#{@SBMDIR}/conf/keystore")
-		web_properties = parse_config("#{@SBMDIR}/conf/web.properties")
-		validate_config_eq(web_properties, "http-enabled", "false")
-		validate_config_eq(web_properties, "http-port", "80")
-		validate_config_gte(web_properties, "http-max-connections", 100)
-		validate_config_eq(web_properties, "ssl-enabled", "true")
-		validate_config_eq(web_properties, "ssl-port", "8443")
-		validate_config_gte(web_properties, "ssl-max-connections", 100)
-		validate_config_eq(web_properties, "ssl-keystore", "#{@SBMDIR}/conf/keystore") 
-	end
+  if (filecheck("#{@SBMDIR}/conf/web.properties"))
+    filecheck("#{@SBMDIR}/conf/keystore")
+    web_properties = parse_config("#{@SBMDIR}/conf/web.properties")
+    validate_config_eq(web_properties, "http-enabled", "false")
+    validate_config_eq(web_properties, "http-port", "80")
+    validate_config_gte(web_properties, "http-max-connections", 100)
+    validate_config_eq(web_properties, "ssl-enabled", "true")
+    validate_config_eq(web_properties, "ssl-port", "8443")
+    validate_config_gte(web_properties, "ssl-max-connections", 100)
+    validate_config_eq(web_properties, "ssl-keystore", "#{@SBMDIR}/conf/keystore") 
+  end
 
-	if (filecheck("#{@SBMDIR}/conf/remote-replication.properties"))
-		remote_rep_properties = parse_config("#{@SBMDIR}/conf/remote-replication.properties")
-		validate_config_eq(remote_rep_properties, "remote-replication-listener-enabled", "true")
-	end
+  if (filecheck("#{@SBMDIR}/conf/remote-replication.properties"))
+    remote_rep_properties = parse_config("#{@SBMDIR}/conf/remote-replication.properties")
+    validate_config_eq(remote_rep_properties, "remote-replication-listener-enabled", "true")
+  end
 
-	if (filecheck("#{@CTLDIR}/etc/r1rmca.cert"))
-		cert = `openssl x509 -in #{@CTLDIR}/etc/r1rmca.cert -text | grep Issuer:`.strip
-		puts "	SSL #{cert}"
-	end
+  if (filecheck("#{@CTLDIR}/etc/r1rmca.cert"))
+    cert = `openssl x509 -in #{@CTLDIR}/etc/r1rmca.cert -text | grep Issuer:`.strip
+    puts "  SSL #{cert}"
+  end
 
-	filecheck("#{@BBSDIR}/files/netdev.ova")
-	puts ""
+  filecheck("#{@BBSDIR}/files/netdev.ova")
+  puts ""
 end
 
 def check_etchosts
-	puts "----------".light_blue
-	puts "Check /etc/hosts".light_blue
+  puts "----------".light_blue
+  puts "Check /etc/hosts".light_blue
 
-	f = File.read("/etc/hosts")
+  f = File.read("/etc/hosts")
 
-	hostname 	= `hostname`.strip
-	wanted_hostname	= `dig +noall +answer #{hostname}`.split(" ").first.chomp(".")
-	wanted_r1rm     = "r1rm_prod.itsupport247.net"
-	wanted_r1cm     = "r1cm_prod.itsupport247.net"
-	wanted_r1rmip   = "173.193.238.197"
-	wanted_r1cmip   = "173.193.238.199"
+  hostname   = `hostname`.strip
+  wanted_hostname  = `dig +noall +answer #{hostname}`.split(" ").first.chomp(".")
+  wanted_r1rm     = "r1rm_prod.itsupport247.net"
+  wanted_r1cm     = "r1cm_prod.itsupport247.net"
+  wanted_r1rmip   = "173.193.238.197"
+  wanted_r1cmip   = "173.193.238.199"
 
-	validate("#{wanted_hostname} present in /etc/hosts", f.include?(wanted_hostname), "#{wanted_hostname} missing from /etc/hosts")
-	validate("#{wanted_r1rm} present in /etc/hosts", f.include?(wanted_r1rm), "#{wanted_r1rm} missing from /etc/hosts")
-	validate("#{wanted_r1cm} present in /etc/hosts", f.include?(wanted_r1cm), "#{wanted_r1cm} missing from /etc/hosts")
-	validate("#{wanted_r1rmip} present in /etc/hosts", f.include?(wanted_r1rmip), "#{wanted_r1rmip} missing from /etc/hosts")
-	validate("#{wanted_r1cmip} present in /etc/hosts", f.include?(wanted_r1cmip), "#{wanted_r1cmip} missing from /etc/hosts")
+  validate("#{wanted_hostname} present in /etc/hosts", f.include?(wanted_hostname), "#{wanted_hostname} missing from /etc/hosts")
+  validate("#{wanted_r1rm} present in /etc/hosts", f.include?(wanted_r1rm), "#{wanted_r1rm} missing from /etc/hosts")
+  validate("#{wanted_r1cm} present in /etc/hosts", f.include?(wanted_r1cm), "#{wanted_r1cm} missing from /etc/hosts")
+  validate("#{wanted_r1rmip} present in /etc/hosts", f.include?(wanted_r1rmip), "#{wanted_r1rmip} missing from /etc/hosts")
+  validate("#{wanted_r1cmip} present in /etc/hosts", f.include?(wanted_r1cmip), "#{wanted_r1cmip} missing from /etc/hosts")
 end
 
 def check_dns
-        puts "----------".light_blue
-        puts "See if host is in DNS".light_blue
-
-        hostname = `hostname`.strip
-        in_dns = `dig +noall +answer #{hostname}`.split(" ").first || ""
-
-        validate("#{hostname} public A record present in DNS", in_dns.include?(hostname), "#{hostname} public A record missing from DNS")
+  puts "----------".light_blue
+  puts "See if host is in DNS".light_blue
+  hostname = `hostname`.strip
+  in_dns = `dig +noall +answer #{hostname}`.split(" ").first || ""
+  validate("#{hostname} public A record present in DNS", in_dns.include?(hostname), "#{hostname} public A record missing from DNS")
 end
 
 def check_default_gw
-        puts "----------".light_blue
-        puts "Check routes for default gateway entry.".light_blue
-	
-	default_gw_present = `route | grep default`.split(" ").first || ""
-	
-	validate("#{default_gw_present} gateway line exists.", default_gw_present.include?("default"), "#{default_gw_present} not present in routing table.")
+  puts "----------".light_blue
+  puts "Check routes for default gateway entry.".light_blue
+  default_gw_present = `route | grep default`.split(" ").first || ""
+  validate("#{default_gw_present} gateway line exists.", default_gw_present.include?("default"), "#{default_gw_present} not present in routing table.")
 end
-	
+  
 def check_tendot_gw
-        puts "----------".light_blue
-        puts "Check that the 10. route exists, needed for CSBM management.".light_blue
-	
-	tendot_gw_present = `route | grep -E "10.0.0.0.*UG"`.split(" ").first || ""
-	
-	validate("#{tendot_gw_present} tendot gateway line exists.", tendot_gw_present.include?("10.0.0.0"), "#{tendot_gw_present} tendot gw not present in routing table.")
+  puts "----------".light_blue
+  puts "Check that the 10. route exists, needed for CSBM management.".light_blue
+  tendot_gw_present = `route | grep -E "10.0.0.0.*UG"`.split(" ").first || ""
+  validate("#{tendot_gw_present} tendot gateway line exists.", tendot_gw_present.include?("10.0.0.0"), "#{tendot_gw_present} tendot gw not present in routing table.")
 end
 
 def check_media_errors
-        puts "----------".light_blue
-        puts "Check for media errors - these indicate imminent drive failure.".light_blue
-	
-	media_errors = `storcli /c0/eall/sall show all | grep 'Media Error' | grep -v 'Count = 0'`
+  puts "----------".light_blue
+  puts "Check for media errors - these indicate imminent drive failure.".light_blue
+  
+  media_errors = `storcli /c0/eall/sall show all | grep 'Media Error' | grep -v 'Count = 0'`
 
-	validate("#{media_errors} Drive media error check.", media_errors.empty?, "#{media_errors} drive media issues present.")
+  validate("#{media_errors} Drive media error check.", media_errors.empty?, "#{media_errors} drive media issues present.")
 end
 
 def check_swap
-	puts "----------".light_blue
-	puts "Check swap - make sure we have enough swap configured.".light_blue
+  puts "----------".light_blue
+  puts "Check swap - make sure we have enough swap configured.".light_blue
 
-	swap = `free -m | awk '/Swap/ {print $2}'`.to_i
-	wanted_swap = 10143.to_i
+  swap = `free -m | awk '/Swap/ {print $2}'`.to_i
+  wanted_swap = 10143.to_i
 
-	validate("#{wanted_swap} - adequate swap configured.", swap >= wanted_swap, "#{swap} - inadequate swap... should be #{wanted_swap}")
+  validate("#{wanted_swap} - adequate swap configured.", swap >= wanted_swap, "#{swap} - inadequate swap... should be #{wanted_swap}")
 end
-	
+  
 
 def check_performance
-	puts "----------".light_blue
-	puts "Performance Check".light_blue
+  puts "----------".light_blue
+  puts "Performance Check".light_blue
 
-	filter = Regexp.new(/^\s*\d\s*\d+\s*(sd[a-z]+)\s/)
-	File.readlines("/proc/diskstats").each do |line|
-		match = filter.match(line)
-		if match
-			performance("/dev/#{match[1]}")
-		end
-	end
+  filter = Regexp.new(/^\s*\d\s*\d+\s*(sd[a-z]+)\s/)
+  File.readlines("/proc/diskstats").each do |line|
+    match = filter.match(line)
+    if match
+      performance("/dev/#{match[1]}")
+    end
+  end
 end
 
 puts "-=-=-=-=-=-=-=-=-=-=-=-=-=".yellow
@@ -394,49 +385,49 @@ puts "-=-=-=-=-=-=-=-=-=-=-=-=-=".yellow
 puts ""
 
 def main
-	if ARGV.empty?
-		check_server
-		check_monitoring
-		check_sbm
-		check_ftp
-		check_stateconf
-		check_r1ctl
-		check_kernel_version
-		check_etchosts
-		check_dns
-		check_default_gw
-		check_tendot_gw
-		check_media_errors
+  if ARGV.empty?
+    check_server
+    check_monitoring
+    check_sbm
+    check_ftp
+    check_stateconf
+    check_r1ctl
+    check_kernel_version
+    check_etchosts
+    check_dns
+    check_default_gw
+    check_tendot_gw
+    check_media_errors
                 check_swap
-		check_performance
-	end
+    check_performance
+  end
 
-	ARGV.each do |arg|
-		case arg
-			when '-s'   then check_server
-			when '-m'   then check_monitoring
-			when '-sbm' then check_sbm
-			when '-f'   then check_ftp
-			when '-sc'  then check_stateconf
-			when '-r'   then check_r1ctl
-			when '-k'   then check_kernel_version
-			when '-h'   then check_etchosts
-			when '-d'   then check_dns
-			when '-g'   then check_default_gw
-			when '-t'   then check_tendot_gw
-			when '-e'   then check_media_errors
-			when '-sw'  then check_swap
-			when '-p'   then check_performance
-		end
-	end
+  ARGV.each do |arg|
+    case arg
+      when '-s'   then check_server
+      when '-m'   then check_monitoring
+      when '-sbm' then check_sbm
+      when '-f'   then check_ftp
+      when '-sc'  then check_stateconf
+      when '-r'   then check_r1ctl
+      when '-k'   then check_kernel_version
+      when '-h'   then check_etchosts
+      when '-d'   then check_dns
+      when '-g'   then check_default_gw
+      when '-t'   then check_tendot_gw
+      when '-e'   then check_media_errors
+      when '-sw'  then check_swap
+      when '-p'   then check_performance
+    end
+  end
 end
 
 main
 
 
 if @problems > 0
-	puts "Found #{@problems} problems!".red
+  puts "Found #{@problems} problems!".red
 else
-	puts "No problems found!".green
+  puts "No problems found!".green
 end
 exit @problems
