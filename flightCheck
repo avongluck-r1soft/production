@@ -310,8 +310,8 @@ def check_etchosts
 
   f = File.read("/etc/hosts")
 
-  hostname   = `hostname`.strip
-  wanted_hostname  = `dig +noall +answer #{hostname}`.split(" ").first.chomp(".")
+  hostname        = `hostname`.strip
+  wanted_hostname = `dig +noall +answer #{hostname}`.split(" ").first.chomp(".")
   wanted_r1rm     = "r1rm_prod.itsupport247.net"
   wanted_r1cm     = "r1cm_prod.itsupport247.net"
   wanted_r1rmip   = "173.193.238.197"
