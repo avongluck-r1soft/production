@@ -398,7 +398,7 @@ def main
     check_default_gw
     check_tendot_gw
     check_media_errors
-                check_swap
+    check_swap
     check_performance
   end
 
